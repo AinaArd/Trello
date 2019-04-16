@@ -28,14 +28,18 @@
                     </div>
                     <div class="profile2">Name: ${user.name}<br>@${user.login}<br><br>
                         <button id="Rec" onclick="show('block')">EDIT</button>
+                        <form action="/logout">
+                            <button id="Rec">LOG OUT</button>
+                        </form>
                     </div>
+
                 </td>
             </tr>
 
         </table>
     </div>
 
-<ul>
+    <ul>
         <#if cards ??>
             <#list cards as card>
                         <li>
@@ -48,7 +52,7 @@
                         </li>
             </#list>
         </#if>
-</ul>
+    </ul>
 
 </div>
 <script>

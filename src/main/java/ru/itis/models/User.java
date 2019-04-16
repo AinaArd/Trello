@@ -1,9 +1,6 @@
 package ru.itis.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -40,5 +37,16 @@ public class User {
         this.hashPassword = hashPassword;
         this.name = name;
         this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", hashPassword='" + hashPassword + '\'' +
+                ", name='" + name + '\'' +
+                ", role=" + role +
+                '}';
     }
 }
