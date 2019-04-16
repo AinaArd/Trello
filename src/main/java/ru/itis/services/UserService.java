@@ -10,4 +10,7 @@ public interface UserService {
     void register(UserForm userForm);
     List<User> findAll();
     Optional<User> findById(Long userId);
+    Optional<User> findByLogin(String login);
+    Optional<User> findByLoginAndPassword(UserForm userForm);
+
 }

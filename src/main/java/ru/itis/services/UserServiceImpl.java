@@ -36,4 +36,16 @@ public class UserServiceImpl implements UserService {
     public Optional<User> findById(Long userId) {
         return usersRepository.findById(userId);
     }
+
+    @Override
+    public Optional<User> findByLogin(String login) {
+        return usersRepository.findByLogin(login);
+    }
+
+    @Override
+    public Optional<User> findByLoginAndPassword(UserForm userForm) {
+        return usersRepository.findByLoginAndHashPassword(userForm.getLogin(), userForm.getPassword());
+    }
+
+
 }
