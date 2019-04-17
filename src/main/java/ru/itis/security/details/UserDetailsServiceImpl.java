@@ -5,17 +5,24 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import ru.itis.models.User;
 import ru.itis.repositories.UsersRepository;
+
+import java.util.Optional;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
+    private final UsersRepository usersRepository;
+
     @Autowired
-    private UsersRepository usersRepository;
+    public UserDetailsServiceImpl(UsersRepository usersRepository) {
+        this.usersRepository = usersRepository;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        System.out.println(usersRepository.findByLogin(login));
-        return new UserDetailsImpl(usersRepository.findByLogin(login).orElseThrow(IllegalArgumentException::new));
+        Optional<User> userOptional = usersRepository.findByLogin(login);
+        return new UserDetailsImpl(userOptional.orElseThrow(IllegalArgumentException::new));
     }
 }

@@ -14,11 +14,14 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UsersRepository usersRepository;
+    private final UsersRepository usersRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    public UserServiceImpl(PasswordEncoder passwordEncoder, UsersRepository usersRepository) {
+        this.passwordEncoder = passwordEncoder;
+        this.usersRepository = usersRepository;
+    }
 
     @Override
     public void register(UserForm userForm) {
@@ -51,6 +54,4 @@ public class UserServiceImpl implements UserService {
     public Optional<User> findByLoginAndPassword(UserForm userForm) {
         return usersRepository.findByLoginAndHashPassword(userForm.getLogin(), userForm.getPassword());
     }
-
-
 }

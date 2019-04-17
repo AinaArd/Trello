@@ -21,12 +21,4 @@ public class LoginController {
     public String getLoginPage(){
         return "login";
     }
-
-    @PostMapping(path = "/login")
-    public String sendToProfile(UserForm userForm){
-        Optional<User> userCandidate = userService.findByLoginAndPassword(userForm);
-        System.out.println(userCandidate);
-        return userCandidate.map(user -> "redirect:profile/" + user.getId()).orElse("redirect:login");
-    }
-
 }

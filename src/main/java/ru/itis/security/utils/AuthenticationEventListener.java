@@ -1,4 +1,4 @@
-package ru.itis.security.listener;
+package ru.itis.security.utils;
 
 import org.springframework.context.ApplicationListener;
 import org.springframework.security.authentication.event.AbstractAuthenticationEvent;

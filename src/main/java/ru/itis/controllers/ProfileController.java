@@ -1,6 +1,8 @@
 package ru.itis.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,9 +25,11 @@ public class ProfileController {
     @Autowired
     private CardServiceImpl cardService;
 
-    @RequestMapping(path = "/profile/{user-id}", method = RequestMethod.GET)
-    public String getUserPage(ModelMap model, @PathVariable(name = "user-id") Long userId) {
-        Optional<User> userCandidate = userService.findById(userId);
+    @RequestMapping(path = "/profile", method = RequestMethod.GET)
+    public String getUserPage(ModelMap model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String login = auth.getName();
+        Optional<User> userCandidate = userService.findByLogin(login);
 
         if(userCandidate.isPresent()) {
             User user = userCandidate.get();
@@ -35,5 +39,4 @@ public class ProfileController {
         }
         return "profile";
     }
-
 }

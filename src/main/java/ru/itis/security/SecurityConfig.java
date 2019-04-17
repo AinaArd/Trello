@@ -9,33 +9,42 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import ru.itis.security.utils.AuthFailureHandler;
+import ru.itis.security.utils.AuthSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    public PasswordEncoder passwordEncoder;
+    public final PasswordEncoder passwordEncoder;
+    public final AuthSuccessHandler authSuccessHandler;
+    public final AuthFailureHandler authFailureHandler;
+    public final UserDetailsService service;
 
-    @Qualifier("userDetailsServiceImpl")
     @Autowired
-    public UserDetailsService service;
+    public SecurityConfig(AuthSuccessHandler successHandler, AuthFailureHandler failureHandler, PasswordEncoder passwordEncoder, @Qualifier("userDetailsServiceImpl") UserDetailsService service) {
+        this.passwordEncoder = passwordEncoder;
+        this.service = service;
+        this.authSuccessHandler = successHandler;
+        this.authFailureHandler = failureHandler;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                .antMatchers("/profile/**").authenticated()
-                .antMatchers("/register/**").permitAll()
-                .antMatchers("/login").permitAll()
+                    .antMatchers("/profile/**").authenticated()
+                    .antMatchers("/register/**").permitAll()
+                    .antMatchers("/login").permitAll()
                 .and()
-                .formLogin()
-                .usernameParameter("login")
-                .defaultSuccessUrl("/")
-                .loginPage("/login").permitAll()
+                    .formLogin()
+                    .loginPage("/login")
+                    .successHandler(authSuccessHandler)
+                    .failureHandler(authFailureHandler)
+                    .usernameParameter("login")
                 .and()
-                .rememberMe()
-                .rememberMeParameter("remember-me");
+                    .rememberMe()
+                    .rememberMeParameter("remember-me");
 
         http.csrf().disable();
     }
