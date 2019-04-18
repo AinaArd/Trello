@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import ru.itis.security.details.UserDetailsImpl;
 import ru.itis.services.CardServiceImpl;
 import ru.itis.services.UserServiceImpl;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,8 +34,11 @@ public class ProfileController {
     @Autowired
     private CardServiceImpl cardService;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @RequestMapping(path = "/profile", method = RequestMethod.GET)
-    public String getUserPage(ModelMap model, Authentication authentication) {
+    public String getUserPage(ModelMap model, Authentication authentication, Principal principal) {
 //        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 //        String login = auth.getName();
 //        Optional<User> userCandidate = userService.findByLogin(login);
@@ -66,13 +71,14 @@ public class ProfileController {
 //        return "redirect:profile";
 //    }
 
-//    @RequestMapping(path = "/profile", method = RequestMethod.POST, params = {"name", "login", "password"})
-//    public String editUserProfile(@RequestParam(name = "name") String name, @RequestParam(name = "login") String login,
-//                                  @RequestParam(name = "password") String password) {
-////        TODO: find session in spring
-//        User editedUser = session.getUser();
-//        System.out.println(editedUser);
-//        userService.saveAndFlush(editedUser);
-//        return "redirect:profile";
-//    }
+    @RequestMapping(path = "/profile", method = RequestMethod.POST, params = {"name", "login", "password"})
+    public String editUserProfile(Authentication authentication, @RequestParam(name = "name") String name, @RequestParam(name = "login") String login,
+                                  @RequestParam(name = "password") String password) {
+        UserDetailsImpl details = (UserDetailsImpl) authentication.getPrincipal();
+        Long userId = details.getUser().getId();
+        System.out.println(userId);
+        userService.editUser(name, login, passwordEncoder.encode(password), userId);
+
+        return "redirect:profile";
+    }
 }

@@ -19,4 +19,6 @@ public interface UserService {
     Optional<User> findByLoginAndPassword(UserForm userForm);
 
     void saveAndFlush(User user);
+
+    void editUser(String name, String login, String encode, Long id);
 }

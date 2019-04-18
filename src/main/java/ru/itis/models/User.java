@@ -46,15 +46,4 @@ public class User {
                 .hashPassword(editForm.getPassword())
                 .build();
     }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", login='" + login + '\'' +
-                ", hashPassword='" + hashPassword + '\'' +
-                ", name='" + name + '\'' +
-                ", role=" + role +
-                '}';
-    }
 }

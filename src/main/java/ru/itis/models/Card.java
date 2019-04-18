@@ -26,7 +26,7 @@ public class Card {
     @OneToMany(mappedBy = "card")
     private List<Comment> comments;
 
-    @ManyToMany
+    @ManyToMany(targetEntity = User.class)
     @JoinColumn(name = "card_members")
     private List<User> card_members;
 
