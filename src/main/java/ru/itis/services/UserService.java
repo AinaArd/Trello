@@ -1,5 +1,6 @@
 package ru.itis.services;
 
+import ru.itis.forms.EditForm;
 import ru.itis.forms.UserForm;
 import ru.itis.models.User;
 
@@ -17,4 +18,5 @@ public interface UserService {
 
     Optional<User> findByLoginAndPassword(UserForm userForm);
 
+    void saveAndFlush(User user);
 }

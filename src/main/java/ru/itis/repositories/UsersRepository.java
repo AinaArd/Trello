@@ -12,5 +12,6 @@ public interface UsersRepository extends JpaRepository<User, Long> {
     Optional<User> findById(Long id);
     Optional<User> findByLogin(String login);
     Optional<User> findByLoginAndHashPassword(String login, String password);
-
+    <S extends User> S saveAndFlush(S s);
+    <S extends User> S save(S s);
 }

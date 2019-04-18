@@ -3,6 +3,7 @@ package ru.itis.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.itis.forms.EditForm;
 import ru.itis.forms.UserForm;
 import ru.itis.models.Role;
 import ru.itis.models.User;
@@ -53,5 +54,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> findByLoginAndPassword(UserForm userForm) {
         return usersRepository.findByLoginAndHashPassword(userForm.getLogin(), userForm.getPassword());
+    }
+
+    @Override
+    public void saveAndFlush(User user) {
+        usersRepository.saveAndFlush(user);
     }
 }

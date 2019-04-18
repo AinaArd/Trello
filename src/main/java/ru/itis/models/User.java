@@ -1,6 +1,7 @@
 package ru.itis.models;
 
 import lombok.*;
+import ru.itis.forms.EditForm;
 
 import javax.persistence.*;
 import java.util.List;
@@ -32,11 +33,18 @@ public class User {
     @OneToMany(mappedBy = "author")
     private List<Comment> comments;
 
-    public User(String login, String hashPassword, String name, Role role) {
+    public User(String login, String hashPassword, String name) {
         this.login = login;
         this.hashPassword = hashPassword;
         this.name = name;
-        this.role = role;
+    }
+
+    public static User from(EditForm editForm){
+        return User.builder()
+                .login(editForm.getLogin())
+                .name(editForm.getName())
+                .hashPassword(editForm.getPassword())
+                .build();
     }
 
     @Override

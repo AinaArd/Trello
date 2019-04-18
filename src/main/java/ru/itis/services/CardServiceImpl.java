@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.itis.models.Card;
 import ru.itis.models.User;
 import ru.itis.repositories.CardsRepository;
+import ru.itis.transfer.UserDto;
 
 import java.util.List;
 
@@ -16,6 +17,11 @@ public class CardServiceImpl implements CardService {
 
     @Override
     public List<Card> findAllByMember(User user) {
+        return cardsRepository.findAllByMember(user.getId());
+    }
+
+    @Override
+    public List<Card> getCards(UserDto user) {
         return cardsRepository.findAllByMember(user.getId());
     }
 }
