@@ -17,8 +17,6 @@ public class CardDto {
     public static CardDto from(Card card) {
         return CardDto.builder()
                 .name(card.getName())
-                .date((Data) card.getDate())
-                .state(card.getState())
                 .build();
     }
 }

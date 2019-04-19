@@ -21,26 +21,10 @@ public class Card {
     private Long id;
 
     private String name;
-    private String description;
 
-    @OneToMany(mappedBy = "card")
-    private List<Comment> comments;
-
-    @ManyToMany(targetEntity = User.class)
-    @JoinColumn(name = "card_members")
-    private List<User> card_members;
-
-    @Enumerated(value = EnumType.STRING)
-    private CardState state;
-
-    private Date date;
-
-    public Card(String name, String description, CardState state, Date date) {
-        this.name = name;
-        this.description = description;
-        this.state = state;
-        this.date = date;
-    }
+    @ManyToOne
+    @JoinColumn(name = "desk_cards")
+    private Desk desk_cards;
 }
 
 // TODO: прикрепление файлов/фото, чеклисты, упоминания в комментах

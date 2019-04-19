@@ -30,6 +30,9 @@
                         <form action="/logout">
                             <button id="Rec">LOG OUT</button>
                         </form>
+                        <form action="/desks">
+                            <button id="Rec">Desks</button>
+                        </form>
                     </div>
 
                 </td>

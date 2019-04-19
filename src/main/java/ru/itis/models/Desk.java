@@ -28,6 +28,9 @@ public class Desk {
     @JoinColumn(name = "desk_members")
     private List<User> desk_members;
 
+    @OneToMany(mappedBy = "desk_cards")
+    private List<Card> cards;
+
     public Desk(String name) {
         this.name = name;
     }

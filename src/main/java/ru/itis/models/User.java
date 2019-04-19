@@ -24,9 +24,6 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
-    @ManyToMany(mappedBy = "card_members")
-    private List<Card> cards;
-
     @ManyToMany(mappedBy = "desk_members")
     private List<Desk> desks;
 
