@@ -25,6 +25,9 @@ public class Card {
     @ManyToOne
     @JoinColumn(name = "desk_cards")
     private Desk desk_cards;
+
+    @OneToMany(mappedBy = "card")
+    private List<Task> card_tasks;
 }
 
 // TODO: прикрепление файлов/фото, чеклисты, упоминания в комментах
