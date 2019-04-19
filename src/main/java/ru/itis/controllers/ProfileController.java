@@ -55,9 +55,9 @@ public class ProfileController {
         }
         UserDetailsImpl details = (UserDetailsImpl) authentication.getPrincipal();
         UserDto user = from(details.getUser());
-        List<Card> cards = cardService.getCards(user);
+//        List<Card> cards = cardService.getCards(user);
         model.addAttribute("user", user);
-        model.addAttribute("cards", cards);
+//        model.addAttribute("cards", cards);
         return "profile";
     }
 
