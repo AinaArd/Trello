@@ -61,8 +61,4 @@ public class UserServiceImpl implements UserService {
         usersRepository.saveAndFlush(user);
     }
 
-    @Override
-    public void editUser(String name, String login, String hashPassword, Long id) {
-        usersRepository.update(name, login, hashPassword, id);
-    }
 }

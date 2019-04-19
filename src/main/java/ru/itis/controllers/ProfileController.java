@@ -59,7 +59,6 @@ public class ProfileController {
         model.addAttribute("user", user);
         model.addAttribute("cards", cards);
         return "profile";
-
     }
 
 //    TODO: make post method with editform
@@ -77,7 +76,11 @@ public class ProfileController {
         UserDetailsImpl details = (UserDetailsImpl) authentication.getPrincipal();
         Long userId = details.getUser().getId();
         System.out.println(userId);
-        userService.editUser(name, login, passwordEncoder.encode(password), userId);
+        details.getUser().setName(name);
+        details.getUser().setLogin(login);
+        details.getUser().setHashPassword(password);
+        userService.saveAndFlush(details.getUser());
+//        userService.editUser(name, login, passwordEncoder.encode(password), userId);
 
         return "redirect:profile";
     }

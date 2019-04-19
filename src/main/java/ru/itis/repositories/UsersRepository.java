@@ -14,9 +14,4 @@ public interface UsersRepository extends JpaRepository<User, Long> {
     Optional<User> findByLoginAndHashPassword(String login, String password);
     <S extends User> S saveAndFlush(S s);
     <S extends User> S save(S s);
-
-    @Query(nativeQuery = true, value = "UPDATE \"user\" SET name=?, login=?, hash_password=? where id = ?")
-    void update(String name, String login, String hashPassword, Long id);
-
-
 }
