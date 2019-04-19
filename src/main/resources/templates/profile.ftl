@@ -11,7 +11,6 @@
             <input type="text" name="name" placeholder="Name"/>
             <input type="text" name="login" placeholder="Login"/>
             <input type="password" name="password" placeholder="Password"/>
-            <input type="password" name="pcheck" placeholder="Repeat password"/>
             <button type="submit" class="btn btn-primary btn-block btn-large">EDIT</button>
         </form>
     </div>

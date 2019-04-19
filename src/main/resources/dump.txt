@@ -1,0 +1,112 @@
+create table if not exists "user"
+(
+	id serial not null
+		constraint user_pkey
+			primary key,
+	login varchar(255),
+	hash_password varchar(255),
+	name varchar(255),
+	role varchar(255)
+)
+;
+
+alter table "user" owner to postgres
+;
+
+create table if not exists desk
+(
+	id serial not null
+		constraint desk_pkey
+			primary key,
+	name varchar(255),
+	state varchar(255)
+)
+;
+
+alter table desk owner to postgres
+;
+
+create table if not exists card
+(
+	id serial not null
+		constraint card_pkey
+			primary key,
+	name varchar(255),
+	description varchar,
+	date timestamp,
+	state varchar(255)
+)
+;
+
+alter table card owner to postgres
+;
+
+create table if not exists comment
+(
+	id serial not null
+		constraint comment_pkey
+			primary key,
+	content varchar,
+	author bigint
+		constraint fk60ihfxjesrbcbmr1qb1y6v8a6
+			references "user",
+	card bigint
+		constraint fkn9u00kpovkmkhggjh40wpml8h
+			references card
+)
+;
+
+alter table comment owner to postgres
+;
+
+create table if not exists card_card_members
+(
+	cards_id bigint not null
+		constraint fki731lc3ewh7kecwpb6me3g19v
+			references card
+				on update cascade on delete cascade,
+	card_members_id bigint not null
+		constraint fk6th2lwcoh5o13f6usd9a8j44w
+			references "user"
+				on update cascade on delete cascade
+)
+;
+
+alter table card_card_members owner to postgres
+;
+
+create table if not exists desk_desk_members
+(
+	desks_id bigint not null
+		constraint fkc36h85ff9yjg76fh5lnd9udcp
+			references desk
+				on update cascade on delete cascade,
+	desk_members_id bigint not null
+		constraint fknxrpid8uqvkpyn4v3wb0n36bx
+			references "user"
+				on update cascade on delete cascade
+)
+;
+
+alter table desk_desk_members owner to postgres
+;
+
+
+
+INSERT INTO public.card (id, name, description, date, state) VALUES (1, 'Register', 'make register page in Java project', '2019-04-16 06:33:59.750000', 'TODO');
+INSERT INTO public.card (id, name, description, date, state) VALUES (2, 'Login', 'make login form', '2019-04-16 06:34:24.221000', 'TODO');
+INSERT INTO public.card (id, name, description, date, state) VALUES (3, 'Profile', 'make a profile page', '2019-04-16 07:10:14.145000', 'TODO');
+INSERT INTO public.card_card_members (cards_id, card_members_id) VALUES (3, 7);
+INSERT INTO public.card_card_members (cards_id, card_members_id) VALUES (2, 7);
+INSERT INTO public."user" (id, login, hash_password, name, role) VALUES (7, 'kama1', 'kama1', 'kama1', 'USER');
+INSERT INTO public."user" (id, login, hash_password, name, role) VALUES (11, 'aina', '$2a$10$qFihpdzg5EHP3gpvhlN2/e8bo5rYh1l1ecQRf1f5YtgBHhajClqba', 'aina', 'USER');
+INSERT INTO public."user" (id, login, hash_password, name, role) VALUES (10, 'tim1', '$2a$10$ZbFXVPzn3SwAgXdvEGTWVOCwXegFatdFTlAGrIJE5Yl3JZFqM5rpi', 'tim1', 'USER');
+
+UPDATE public.card SET name = 'Register', description = 'make register page in Java project', date = '2019-04-16 06:33:59.750000', state = 'TODO' WHERE id = 1;
+UPDATE public.card SET name = 'Login', description = 'make login form', date = '2019-04-16 06:34:24.221000', state = 'TODO' WHERE id = 2;
+UPDATE public.card SET name = 'Profile', description = 'make a profile page', date = '2019-04-16 07:10:14.145000', state = 'TODO' WHERE id = 3;
+UPDATE public.card_card_members SET cards_id = 3, card_members_id = 7;
+UPDATE public.card_card_members SET cards_id = 2, card_members_id = 7;
+UPDATE public."user" SET login = 'kama1', hash_password = 'kama1', name = 'kama1', role = 'USER' WHERE id = 7;
+UPDATE public."user" SET login = 'aina', hash_password = '$2a$10$qFihpdzg5EHP3gpvhlN2/e8bo5rYh1l1ecQRf1f5YtgBHhajClqba', name = 'aina', role = 'USER' WHERE id = 11;
+UPDATE public."user" SET login = 'tim1', hash_password = '$2a$10$ZbFXVPzn3SwAgXdvEGTWVOCwXegFatdFTlAGrIJE5Yl3JZFqM5rpi', name = 'tim1', role = 'USER' WHERE id = 10;
