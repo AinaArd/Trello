@@ -1,43 +1,60 @@
 <!DOCTYPE html>
-<html lang="en" >
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login Form</title>
-    <link rel="stylesheet" type="text/css" href="/css/login.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Up Form by Colorlib</title>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
 
+    <!-- Main css -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
 
-<div class="login">
-    <h1>Login</h1>
-    <form method="post"> <#--onsubmit="return validate_form();"-->
-        <input id="login" type="text" name="login" placeholder="Username" required/>
-        <input id="password" type="password" name="password" placeholder="Password" required />
-        <center style="color: white;">Remember me<input class="c" type="checkbox" name="c"/></center>
-        <input type="submit" class="btn btn-primary btn-block btn-large"/>
-    </form>
-</div>
-<#--<script type="text/javascript">-->
-    <#--var validate_form = function () {-->
-        <#--var l = document.getElementById("login");-->
-        <#--var p = document.getElementById("password");-->
-        <#--var re = /^(?=.*[A-Za-z0-9]$)[A-Za-z][A-Za-z\d.-]{1,19}$/;-->
-        <#--if (!re.test(l.value)) {-->
-            <#--alert("wrong login");-->
-        <#--}-->
-        <#--;-->
-        <#--var re2 = /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}/;-->
-        <#--if (!re2.test(p.value)) {-->
-            <#--alert("wrong password");-->
-        <#--}-->
-        <#--;-->
-        <#--return re.test(l.value) && re2.test(p.value);-->
-    <#--}-->
-<#--</script>-->
-</body>
+<div class="main">
 
+    <!-- Sing in  Form -->
+    <section class="sign-in">
+        <div class="container">
+            <div class="signin-content">
+                <div class="signin-image">
+                    <figure><img src="images/signin-image.jpg" alt="sing up image"></figure>
+                    <a href="/register" class="signup-image-link">Create an account</a>
+                </div>
+
+                <div class="signin-form">
+                    <h2 class="form-title">Sign up</h2>
+                    <form method="post" class="register-form" id="login-form">
+                        <div class="form-group">
+                            <label for="login"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                            <input type="text" name="login" id="login" placeholder="Login"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
+                            <input type="password" name="password" id="password" placeholder="Password"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" name="remember-me" id="remember-me" class="agree-term"/>
+                            <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember
+                                me</label>
+                        </div>
+                        <div class="form-group form-button">
+                            <input type="submit" name="signin" id="signin" class="form-submit" value="Log in"/>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<!-- JS -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="js/main.js"></script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 </html>
