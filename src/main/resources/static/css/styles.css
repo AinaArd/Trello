@@ -2,7 +2,6 @@
 
 body {
     font-family: 'Segoe UI', Segoe, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    background: lightpink;
 }
 
 .form-style-2 {
@@ -101,7 +100,6 @@ body {
     width: 1000px;
     height: auto;
     overflow: hidden;
-    background-color: #333333;
     font-family: 'Bai Jamjuree', sans-serif;
 }
 .left {

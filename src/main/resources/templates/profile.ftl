@@ -16,47 +16,21 @@
     </div>
 </div>
 <div class="mainBlock">
-    <div>
-        <table>
-            <tr>
-                <td style="
-	vertical-align: middle;
-	text-align: center;">
-                    <div class="profile">
-                        <img src="/css/Auth.png" height="130px" width="130px">
-                    </div>
-                    <div class="profile2">Name: ${user.name}<br>@${user.login}<br><br>
-                        <button id="Rec" onclick="show('block')">EDIT</button>
-                        <form action="/logout">
-                            <button id="Rec">LOG OUT</button>
-                        </form>
-                        <form action="/desks">
-                            <button id="Rec">Desks</button>
-                        </form>
-                    </div>
-
-                </td>
-            </tr>
-
-        </table>
+    <div class="profile">
+        <img src="/css/Auth.png" height="130px" width="130px">
+    </div>
+    <div class="profile2">Name: ${user.name}<br>@${user.login}<br><br>
+        <button id="Rec" onclick="show('block')">EDIT</button>
+        <form action="/logout">
+            <button id="Rec">LOG OUT</button>
+        </form>
+        <form action="/desks">
+            <button id="Rec">Desks</button>
+        </form>
     </div>
 
-    <ul>
-        <#if cards ??>
-            <#list cards as card>
-                        <li>
-                            <p>${card.name}</p>
-                            <p>${card.state}</p>
-                            <p>${card.date}</p>
-                            <br>
-                            <br>
-                            <br>
-                        </li>
-            </#list>
-        </#if>
-    </ul>
-
 </div>
+
 <script>
     //Функция показа
     function show(state) {

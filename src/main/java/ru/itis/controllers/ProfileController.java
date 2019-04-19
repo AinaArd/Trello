@@ -32,32 +32,16 @@ public class ProfileController {
     private UserServiceImpl userService;
 
     @Autowired
-    private CardServiceImpl cardService;
-
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @RequestMapping(path = "/profile", method = RequestMethod.GET)
     public String getUserPage(ModelMap model, Authentication authentication, Principal principal) {
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        String login = auth.getName();
-//        Optional<User> userCandidate = userService.findByLogin(login);
-//
-//        if(userCandidate.isPresent()) {
-//            User user = userCandidate.get();
-//            List<Card> cards = cardService.findAllByMember(user);
-//            model.addAttribute("user", user);
-//            model.addAttribute("cards", cards);
-//        }
-//        return "profile";
         if (authentication == null) {
             return "redirect:login";
         }
         UserDetailsImpl details = (UserDetailsImpl) authentication.getPrincipal();
         UserDto user = from(details.getUser());
-//        List<Card> cards = cardService.getCards(user);
         model.addAttribute("user", user);
-//        model.addAttribute("cards", cards);
         return "profile";
     }
 
