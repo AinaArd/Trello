@@ -27,4 +27,8 @@ public class Desk {
     @ManyToMany
     @JoinColumn(name = "desk_members")
     private List<User> desk_members;
+
+    public Desk(String name) {
+        this.name = name;
+    }
 }
