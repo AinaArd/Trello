@@ -13,4 +13,5 @@ public interface CardsRepository extends JpaRepository<Card, Long> {
             "on card.id = m.cards_id where m.card_members_id = ?")
     List<Card> findAllByMember(Long userId);
 
+
 }

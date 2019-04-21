@@ -1,13 +1,14 @@
 package ru.itis.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.itis.forms.EditForm;
 import ru.itis.forms.UserForm;
 import ru.itis.models.Role;
 import ru.itis.models.User;
 import ru.itis.repositories.UsersRepository;
+import ru.itis.security.details.UserDetailsImpl;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,14 +16,11 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private final UsersRepository usersRepository;
-    private final PasswordEncoder passwordEncoder;
+    @Autowired
+    private UsersRepository usersRepository;
 
     @Autowired
-    public UserServiceImpl(PasswordEncoder passwordEncoder, UsersRepository usersRepository) {
-        this.passwordEncoder = passwordEncoder;
-        this.usersRepository = usersRepository;
-    }
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public void register(UserForm userForm) {
@@ -57,8 +55,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveAndFlush(User user) {
-        usersRepository.saveAndFlush(user);
+    public void saveAndFlush(String name, String login, String password, Authentication authentication) {
+        UserDetailsImpl details = (UserDetailsImpl) authentication.getPrincipal();
+        details.getUser().setName(name);
+        details.getUser().setLogin(login);
+        details.getUser().setHashPassword(passwordEncoder.encode(password));
+        usersRepository.saveAndFlush(details.getUser());
     }
+
 
 }

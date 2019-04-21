@@ -96,8 +96,10 @@ body {
 }
 
 .mainBlock{
+    padding-top: 67px;
+    padding-bottom: 87px;
+    width: 900px;
     margin: auto;
-    width: 1000px;
     height: auto;
     overflow: hidden;
     font-family: 'Bai Jamjuree', sans-serif;

@@ -2,26 +2,17 @@ package ru.itis.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.itis.models.Card;
-import ru.itis.models.User;
-import ru.itis.forms.EditForm;
 import ru.itis.transfer.UserDto;
 import ru.itis.security.details.UserDetailsImpl;
-import ru.itis.services.CardServiceImpl;
 import ru.itis.services.UserServiceImpl;
 
 import java.security.Principal;
-import java.util.List;
-import java.util.Optional;
 
 import static ru.itis.transfer.UserDto.from;
 
@@ -57,15 +48,7 @@ public class ProfileController {
     @RequestMapping(path = "/profile", method = RequestMethod.POST, params = {"name", "login", "password"})
     public String editUserProfile(Authentication authentication, @RequestParam(name = "name") String name, @RequestParam(name = "login") String login,
                                   @RequestParam(name = "password") String password) {
-        UserDetailsImpl details = (UserDetailsImpl) authentication.getPrincipal();
-        Long userId = details.getUser().getId();
-        System.out.println(userId);
-        details.getUser().setName(name);
-        details.getUser().setLogin(login);
-        details.getUser().setHashPassword(password);
-        userService.saveAndFlush(details.getUser());
-//        userService.editUser(name, login, passwordEncoder.encode(password), userId);
-
+        userService.saveAndFlush(name, login, password, authentication);
         return "redirect:profile";
     }
 }
