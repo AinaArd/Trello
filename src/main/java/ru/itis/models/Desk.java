@@ -1,9 +1,6 @@
 package ru.itis.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -14,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "desk", schema = "public")
+@ToString(exclude = {"cards", "desk_members"})
 public class Desk {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
