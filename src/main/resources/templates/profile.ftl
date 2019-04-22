@@ -60,8 +60,14 @@
             <a href="#aboutModal" data-toggle="modal" data-target="#myModal"><img
                     src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRbezqZpEuwGSvitKy3wrwnth5kysKdRqBW54cAszm_wiutku3R"
                     name="aboutme" width="140" height="140" class="img-circle"></a>
-            <h3>Joe Sixpack</h3>
-            <em>click my face for edit</em>
+            <h3>${user.name}</h3>
+            <h5>@${user.login}</h5>
+            <em>click my face for edit</em><br>
+            <a href="/logout">LOG OUT</a>
+            <form action="/desks">
+                <button id="Rec">DESKS</button>
+            </form>
+
         </center>
     </div>
     <!-- Modal -->
