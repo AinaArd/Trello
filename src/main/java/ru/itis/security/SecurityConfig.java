@@ -33,19 +33,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                    .antMatchers("/profile/**").authenticated()
-                    .antMatchers("/register/**").permitAll()
-                    .antMatchers("/login").permitAll()
+                .antMatchers("/profile/**").authenticated()
+                .antMatchers("/register/**").permitAll()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/desks/**").authenticated()
+                .antMatchers("/cards/**").authenticated()
                 .and()
-                    .formLogin()
-                    .loginPage("/login")
+                .formLogin()
+                .loginPage("/login")
 //                    .successHandler(authSuccessHandler)
 ////                    .failureHandler(authFailureHandler)
                 .defaultSuccessUrl("/profile")
-                    .usernameParameter("login")
+                .usernameParameter("login")
                 .and()
-                    .rememberMe()
-                    .rememberMeParameter("remember-me");
+                .rememberMe()
+                .rememberMeParameter("remember-me");
 
         http.csrf().disable();
     }

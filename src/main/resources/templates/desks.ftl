@@ -9,13 +9,21 @@
 </div>
         <#list desks as desk>
             <tr>
-                <a href="/desks/${desk.id}">
-                    <td>${desk.name}</td>
-                </a>
+                <td><a href="/desks/${desk.id}">${desk.name} </a></td>
+
                 <td>${desk.state}</td>
                 <br>
             </tr>
         </#list>
+
+<br>
+<#if cards??>
+    <#list cards as card>
+        <tr>
+            <td><a href="/cards/${card.id}">${card.name}</td><br>
+        </tr>
+    </#list>
+</#if>
 </div>
 
 </body>
