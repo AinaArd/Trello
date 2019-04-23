@@ -9,8 +9,11 @@
 </div>
         <#list desks as desk>
             <tr>
-                <td>${desk.name}</td>
-                <td>${desk.state}</td><br>
+                <a href="/desks/${desk.id}">
+                    <td>${desk.name}</td>
+                </a>
+                <td>${desk.state}</td>
+                <br>
             </tr>
         </#list>
 </div>

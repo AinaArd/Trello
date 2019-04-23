@@ -6,6 +6,7 @@ import ru.itis.models.Desk;
 import ru.itis.repositories.DesksRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class DeskServiceImpl implements DeskService {
@@ -15,7 +16,11 @@ public class DeskServiceImpl implements DeskService {
 
     @Override
     public List<Desk> findAllUserDesks(Long id) {
-        System.out.println(desksRepository.findAllByDesk_members(id));
         return desksRepository.findAllByDesk_members(id);
+    }
+
+    @Override
+    public Optional<Desk> findOneDesk(Long id) {
+        return desksRepository.findById(id);
     }
 }
