@@ -7,6 +7,7 @@ import ru.itis.models.Task;
 import ru.itis.repositories.TasksRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TaskServiceImpl implements TaskService {
@@ -18,4 +19,11 @@ public class TaskServiceImpl implements TaskService {
     public List<Task> findCardTasks(Card card) {
         return tasksRepository.findAllByCard(card);
     }
+
+    @Override
+    public Optional<Task> findTaskById(Long id) {
+        return tasksRepository.findById(id);
+    }
+
+
 }

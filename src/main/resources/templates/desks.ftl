@@ -20,7 +20,11 @@
 <#if cards??>
     <#list cards as card>
         <tr>
-            <td><a href="/cards/${card.id}">${card.name}</td><br>
+            <td><a href="/cards/${card.id}/tasks">${card.name}</td><br>
+
+
+
+
         </tr>
     </#list>
 </#if>
