@@ -9,4 +9,6 @@ import java.util.Optional;
 public interface TaskService {
     List<Task> findCardTasks(Card card);
     Optional<Task> findTaskById(Long id);
+    void addTask(Task task);
+    List<List<Task>> findAllTasksInAllCards(List<Card> cards);
 }

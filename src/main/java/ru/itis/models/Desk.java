@@ -24,7 +24,7 @@ public class Desk {
 
     @ManyToMany
     @JoinColumn(name = "desk_members")
-    private List<User> desk_members;
+    private List<User> deskMembers;
 
     @OneToMany(mappedBy = "desk_cards")
     private List<Card> cards;

@@ -8,6 +8,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.itis.forms.EditForm;
 import ru.itis.transfer.UserDto;
 import ru.itis.security.details.UserDetailsImpl;
 import ru.itis.services.UserServiceImpl;
@@ -36,19 +37,9 @@ public class ProfileController {
         return "profile";
     }
 
-//    TODO: make post method with editform
-//    @RequestMapping(path = "/profile", method = RequestMethod.POST)
-//    public String editUserProfile(EditForm editForm) {
-//        User editedUser = User.from(editForm);
-//        System.out.println(editedUser);
-//        userService.saveAndFlush(editedUser);
-//        return "redirect:profile";
-//    }
-
     @RequestMapping(path = "/profile", method = RequestMethod.POST, params = {"name", "login", "password"})
-    public String editUserProfile(Authentication authentication, @RequestParam(name = "name") String name, @RequestParam(name = "login") String login,
-                                  @RequestParam(name = "password") String password) {
-        userService.saveAndFlush(name, login, password, authentication);
+    public String editUserProfile(Authentication authentication, EditForm editForm) {
+        userService.saveAndFlush(editForm, authentication);
         return "redirect:profile";
     }
 }

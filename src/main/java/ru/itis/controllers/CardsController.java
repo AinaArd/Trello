@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.itis.models.Card;
 import ru.itis.models.Task;
 import ru.itis.services.CardService;
@@ -62,5 +64,13 @@ public class CardsController {
             model.addAttribute("task", task);
         }
         return "cards";
+    }
+
+    @PostMapping(path = "/cards/{card-id}/tasks", params = "text")
+    public String addUserToTask(ModelMap model, @RequestParam(name = "text") String text){
+        Task newTask = Task.builder().text(text).build();
+        taskService.addTask(newTask);
+        System.out.println(newTask  );
+        return "redirect:cards";
     }
 }

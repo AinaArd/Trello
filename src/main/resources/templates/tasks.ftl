@@ -11,5 +11,11 @@
         </tr>
     </#list>
 </#if>
+
+<form method="post">
+    <input type="text" id="text" name="text">
+    <button type="submit" id="save" value="Add task"></button>
+</form>
+
 </body>
 </html>

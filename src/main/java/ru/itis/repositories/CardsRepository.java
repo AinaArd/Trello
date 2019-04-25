@@ -14,4 +14,7 @@ public interface CardsRepository extends JpaRepository<Card, Long> {
 
     @Override
     Optional<Card> findById(Long aLong);
+
+    @Override
+    <S extends Card> S save(S s);
 }

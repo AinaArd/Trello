@@ -23,6 +23,8 @@ public class CardServiceImpl implements CardService {
         return cardsRepository.findAllByDesk_cards(id);
     }
 
+
+
     @Override
     public Optional<Card> findById(Long cardId) {
         return cardsRepository.findById(cardId);

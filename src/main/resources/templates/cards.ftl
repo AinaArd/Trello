@@ -40,14 +40,9 @@
 <br>
 <br>
 <br>
-
-
-<#--<script>
-    //Функция показа
-    function show(state) {
-        document.getElementById('window').style.display = state;
-        document.getElementById('gray').style.display = state;
-    }
-</script>-->
+<form method="post">
+    <input type="text" id="text" name="text">
+    <button type="submit" id="save">Add task</button>
+</form>
 </body>
 </html>

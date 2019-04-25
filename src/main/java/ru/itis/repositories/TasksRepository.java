@@ -8,4 +8,7 @@ import java.util.List;
 
 public interface TasksRepository extends JpaRepository<Task, Long> {
     List<Task> findAllByCard(Card card);
+
+    @Override
+    <S extends Task> S save(S s);
 }

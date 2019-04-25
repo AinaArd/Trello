@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.itis.forms.EditForm;
 import ru.itis.forms.UserForm;
 import ru.itis.models.Role;
 import ru.itis.models.User;
@@ -55,11 +56,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveAndFlush(String name, String login, String password, Authentication authentication) {
+    public void saveAndFlush(EditForm editForm, Authentication authentication) {
         UserDetailsImpl details = (UserDetailsImpl) authentication.getPrincipal();
-        details.getUser().setName(name);
-        details.getUser().setLogin(login);
-        details.getUser().setHashPassword(passwordEncoder.encode(password));
+        details.getUser().setName(editForm.getName());
+        details.getUser().setLogin(editForm.getLogin());
+        details.getUser().setHashPassword(passwordEncoder.encode(editForm.getPassword()));
         usersRepository.saveAndFlush(details.getUser());
     }
 

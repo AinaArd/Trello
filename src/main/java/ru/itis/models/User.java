@@ -24,7 +24,7 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
-    @ManyToMany(mappedBy = "desk_members")
+    @ManyToMany(mappedBy = "deskMembers")
     private List<Desk> desks;
 
     @OneToMany(mappedBy = "author")

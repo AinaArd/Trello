@@ -6,6 +6,7 @@ import ru.itis.models.Card;
 import ru.itis.models.Task;
 import ru.itis.repositories.TasksRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +24,20 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public Optional<Task> findTaskById(Long id) {
         return tasksRepository.findById(id);
+    }
+
+    @Override
+    public void addTask(Task task) {
+        tasksRepository.save(task);
+    }
+
+    @Override
+    public List<List<Task>> findAllTasksInAllCards(List<Card> cards) {
+        List<List<Task>> tasks = new ArrayList<>();
+        for(Card card : cards) {
+            tasks.add(findCardTasks(card));
+        }
+        return tasks;
     }
 
 

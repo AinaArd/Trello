@@ -6,11 +6,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import ru.itis.models.Card;
-import ru.itis.models.Desk;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import ru.itis.forms.DeskForm;
+import ru.itis.models.*;
 import ru.itis.security.details.UserDetailsImpl;
 import ru.itis.services.CardService;
 import ru.itis.services.DeskService;
+import ru.itis.services.TaskService;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -24,6 +27,9 @@ public class DesksController {
 
     @Autowired
     private CardService cardService;
+
+    @Autowired
+    private TaskService taskService;
 
     @GetMapping(path = "/desks")
     public String getLoginPage(Authentication authentication, ModelMap model) {
@@ -40,14 +46,37 @@ public class DesksController {
 
     @GetMapping(path = "/desks/{desk-id}")
     public String getOneDesk(ModelMap model, @PathVariable(name = "desk-id") Long deskId) {
-        if(deskService.findOneDesk(deskId).isPresent()) {
+        if (deskService.findOneDesk(deskId).isPresent()) {
             Desk selectedDesk = deskService.findOneDesk(deskId).get();
 
             List<Card> deskCards = cardService.findDeskCards(selectedDesk.getId());
+            List<List<Task>> tasks = taskService.findAllTasksInAllCards(deskCards);
+
+            System.out.println(tasks);
 
             model.addAttribute("cards", deskCards);
+            model.addAttribute("tasks", tasks);
             model.addAttribute("desks", Collections.singletonList(selectedDesk));
         }
         return "desks";
+    }
+
+    @PostMapping(path = "/desks", params = {"name", "state"})
+    public String addDesk(DeskForm deskForm, Authentication authentication, @RequestParam(name = "name") String name,
+                          @RequestParam(name = "state") String state) {
+
+        DeskState deskState = DeskState.valueOf(state);
+//        TODO: fix error with DeskForm
+       /* Desk desk = Desk.builder()
+                .name(deskForm.getDeskName())
+                .state(state).build();*/
+      Desk desk = Desk.builder()
+              .name(name)
+              .state(deskState)
+              .build();
+
+        User owner = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
+        deskService.addDeskOwner(desk, owner);
+        return "redirect:desks";
     }
 }
