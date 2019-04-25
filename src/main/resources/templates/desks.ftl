@@ -1,27 +1,46 @@
 <html>
 <head>
-    <link href="/css/deskStyles.css" rel="stylesheet" type="text/css">
-<#--<link href="/css/styles.css" rel="stylesheet" type="text/css">-->
-
+    <link href="/css/styles.css" rel="stylesheet" type="text/css">
+    <link href="/css/bootstrap.min.css" rel="stylesheet"/>
 </head>
 <body>
 <div onclick="show('none')" id="gray"></div>
 
-<div>
-    <h2>User desks</h2>
-</div>
-        <#list desks as desk>
-            <tr>
-                <td><a href="/desks/${desk.id}">${desk.name} </a></td>
-                <br>
-                <td>${desk.state}</td>
-                <br>
-            </tr>
-        </#list><br>
-        <#--<#if flag??>
-        <button onclick="show('block')">Add desk</button>
+
+<div class="form-style-2">
+    <div class="form-style-2-heading">
+        <#if deskName??>
+            This desk cards
+        <#else>User desks
+        </#if>
+    </div>
+    <ul>
+        <#if desks ??>
+            <#list desks as desk>
+                <li>
+                    <a href="/desks/${desk.id}">${desk.name} </a>
+                    <br>
+                    ${desk.state}
+                    <br>
+                </li>
+            </#list>
+            <br>
+        </#if>
+    </ul>
+
+<#if flag??>
+    <form method="post">
+        <label for="name">Name
+            <input class="input-field" type="text" id="name" name="name">
+        </label>
+        <label for="state">State
+            <input class="input-field" type="text" id="state" name="state">
+        </label>
         <br>
-        </#if>-->
+        <input type="submit" value="Save">
+    </form>
+<br>
+</#if>
 
 <#if cards??>
     <#list cards as card>
@@ -34,8 +53,9 @@
         </#list>
     </#list>
 </#if>
+</div>
 
-<div id="window">
+<#--<div id="window">
     <form method="post">
         <input type="text" name="name" placeholder="Name"/><br>
         <input type="text" name="state" placeholder="State"/>
@@ -49,6 +69,6 @@
         document.getElementById('window').style.display = state;
         document.getElementById('gray').style.display = state;
     }
-</script>
+</script>-->
 </body>
 </html>

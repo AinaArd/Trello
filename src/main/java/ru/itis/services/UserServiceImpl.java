@@ -59,9 +59,17 @@ public class UserServiceImpl implements UserService {
     public void saveAndFlush(EditForm editForm, Authentication authentication) {
         UserDetailsImpl details = (UserDetailsImpl) authentication.getPrincipal();
         details.getUser().setName(editForm.getName());
-        details.getUser().setLogin(editForm.getLogin());
-        details.getUser().setHashPassword(passwordEncoder.encode(editForm.getPassword()));
+        details.getUser().setLogin(editForm.getNewLogin());
+        details.getUser().setHashPassword(passwordEncoder.encode(editForm.getNewPassword()));
         usersRepository.saveAndFlush(details.getUser());
+    }
+
+    @Override
+    public boolean checkLoginAndPassword(EditForm editForm) {
+        if(editForm.getOldLogin().equals(editForm.getNewLogin())){
+            return false;
+        }
+        return !editForm.getOldPassword().equals(editForm.getNewPassword());
     }
 
 

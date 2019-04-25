@@ -4,6 +4,7 @@ import lombok.*;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import ru.itis.forms.EditForm;
+import ru.itis.forms.UserForm;
 
 import javax.persistence.*;
 import java.util.List;
@@ -40,11 +41,11 @@ public class User {
         this.name = name;
     }
 
-    public static User from(EditForm editForm){
+    public static User from(UserForm userForm){
         return User.builder()
-                .login(editForm.getLogin())
-                .name(editForm.getName())
-                .hashPassword(editForm.getPassword())
+                .login(userForm.getLogin())
+                .name(userForm.getName())
+                .hashPassword(userForm.getPassword())
                 .build();
     }
 }

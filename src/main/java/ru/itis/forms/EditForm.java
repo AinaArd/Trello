@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class  EditForm {
     private String name;
-    private String login;
-    private String password;
+    private String oldLogin;
+    private String newLogin;
+    private String oldPassword;
+    private String newPassword;
 }

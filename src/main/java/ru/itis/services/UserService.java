@@ -20,4 +20,6 @@ public interface UserService {
     Optional<User> findByLoginAndPassword(UserForm userForm);
 
     void saveAndFlush(EditForm editForm, Authentication authentication);
+
+    boolean checkLoginAndPassword(EditForm editForm);
 }

@@ -13,13 +13,20 @@
             <input class="input-field" type="text" id="name" name="name">
         </label>
         <br>
-        <label for="login">Login
-            <input class="input-field" type="text" id="login" name="login">
+        <label for="oldLogin">Old login
+            <input class="input-field" type="text" id="oldLogin" name="oldLogin">
+        </label>
+        <label for="newLogin">New login
+            <input class="input-field" type="text" id="newLogin" name="newLogin">
         </label>
         <br>
-        <label for="password">Password
-            <input class="input-field" type="password" id="password" name="password">
+        <label for="OldPassword">Old password
+            <input class="input-field" type="password" id="OldPassword" name="OldPassword">
         </label>
+        <label for="NewPassword">New password
+            <input class="input-field" type="password" id="NewPassword" name="NewPassword">
+        </label>
+
         <br>
         <input type="submit" value="Save">
     </form>

@@ -9,7 +9,7 @@
     <div class="form-style-2-heading">
         User profile
     </div>
-    <form>
+
         ${user.name}
 
         <br>
@@ -19,16 +19,17 @@
         <br>
         <br>
         <br>
-        <form action="/edit">
-            <input type="submit" value="EDIT"/>
+        <form action="/edit" method="get">
+            <input type="submit" value="Edit"/>
         </form>
+
         <form action="/logout">
-            <input type="submit" value="LOG OUT"/>
+            <input type="submit" value="Log out"/>
         </form>
         <form action="/desks">
-            <input type="submit" value="DESKS"/>
+            <input type="submit" value="Desks"/>
         </form>
-    </form>
+
 </div>
 </body>
 </html>

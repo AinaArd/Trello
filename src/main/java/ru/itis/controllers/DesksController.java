@@ -14,6 +14,7 @@ import ru.itis.security.details.UserDetailsImpl;
 import ru.itis.services.CardService;
 import ru.itis.services.DeskService;
 import ru.itis.services.TaskService;
+import ru.itis.transfer.DeskDto;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -33,10 +34,8 @@ public class DesksController {
         if (authentication == null) {
             return "redirect:login";
         }
-        UserDetailsImpl details = (UserDetailsImpl) authentication.getPrincipal();
-        Long userId = details.getUser().getId();
-
-        List<Desk> desks = deskService.findAllUserDesks(userId);
+        User user = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
+        List<Desk> desks = deskService.findAllUserDesks(user.getId());
         model.addAttribute("flag", true);
         model.addAttribute("desks", desks);
         return "desks";
@@ -47,8 +46,8 @@ public class DesksController {
         if (deskService.findOneDesk(deskId).isPresent()) {
             Desk selectedDesk = deskService.findOneDesk(deskId).get();
             List<Card> deskCards = cardService.findDeskCards(selectedDesk.getId());
+            model.addAttribute("deskName", true);
             model.addAttribute("cards", deskCards);
-            model.addAttribute("desks", Collections.singletonList(selectedDesk));
         }
         return "desks";
     }
@@ -67,6 +66,7 @@ public class DesksController {
                 .name(name)
                 .state(deskState)
                 .build();
+        System.out.println(desk);
 
         User owner = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
         deskService.addDeskOwner(desk, owner);
