@@ -13,7 +13,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@ToString(exclude = {"desk_cards"})
 @Table(name = "card", schema = "public")
 public class Card {
     @Id
@@ -23,12 +22,12 @@ public class Card {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "desk_cards")
-    private Desk desk_cards;
+    @JoinColumn(name = "cardId")
+    private Desk deskCards;
 
     @LazyCollection(LazyCollectionOption.TRUE)
     @OneToMany(mappedBy = "card")
-    private List<Task> card_tasks;
+    private List<Task> cardTasks;
 
 }
 

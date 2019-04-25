@@ -22,12 +22,11 @@ public class Task {
 
     @LazyCollection(LazyCollectionOption.TRUE)
     @ManyToOne
-    @JoinColumn(name = "card_id")
+    @JoinColumn(name = "cardId")
     private Card card;
 
     @LazyCollection(LazyCollectionOption.TRUE)
-    @ManyToMany
-    @JoinColumn(name = "task_members")
-    private List<User> members;
+    @ManyToMany(mappedBy = "tasks")
+    private List<User> users;
 
 }

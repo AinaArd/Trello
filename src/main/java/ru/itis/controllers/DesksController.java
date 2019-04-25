@@ -31,9 +31,9 @@ public class DesksController {
             return "redirect:login";
         }
         User user = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
-        List<Desk> desks = deskService.findAllUserDesks(user.getId());
+//        List<Desk> desks = deskService.findAllUserDesks(user.getId());
         model.addAttribute("flag", true);
-        model.addAttribute("desks", desks);
+        model.addAttribute("userDesks", user);
         return "desks";
     }
 
@@ -65,7 +65,8 @@ public class DesksController {
         System.out.println(desk);
 
         User owner = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
-        deskService.addDeskOwner(desk, owner);
+//        deskService.addDeskOwner(desk, owner);
+        deskService.addDesk(desk);
         return "redirect:desks";
     }
 }

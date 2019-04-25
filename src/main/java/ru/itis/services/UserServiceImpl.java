@@ -23,17 +23,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Override
-    public void register(UserForm userForm) {
-        String hashPassword = passwordEncoder.encode(userForm.getPassword());
-        User user = User.builder()
-                .login(userForm.getLogin())
-                .hashPassword(hashPassword)
-                .name(userForm.getName())
-                .role(Role.USER)
-                .build();
-        usersRepository.save(user);
-    }
 
     @Override
     public List<User> findAll() {
@@ -71,6 +60,4 @@ public class UserServiceImpl implements UserService {
         }
         return !editForm.getOldPassword().equals(editForm.getNewPassword());
     }
-
-
 }

@@ -20,7 +20,6 @@ public interface DesksRepository extends JpaRepository<Desk, Long> {
     @Override
     <S extends Desk> S save(S s);
 
-    @Transactional
     @Query(nativeQuery = true, value = "with ins1 as (insert into desk (name, state) VALUES (?, ?)\n" +
             "returning id)\n" +
             "insert into desk_desk_members(desks_id, desk_members_id) values ((select id from ins1), ?)")

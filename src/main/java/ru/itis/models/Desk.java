@@ -21,14 +21,11 @@ public class Desk {
     @Enumerated(EnumType.STRING)
     private DeskState state;
 
-    @ManyToMany
-    @JoinColumn(name = "desk_members")
-    private List<User> deskMembers;
+    @ManyToMany(mappedBy = "desks")
+    private List<User> users;
 
-    @OneToMany(mappedBy = "desk_cards")
+    @OneToMany(mappedBy = "deskCards")
     private List<Card> cards;
 
-    public Desk(String name) {
-        this.name = name;
-    }
+
 }

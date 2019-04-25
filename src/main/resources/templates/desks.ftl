@@ -6,7 +6,6 @@
 <body>
 <div onclick="show('none')" id="gray"></div>
 
-
 <div class="form-style-2">
     <div class="form-style-2-heading">
         <#if deskName??>
@@ -15,8 +14,8 @@
         </#if>
     </div>
     <ul>
-        <#if desks ??>
-            <#list desks as desk>
+        <#if userDesks ??>
+            <#list userDesks.getDesks() as desk>
                 <li>
                     <a href="/desks/${desk.id}">${desk.name} </a>
                     <br>
@@ -45,22 +44,23 @@
 <#if cards??>
     <#list cards as card>
         ${card.name}<br>
-        <#list card.card_tasks as task>
+        <#list card.cardTasks as task>
                     <ul>
                         <li><#--<a href="/tasks/${task.id}">-->${task.text}</li>
                         <br>
                     </ul>
         </#list>
     </#list>
+
+    <input onclick="show('block')" type="submit" value="Add users">
+
+
 </#if>
 </div>
 
-<#--<div id="window">
-    <form method="post">
-        <input type="text" name="name" placeholder="Name"/><br>
-        <input type="text" name="state" placeholder="State"/>
-        <button type="submit" class="btn btn-primary btn-block btn-large">Add desk</button>
-    </form>
+<div id="window">
+        <input type="text" name="login" placeholder="Login"/><br>
+        <button class="btn btn-primary btn-block btn-large">Search</button>
 </div>
 
 <script>
@@ -69,6 +69,6 @@
         document.getElementById('window').style.display = state;
         document.getElementById('gray').style.display = state;
     }
-</script>-->
+</script>
 </body>
 </html>

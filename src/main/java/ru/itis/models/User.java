@@ -28,22 +28,18 @@ public class User {
     private Role role;
 
     @LazyCollection(LazyCollectionOption.TRUE)
-    @ManyToMany(mappedBy = "deskMembers")
+    @ManyToMany
+    @JoinColumn(name = "userId")
     private List<Desk> desks;
 
-    @LazyCollection(LazyCollectionOption.TRUE)
-    @OneToMany(mappedBy = "author")
-    private List<Comment> comments;
+//    @LazyCollection(LazyCollectionOption.TRUE)
+//    @OneToMany(mappedBy = "author")
+//    private List<Comment> comments;
 
     @LazyCollection(LazyCollectionOption.TRUE)
-    @ManyToMany(mappedBy = "members")
-    private List<Task> userTasks;
-
-    public User(String login, String hashPassword, String name) {
-        this.login = login;
-        this.hashPassword = hashPassword;
-        this.name = name;
-    }
+    @ManyToMany
+    @JoinColumn(name = "userId")
+    private List<Task> tasks;
 
     public static User from(UserForm userForm){
         return User.builder()

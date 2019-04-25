@@ -26,9 +26,6 @@ public class ProfileController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private TaskService taskService;
-
     @RequestMapping(path = "/profile", method = RequestMethod.GET)
     public String getUserPage(ModelMap model, Authentication authentication) {
         if (authentication == null) {
@@ -52,7 +49,6 @@ public class ProfileController {
                 return "anotherUserProfile";
             }
         }
-//        TODO: no such user!
         model.addAttribute("flag", true);
         return "profile";
     }

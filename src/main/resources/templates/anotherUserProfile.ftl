@@ -15,7 +15,7 @@ ${user.name}
     <br>
 
     @${user.login}<br>
-    <div class="form-style-2-heading">
+    <div class="form-style-2">
         Tasks:
     </div>
 

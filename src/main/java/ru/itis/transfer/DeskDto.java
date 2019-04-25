@@ -26,7 +26,7 @@ public class DeskDto {
         return DeskDto.builder()
                 .name(desk.getName())
                 .state(desk.getState())
-                .deskMembers(desk.getDeskMembers())
+                .deskMembers(desk.getUsers())
                 .cards(desk.getCards())
                 .build();
     }
