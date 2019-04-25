@@ -22,7 +22,7 @@
     <div class="profile">
         <img src="/css/Auth.png" height="130px" width="130px">
     </div>
-    <div class="profile2">Name: ${user.name}<br>@${user.login}<br><br>
+    <div class="form-style-2-heading">Name: ${user.name}<br>@${user.login}<br><br>
         <button id="Rec" onclick="show('block')">EDIT</button>
         <form action="/logout">
             <button id="Rec">LOG OUT</button>

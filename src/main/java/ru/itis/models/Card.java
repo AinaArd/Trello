@@ -1,6 +1,8 @@
 package ru.itis.models;
 
 import lombok.*;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -11,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@ToString(exclude = {"desk_cards", "card_tasks"})
+@ToString(exclude = {"desk_cards"})
 @Table(name = "card", schema = "public")
 public class Card {
     @Id
@@ -24,8 +26,10 @@ public class Card {
     @JoinColumn(name = "desk_cards")
     private Desk desk_cards;
 
+    @LazyCollection(LazyCollectionOption.TRUE)
     @OneToMany(mappedBy = "card")
     private List<Task> card_tasks;
+
 }
 
 // TODO: прикрепление файлов/фото, чеклисты, упоминания в комментах

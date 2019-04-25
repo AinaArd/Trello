@@ -40,6 +40,7 @@ public class DesksController {
         Long userId = details.getUser().getId();
 
         List<Desk> desks = deskService.findAllUserDesks(userId);
+        model.addAttribute("flag", true);
         model.addAttribute("desks", desks);
         return "desks";
     }
@@ -48,21 +49,16 @@ public class DesksController {
     public String getOneDesk(ModelMap model, @PathVariable(name = "desk-id") Long deskId) {
         if (deskService.findOneDesk(deskId).isPresent()) {
             Desk selectedDesk = deskService.findOneDesk(deskId).get();
-
             List<Card> deskCards = cardService.findDeskCards(selectedDesk.getId());
-            List<List<Task>> tasks = taskService.findAllTasksInAllCards(deskCards);
-
-            System.out.println(tasks);
-
             model.addAttribute("cards", deskCards);
-            model.addAttribute("tasks", tasks);
             model.addAttribute("desks", Collections.singletonList(selectedDesk));
         }
         return "desks";
     }
 
+//    TODO: make desk add
     @PostMapping(path = "/desks", params = {"name", "state"})
-    public String addDesk(DeskForm deskForm, Authentication authentication, @RequestParam(name = "name") String name,
+    public String addDesk(ModelMap model, DeskForm deskForm, Authentication authentication, @RequestParam(name = "name") String name,
                           @RequestParam(name = "state") String state) {
 
         DeskState deskState = DeskState.valueOf(state);
@@ -70,10 +66,10 @@ public class DesksController {
        /* Desk desk = Desk.builder()
                 .name(deskForm.getDeskName())
                 .state(state).build();*/
-      Desk desk = Desk.builder()
-              .name(name)
-              .state(deskState)
-              .build();
+        Desk desk = Desk.builder()
+                .name(name)
+                .state(deskState)
+                .build();
 
         User owner = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
         deskService.addDeskOwner(desk, owner);

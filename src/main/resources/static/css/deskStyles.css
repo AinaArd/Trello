@@ -1,0 +1,17 @@
+div#window {
+    float: left;
+    width: 50%;
+    height: 72%;
+    margin: 40px auto;
+    background: url("edit.jpg") no-repeat;
+    -moz-background-size: 100%; /* Firefox 3.6+ */
+    -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
+    -o-background-size: 100%; /* Opera 9.6+ */
+    background-size: cover; /* Современные браузеры */
+    border: 1px solid #fff;
+    border-radius: 15px;
+    z-index: 150; display: none;
+    position: fixed; left: 0;right: 0;top: 10%;bottom: 0;
+}
+div#gray{opacity: 0.8; padding: 15px;
+    background-color: rgba(1,1,1,0.75); position: fixed; left: 0;right: 0;top:0;bottom: 0; display: none; z-index:100; overflow: auto; }

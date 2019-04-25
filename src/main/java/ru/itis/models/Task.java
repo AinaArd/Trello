@@ -1,6 +1,8 @@
 package ru.itis.models;
 
 import lombok.*;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.List;
@@ -14,7 +16,6 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "task", schema = "public")
-@ToString(exclude = "card_id")
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +23,9 @@ public class Task {
 
     private String text;
 
+    @LazyCollection(LazyCollectionOption.TRUE)
     @ManyToOne
     @JoinColumn(name = "card_id")
     private Card card;
+
 }

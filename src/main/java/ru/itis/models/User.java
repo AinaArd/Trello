@@ -1,6 +1,8 @@
 package ru.itis.models;
 
 import lombok.*;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import ru.itis.forms.EditForm;
 
 import javax.persistence.*;
@@ -24,9 +26,11 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
+    @LazyCollection(LazyCollectionOption.TRUE)
     @ManyToMany(mappedBy = "deskMembers")
     private List<Desk> desks;
 
+    @LazyCollection(LazyCollectionOption.TRUE)
     @OneToMany(mappedBy = "author")
     private List<Comment> comments;
 

@@ -2,6 +2,7 @@ package ru.itis.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -9,17 +10,32 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import ru.itis.security.utils.AuthFailureHandler;
 import ru.itis.security.utils.AuthSuccessHandler;
+
+import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    public final PasswordEncoder passwordEncoder;
-    public final AuthSuccessHandler authSuccessHandler;
-    public final AuthFailureHandler authFailureHandler;
-    public final UserDetailsService service;
+    @Autowired
+    public PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public AuthSuccessHandler authSuccessHandler;
+
+    @Autowired
+    public AuthFailureHandler authFailureHandler;
+
+    @Qualifier("userDetailsServiceImpl")
+    @Autowired
+    public UserDetailsService service;
+
+    @Autowired
+    private DataSource dataSource;
 
     @Autowired
     public SecurityConfig(AuthSuccessHandler successHandler, AuthFailureHandler failureHandler, PasswordEncoder passwordEncoder, @Qualifier("userDetailsServiceImpl") UserDetailsService service) {
@@ -39,6 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/desks/**").authenticated()
                 .antMatchers("/cards/**").authenticated()
                 .and()
+
                 .formLogin()
                 .loginPage("/login")
 //                    .successHandler(authSuccessHandler)
@@ -46,8 +63,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/profile")
                 .usernameParameter("login")
                 .and()
+
                 .rememberMe()
-                .rememberMeParameter("remember-me");
+                .rememberMeParameter("remember-me")
+                .tokenRepository(tokenRepository());
 
         http.csrf().disable();
     }
@@ -55,6 +74,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(service).passwordEncoder(passwordEncoder);
+    }
+
+    @Bean
+    public PersistentTokenRepository tokenRepository() {
+        JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
+        tokenRepository.setDataSource(dataSource);
+        return tokenRepository;
     }
 }
 
