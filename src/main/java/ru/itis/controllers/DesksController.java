@@ -13,11 +13,7 @@ import ru.itis.models.*;
 import ru.itis.security.details.UserDetailsImpl;
 import ru.itis.services.CardService;
 import ru.itis.services.DeskService;
-import ru.itis.services.TaskService;
-import ru.itis.transfer.DeskDto;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 @Controller

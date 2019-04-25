@@ -11,7 +11,6 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "desk", schema = "public")
-@ToString(exclude = {"cards", "desk_members"})
 public class Desk {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

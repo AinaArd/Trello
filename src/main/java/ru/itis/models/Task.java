@@ -7,9 +7,6 @@ import org.hibernate.annotations.LazyCollectionOption;
 import javax.persistence.*;
 import java.util.List;
 
-/**
- * Created by timurbadretdinov on Apr, 2019
- **/
 @Data
 @Builder
 @AllArgsConstructor
@@ -27,5 +24,10 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "card_id")
     private Card card;
+
+    @LazyCollection(LazyCollectionOption.TRUE)
+    @ManyToMany
+    @JoinColumn(name = "task_members")
+    private List<User> members;
 
 }

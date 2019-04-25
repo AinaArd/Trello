@@ -7,9 +7,12 @@
 
 <div class="form-style-2">
     <div class="form-style-2-heading">
-        User profile
+        Profile
     </div>
 
+    <#if flag??>
+    <div class="alert alert-danger" role="alert">No such user!</div>
+    <#else>
         ${user.name}
 
         <br>
@@ -29,7 +32,7 @@
         <form action="/desks">
             <input type="submit" value="Desks"/>
         </form>
-
+    </#if>
 </div>
 </body>
 </html>

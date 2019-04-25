@@ -35,6 +35,10 @@ public class User {
     @OneToMany(mappedBy = "author")
     private List<Comment> comments;
 
+    @LazyCollection(LazyCollectionOption.TRUE)
+    @ManyToMany(mappedBy = "members")
+    private List<Task> userTasks;
+
     public User(String login, String hashPassword, String name) {
         this.login = login;
         this.hashPassword = hashPassword;
