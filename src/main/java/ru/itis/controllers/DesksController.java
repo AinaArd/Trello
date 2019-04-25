@@ -28,9 +28,6 @@ public class DesksController {
     @Autowired
     private CardService cardService;
 
-    @Autowired
-    private TaskService taskService;
-
     @GetMapping(path = "/desks")
     public String getLoginPage(Authentication authentication, ModelMap model) {
         if (authentication == null) {
