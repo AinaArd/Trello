@@ -27,11 +27,12 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @LazyCollection(LazyCollectionOption.TRUE)
     @ManyToMany
     @JoinColumn(name = "userId")
     private List<Desk> desks;
 
+//    TODO: make comments of user to tasks
 //    @LazyCollection(LazyCollectionOption.TRUE)
 //    @OneToMany(mappedBy = "author")
 //    private List<Comment> comments;
@@ -41,7 +42,7 @@ public class User {
     @JoinColumn(name = "userId")
     private List<Task> tasks;
 
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
+    @LazyCollection(LazyCollectionOption.TRUE)
+    @OneToMany(mappedBy = "owner")
     private List<Desk> ownDesks;
 }

@@ -7,7 +7,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import ru.itis.forms.CardForm;
 import ru.itis.forms.DeskForm;
 import ru.itis.models.*;
 import ru.itis.security.details.UserDetailsImpl;
@@ -29,6 +29,7 @@ public class DesksController {
     @Autowired
     private UserService userService;
 
+
     @GetMapping(path = "/desks")
     public String getLoginPage(Authentication authentication, ModelMap model) {
         if (authentication == null) {
@@ -39,7 +40,7 @@ public class DesksController {
         if (userService.findById(id).isPresent()) {
             user = userService.findById(id).get();
         }
-        model.addAttribute("flag", true);
+        model.addAttribute("addDesk", true);
         model.addAttribute("userDesks", user);
         return "desks";
     }
@@ -50,24 +51,35 @@ public class DesksController {
             Desk selectedDesk = deskService.findOneDesk(deskId).get();
             List<Card> deskCards = cardService.findDeskCards(selectedDesk.getId());
             model.addAttribute("deskName", true);
+            model.addAttribute("addCard", true);
             model.addAttribute("cards", deskCards);
         }
         return "desks";
     }
 
-    @PostMapping(path = "/desks", params = {"name", "state"})
-    public String addDesk(DeskForm deskForm, Authentication authentication, @RequestParam(name = "name") String name,
-                          @RequestParam(name = "state") String state) {
-
-        DeskState deskState = DeskState.valueOf(state);
+    @PostMapping(path = "/desks")
+    public String addDesk(DeskForm deskForm, Authentication authentication) {
+        DeskState deskState = DeskState.valueOf(deskForm.getState());
         User userOwner = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
-
-        Desk desk = Desk.builder()
+        Desk newDesk = Desk.builder()
                 .name(deskForm.getName())
                 .state(deskState)
                 .owner(userOwner)
                 .build();
-        deskService.addDesk(desk);
+        deskService.addDesk(newDesk);
         return "redirect:desks";
+    }
+
+    @PostMapping(path = "/desks/{desk-id}")
+    public String addCard(CardForm cardForm, @PathVariable(name = "desk-id") Long deskId){
+        if(deskService.findOneDesk(deskId).isPresent()) {
+            Desk desk = deskService.findOneDesk(deskId).get();
+            Card newCard = Card.builder()
+                    .name(cardForm.getName())
+                    .desk(desk)
+                    .build();
+            cardService.addCard(newCard);
+        }
+        return "redirect:{desk-id}";
     }
 }

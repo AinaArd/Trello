@@ -19,7 +19,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public List<Task> findCardTasks(Card card) {
-        return tasksRepository.findAllByCard(card);
+        return tasksRepository.findAllByCardOrderByText(card);
     }
 
     @Override

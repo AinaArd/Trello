@@ -3,10 +3,7 @@ package ru.itis.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.itis.models.Card;
-import ru.itis.models.Task;
-import ru.itis.models.User;
 import ru.itis.repositories.CardsRepository;
-import ru.itis.transfer.UserDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,8 +20,6 @@ public class CardServiceImpl implements CardService {
         return cardsRepository.findAllByDesk_cards(id);
     }
 
-
-
     @Override
     public Optional<Card> findById(Long cardId) {
         return cardsRepository.findById(cardId);
@@ -33,5 +28,10 @@ public class CardServiceImpl implements CardService {
     @Override
     public List<Card> findAll() {
         return cardsRepository.findAll();
+    }
+
+    @Override
+    public void addCard(Card newCard) {
+        cardsRepository.save(newCard);
     }
 }

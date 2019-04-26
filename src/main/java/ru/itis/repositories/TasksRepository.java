@@ -7,7 +7,7 @@ import ru.itis.models.Task;
 import java.util.List;
 
 public interface TasksRepository extends JpaRepository<Task, Long> {
-    List<Task> findAllByCard(Card card);
+    List<Task> findAllByCardOrderByText(Card card);
 
     @Override
     <S extends Task> S save(S s);

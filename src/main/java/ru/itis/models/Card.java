@@ -22,8 +22,8 @@ public class Card {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "cardId")
-    private Desk deskCards;
+    @JoinColumn(name = "deskId")
+    private Desk desk;
 
     @LazyCollection(LazyCollectionOption.TRUE)
     @OneToMany(mappedBy = "card")

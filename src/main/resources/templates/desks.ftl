@@ -27,7 +27,10 @@
         </#if>
     </ul>
 
-<#if flag??>
+<#if addDesk??>
+ <div class="form-style-2-heading">
+     If you want to add new desk, enter the name
+ </div>
     <form method="post">
         <label for="name">Name
             <input class="input-field" type="text" id="name" name="name">
@@ -52,15 +55,25 @@
         </#list>
     </#list>
 
-    <input onclick="show('block')" type="submit" value="Add users">
-
-
+    <#if addCard??>
+     <div class="form-style-2-heading">
+         If you want to add new card, enter the name
+     </div>
+    <form method="post">
+        <label for="name">Name
+            <input class="input-field" type="text" id="name" name="name">
+        </label>
+        <br>
+        <input type="submit" value="Save">
+    </form>
+<br>
+    </#if>
 </#if>
 </div>
 
 <div id="window">
-        <input type="text" name="login" placeholder="Login"/><br>
-        <button class="btn btn-primary btn-block btn-large">Search</button>
+    <input type="text" name="login" placeholder="Login"/><br>
+    <button class="btn btn-primary btn-block btn-large">Search</button>
 </div>
 
 <script>

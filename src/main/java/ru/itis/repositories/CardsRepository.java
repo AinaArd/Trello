@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface CardsRepository extends JpaRepository<Card, Long> {
 
-    @Query(nativeQuery = true, value = "select * from card inner join desk d on card.desk_cards = d.id where d.id=?")
+    @Query(nativeQuery = true, value = "select * from card inner join desk d on card.desk_id = d.id where d.id=?")
     List<Card> findAllByDesk_cards(Long deskId);
 
     @Override

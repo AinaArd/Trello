@@ -26,7 +26,7 @@ public class Desk {
     @ManyToMany(mappedBy = "desks")
     private List<User> users;
 
-    @OneToMany(mappedBy = "deskCards")
+    @OneToMany(mappedBy = "desk")
     private List<Card> cards;
 
     @ManyToOne
