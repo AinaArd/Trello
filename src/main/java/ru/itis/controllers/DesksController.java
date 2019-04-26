@@ -13,6 +13,7 @@ import ru.itis.models.*;
 import ru.itis.security.details.UserDetailsImpl;
 import ru.itis.services.CardService;
 import ru.itis.services.DeskService;
+import ru.itis.services.UserService;
 
 import java.util.List;
 
@@ -25,12 +26,19 @@ public class DesksController {
     @Autowired
     private CardService cardService;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping(path = "/desks")
     public String getLoginPage(Authentication authentication, ModelMap model) {
         if (authentication == null) {
             return "redirect:login";
         }
         User user = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
+        Long id = user.getId();
+        if (userService.findById(id).isPresent()) {
+            user = userService.findById(id).get();
+        }
         model.addAttribute("flag", true);
         model.addAttribute("userDesks", user);
         return "desks";
@@ -47,7 +55,7 @@ public class DesksController {
         return "desks";
     }
 
-//    TODO: make desk add
+    //    TODO: make desk add
     @PostMapping(path = "/desks", params = {"name", "state"})
     public String addDesk(DeskForm deskForm, Authentication authentication, @RequestParam(name = "name") String name,
                           @RequestParam(name = "state") String state) {
@@ -63,10 +71,7 @@ public class DesksController {
                 .state(deskState)
                 .owner(userOwner)
                 .build();
-        System.out.println(desk);
-
         deskService.addDesk(desk);
-
         return "redirect:desks";
     }
 }

@@ -42,6 +42,6 @@ public class User {
     private List<Task> tasks;
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
     private List<Desk> ownDesks;
 }
