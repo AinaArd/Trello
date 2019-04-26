@@ -15,7 +15,7 @@
     </div>
     <ul>
         <#if userDesks ??>
-            <#list userDesks.getDesks() as desk>
+            <#list userDesks.ownDesks as desk>
                 <li>
                     <a href="/desks/${desk.id}">${desk.name} </a>
                     <br>

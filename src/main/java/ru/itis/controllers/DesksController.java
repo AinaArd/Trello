@@ -31,7 +31,6 @@ public class DesksController {
             return "redirect:login";
         }
         User user = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
-//        List<Desk> desks = deskService.findAllUserDesks(user.getId());
         model.addAttribute("flag", true);
         model.addAttribute("userDesks", user);
         return "desks";
@@ -50,7 +49,7 @@ public class DesksController {
 
 //    TODO: make desk add
     @PostMapping(path = "/desks", params = {"name", "state"})
-    public String addDesk(ModelMap model, DeskForm deskForm, Authentication authentication, @RequestParam(name = "name") String name,
+    public String addDesk(DeskForm deskForm, Authentication authentication, @RequestParam(name = "name") String name,
                           @RequestParam(name = "state") String state) {
 
         DeskState deskState = DeskState.valueOf(state);
@@ -58,15 +57,16 @@ public class DesksController {
        /* Desk desk = Desk.builder()
                 .name(deskForm.getDeskName())
                 .state(state).build();*/
+        User userOwner = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
         Desk desk = Desk.builder()
                 .name(name)
                 .state(deskState)
+                .owner(userOwner)
                 .build();
         System.out.println(desk);
 
-        User owner = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
-//        deskService.addDeskOwner(desk, owner);
         deskService.addDesk(desk);
+
         return "redirect:desks";
     }
 }

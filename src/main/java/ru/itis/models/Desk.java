@@ -1,6 +1,8 @@
 package ru.itis.models;
 
 import lombok.*;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.List;
@@ -26,6 +28,10 @@ public class Desk {
 
     @OneToMany(mappedBy = "deskCards")
     private List<Card> cards;
+
+    @ManyToOne
+    @JoinColumn(name = "owner")
+    private User owner;
 
 
 }

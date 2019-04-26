@@ -19,7 +19,7 @@ ${user.name}
         Tasks:
     </div>
 
-        <#list user.userTasks as task>
+        <#list user.tasks as task>
             <ul>
                 <li>${task.text}</li>
             </ul>

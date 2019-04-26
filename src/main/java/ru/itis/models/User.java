@@ -27,7 +27,7 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
-    @LazyCollection(LazyCollectionOption.TRUE)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany
     @JoinColumn(name = "userId")
     private List<Desk> desks;
@@ -41,11 +41,7 @@ public class User {
     @JoinColumn(name = "userId")
     private List<Task> tasks;
 
-    public static User from(UserForm userForm){
-        return User.builder()
-                .login(userForm.getLogin())
-                .name(userForm.getName())
-                .hashPassword(userForm.getPassword())
-                .build();
-    }
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
+    private List<Desk> ownDesks;
 }
