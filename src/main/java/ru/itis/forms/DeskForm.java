@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 public class DeskForm {
-    private String deskName;
-    private String deskState;
+    private String name;
+    private String state;
 }

@@ -55,19 +55,15 @@ public class DesksController {
         return "desks";
     }
 
-    //    TODO: make desk add
     @PostMapping(path = "/desks", params = {"name", "state"})
     public String addDesk(DeskForm deskForm, Authentication authentication, @RequestParam(name = "name") String name,
                           @RequestParam(name = "state") String state) {
 
         DeskState deskState = DeskState.valueOf(state);
-//        TODO: fix error with DeskForm
-       /* Desk desk = Desk.builder()
-                .name(deskForm.getDeskName())
-                .state(state).build();*/
         User userOwner = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
+
         Desk desk = Desk.builder()
-                .name(name)
+                .name(deskForm.getName())
                 .state(deskState)
                 .owner(userOwner)
                 .build();
