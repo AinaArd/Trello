@@ -10,11 +10,11 @@
     </div>
     <form method="post">
         <label for="name">Name
-            <input class="input-field" type="text" id="name" name="name">
+            <input class="input-field" type="text" id="name" name="name" value="${user.name}">
         </label>
         <br>
         <label for="oldLogin">Old login
-            <input class="input-field" type="text" id="oldLogin" name="oldLogin">
+            <input class="input-field" type="text" id="oldLogin" name="oldLogin" value="${user.login}">
         </label>
         <label for="newLogin">New login
             <input class="input-field" type="text" id="newLogin" name="newLogin">
