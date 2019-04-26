@@ -44,5 +44,6 @@ public class User {
 
     @LazyCollection(LazyCollectionOption.TRUE)
     @OneToMany(mappedBy = "owner")
+    @OrderBy()
     private List<Desk> ownDesks;
 }

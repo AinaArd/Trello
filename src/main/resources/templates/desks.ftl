@@ -2,6 +2,9 @@
 <head>
     <link href="/css/styles.css" rel="stylesheet" type="text/css">
     <link href="/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
 <div onclick="show('none')" id="gray"></div>
@@ -17,8 +20,7 @@
         <#if userDesks ??>
             <#list userDesks.ownDesks as desk>
                 <li>
-                    <a href="/desks/${desk.id}">${desk.name} </a>
-                    <br>
+                    <a href="/desks/${desk.id}">${desk.name}</a>&nbsp;&nbsp;
                     ${desk.state}
                     <br>
                 </li>
@@ -46,10 +48,20 @@
 
 <#if cards??>
     <#list cards as card>
-        ${card.name}<br>
+
+        <div class="dropdown">
+            ${card.name}&nbsp;&nbsp;<a class="dropdown-toggle" data-toggle="dropdown" href="#">Actions<span class="caret"></span></a>
+            <br>
+            <br>
+            <ul class="dropdown-menu">
+                <li><a href="#">Add task</a></li>
+                <li><a href="#">Edit name</a></li>
+            </ul>
+        </div>
+
         <#list card.cardTasks as task>
                     <ul>
-                        <li><#--<a href="/tasks/${task.id}">-->${task.text}</li>
+                        <li><a href="/tasks/${task.id}">${task.text}</a></li>
                         <br>
                     </ul>
         </#list>
@@ -69,19 +81,18 @@
 <br>
     </#if>
 </#if>
-</div>
 
-<div id="window">
-    <input type="text" name="login" placeholder="Login"/><br>
-    <button class="btn btn-primary btn-block btn-large">Search</button>
-</div>
+    <div id="window">
+        <input type="text" name="login" placeholder="Login"/><br>
+        <button class="btn btn-primary btn-block btn-large">Search</button>
+    </div>
 
-<script>
-    //Функция показа
-    function show(state) {
-        document.getElementById('window').style.display = state;
-        document.getElementById('gray').style.display = state;
-    }
-</script>
+    <script>
+        //Функция показа
+        function show(state) {
+            document.getElementById('window').style.display = state;
+            document.getElementById('gray').style.display = state;
+        }
+    </script>
 </body>
 </html>

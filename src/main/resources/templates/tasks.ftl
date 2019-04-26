@@ -1,21 +1,23 @@
 <html>
 <head>
+    <link href="/css/styles.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
-
-<#if tasks??>
-    <#list tasks as task>
-        <tr>
-            <td><a href="#">${task.text}</td><br>
-        </tr>
-    </#list>
-</#if>
-
-<form method="post">
-    <input type="text" id="text" name="text">
-    <button type="submit" id="save" value="Add task"></button>
-</form>
-
+<div class="form-style-2">
+    <div class="form-style-2-heading">
+        Task info
+    </div>
+        ${task.text}
+    <br>
+    <br>
+    <br>
+    <form action="#" method="get">
+        <input type="submit" value="Add users to task"/>
+    </form>
+    <form action="#" method="get">
+        <input type="submit" value="Archive"/>
+    </form>
+</div>
 </body>
 </html>
