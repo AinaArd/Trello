@@ -21,7 +21,7 @@ ${user.name}
 
         <#list user.tasks as task>
             <ul>
-                <li>${task.text}</li>
+                <li>${task.name}</li>
             </ul>
         </#list>
 

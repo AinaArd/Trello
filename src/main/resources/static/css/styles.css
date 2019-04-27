@@ -104,3 +104,17 @@ div#window {
     z-index: 150; display: none;
     position: fixed; left: 0;right: 0;top: 10%;bottom: 0;
 }
+
+.form-style-add {
+    font-weight: bold;
+    font-style: italic;
+    margin-bottom: 20px;
+    font-size: 12px;
+    padding-bottom: 3px;
+}
+
+.card-name{
+    font-size: 14px;
+    border-top: 2px solid #ddd;
+    padding-top: 10px;
+}

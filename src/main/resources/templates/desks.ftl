@@ -50,7 +50,9 @@
     <#list cards as card>
 
         <div class="dropdown">
-            ${card.name}&nbsp;&nbsp;<a class="dropdown-toggle" data-toggle="dropdown" href="#">Actions<span class="caret"></span></a>
+
+                ${card.name}&nbsp;&nbsp;<a class="dropdown-toggle" data-toggle="dropdown" href="#">Actions<span class="caret"></span></a>
+
             <br>
             <br>
             <ul class="dropdown-menu">
@@ -61,10 +63,21 @@
 
         <#list card.cardTasks as task>
                     <ul>
-                        <li><a href="/tasks/${task.id}">${task.text}</a></li>
+                        <li><a href="/tasks/${task.id}">${task.name}</a></li>
                         <br>
                     </ul>
         </#list>
+    <div class="form-style-add">
+        Add task to the card
+    </div>
+        <form method="post">
+            <label for="taskName">Task Name
+                <input class="input-field" type="text" id="taskName" name="taskName">
+            </label>
+            <br>
+            <input type="submit" value="Save">
+
+        </form>
     </#list>
 
     <#if addCard??>
@@ -82,7 +95,7 @@
     </#if>
 </#if>
 
-    <div id="window">
+   <#-- <div id="window">
         <input type="text" name="login" placeholder="Login"/><br>
         <button class="btn btn-primary btn-block btn-large">Search</button>
     </div>
@@ -93,6 +106,6 @@
             document.getElementById('window').style.display = state;
             document.getElementById('gray').style.display = state;
         }
-    </script>
+    </script>-->
 </body>
 </html>

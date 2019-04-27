@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.itis.forms.CardForm;
 import ru.itis.forms.DeskForm;
+import ru.itis.forms.TaskForm;
 import ru.itis.models.*;
 import ru.itis.security.details.UserDetailsImpl;
 import ru.itis.services.CardService;
 import ru.itis.services.DeskService;
+import ru.itis.services.TaskService;
 import ru.itis.services.UserService;
 
 import java.util.List;
@@ -25,6 +27,9 @@ public class DesksController {
 
     @Autowired
     private CardService cardService;
+
+    @Autowired
+    private TaskService taskService;
 
     @Autowired
     private UserService userService;
@@ -71,8 +76,8 @@ public class DesksController {
     }
 
     @PostMapping(path = "/desks/{desk-id}")
-    public String addCard(CardForm cardForm, @PathVariable(name = "desk-id") Long deskId){
-        if(deskService.findOneDesk(deskId).isPresent()) {
+    public String addCard(CardForm cardForm, @PathVariable(name = "desk-id") Long deskId) {
+        if (deskService.findOneDesk(deskId).isPresent()) {
             Desk desk = deskService.findOneDesk(deskId).get();
             Card newCard = Card.builder()
                     .name(cardForm.getName())
@@ -82,4 +87,15 @@ public class DesksController {
         }
         return "redirect:{desk-id}";
     }
+
+    /*@PostMapping(path = "/desks/{desk-id}")
+    public String addTask(TaskForm taskForm,) {
+        Card card =
+        Task task = Task.builder()
+                .name(taskForm.getTaskName())
+                .card(card)
+                .build();
+        taskService.addTask(task);
+        return "redirect:{desk-id}";
+    }*/
 }

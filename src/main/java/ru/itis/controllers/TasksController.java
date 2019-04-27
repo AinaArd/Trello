@@ -21,6 +21,9 @@ public class TasksController {
     public String getCardTasks(ModelMap model, @PathVariable(name = "task-id") Long taskId){
         if(taskService.findTaskById(taskId).isPresent()) {
             Task task = taskService.findTaskById(taskId).get();
+            if(task.getText() == null) {
+                model.addAttribute("noText", true);
+            }
             model.addAttribute("task", task);
         }
         return "tasks";
