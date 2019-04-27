@@ -14,4 +14,5 @@ public interface TaskService {
     void addTask(Task task);
     List<List<Task>> findAllTasksInAllCards(List<Card> cards);
     void edit(TaskEditForm taskEditForm, Task task);
+    void addText(TaskEditForm taskEditForm, Task task);
 }

@@ -30,10 +30,11 @@ public class TasksController {
 
     @PostMapping("/tasks/{task-id}")
     public String editTaskInfo(@PathVariable(name = "task-id") Long taskId, TaskEditForm taskEditForm){
-        System.out.println(taskEditForm.getName());
         if(taskService.findTaskById(taskId).isPresent()) {
             Task task = taskService.findTaskById(taskId).get();
-
+            if(task.getText() == null) {
+                taskService.addText(taskEditForm, task);
+            } else
             taskService.edit(taskEditForm, task);
         }
         return "redirect:{task-id}";

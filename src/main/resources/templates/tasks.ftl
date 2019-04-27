@@ -9,10 +9,11 @@
     ${task.name}
     </div>
     <#if noText??>
-        <form method="get">
-            <label for="newText">Add text to the task
-                <input class="input-field" type="text" id="newText" name="newText">
+        <form method="post">
+            <label for="text">Add text to the task
+                <input class="input-field" type="text" id="text" name="text">
             </label>
+            <input type="submit" value="Save"/>
         </form>
     <#else>
         ${task.text}

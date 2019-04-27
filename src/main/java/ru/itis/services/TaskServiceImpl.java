@@ -49,4 +49,11 @@ public class TaskServiceImpl implements TaskService {
         tasksRepository.saveAndFlush(task);
     }
 
+    @Override
+    public void addText(TaskEditForm taskEditForm, Task task) {
+        System.out.println(taskEditForm.getText());
+        task.setText(taskEditForm.getText());
+        tasksRepository.saveAndFlush(task);
+    }
+
 }
