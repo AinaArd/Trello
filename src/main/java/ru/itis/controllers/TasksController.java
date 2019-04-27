@@ -5,11 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import ru.itis.models.Card;
+import org.springframework.web.bind.annotation.PostMapping;
+import ru.itis.forms.TaskEditForm;
 import ru.itis.models.Task;
 import ru.itis.services.TaskService;
-
-import java.util.List;
 
 @Controller
 public class TasksController {
@@ -27,5 +26,16 @@ public class TasksController {
             model.addAttribute("task", task);
         }
         return "tasks";
+    }
+
+    @PostMapping("/tasks/{task-id}")
+    public String editTaskInfo(@PathVariable(name = "task-id") Long taskId, TaskEditForm taskEditForm){
+        System.out.println(taskEditForm.getName());
+        if(taskService.findTaskById(taskId).isPresent()) {
+            Task task = taskService.findTaskById(taskId).get();
+
+            taskService.edit(taskEditForm, task);
+        }
+        return "redirect:{task-id}";
     }
 }

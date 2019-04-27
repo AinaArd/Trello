@@ -2,6 +2,7 @@ package ru.itis.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.itis.forms.TaskEditForm;
 import ru.itis.models.Card;
 import ru.itis.models.Task;
 import ru.itis.models.User;
@@ -39,6 +40,13 @@ public class TaskServiceImpl implements TaskService {
             tasks.add(findCardTasks(card));
         }
         return tasks;
+    }
+
+    @Override
+    public void edit(TaskEditForm taskEditForm, Task task) {
+        task.setName(taskEditForm.getName());
+        task.setText(taskEditForm.getText());
+        tasksRepository.saveAndFlush(task);
     }
 
 }

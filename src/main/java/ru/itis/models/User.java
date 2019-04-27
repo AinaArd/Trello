@@ -3,8 +3,6 @@ package ru.itis.models;
 import lombok.*;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-import ru.itis.forms.EditForm;
-import ru.itis.forms.UserForm;
 
 import javax.persistence.*;
 import java.util.List;

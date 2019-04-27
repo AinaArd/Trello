@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import ru.itis.forms.EditForm;
+import ru.itis.forms.UserEditForm;
 import ru.itis.models.User;
 import ru.itis.security.details.UserDetailsImpl;
 import ru.itis.services.UserServiceImpl;
@@ -25,9 +25,9 @@ public class EditController {
     }
 
     @PostMapping(path = "/edit")
-    public String editUserProfile(Authentication authentication, EditForm editForm) {
-        if (userService.checkLoginAndPassword(editForm)) {
-            userService.saveAndFlush(editForm, authentication);
+    public String editUserProfile(Authentication authentication, UserEditForm userEditForm) {
+        if (userService.checkLoginAndPassword(userEditForm)) {
+            userService.saveAndFlush(userEditForm, authentication);
             return "redirect:profile";
         }
         return "redirect:edit";

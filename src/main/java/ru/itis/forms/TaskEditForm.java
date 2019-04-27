@@ -7,10 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class  EditForm {
+public class TaskEditForm {
     private String name;
-    private String oldLogin;
-    private String newLogin;
-    private String oldPassword;
-    private String newPassword;
+    private String text;
 }

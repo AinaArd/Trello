@@ -1,5 +1,6 @@
 package ru.itis.services;
 
+import ru.itis.forms.TaskEditForm;
 import ru.itis.models.Card;
 import ru.itis.models.Task;
 import ru.itis.models.User;
@@ -12,4 +13,5 @@ public interface TaskService {
     Optional<Task> findTaskById(Long id);
     void addTask(Task task);
     List<List<Task>> findAllTasksInAllCards(List<Card> cards);
+    void edit(TaskEditForm taskEditForm, Task task);
 }

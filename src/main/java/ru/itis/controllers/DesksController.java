@@ -88,6 +88,7 @@ public class DesksController {
         return "redirect:{desk-id}";
     }
 
+//    TODO: add card to the new task
     /*@PostMapping(path = "/desks/{desk-id}")
     public String addTask(TaskForm taskForm,) {
         Card card =

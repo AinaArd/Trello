@@ -10,21 +10,22 @@
     </div>
     <#if noText??>
         <form method="get">
-            <label for="text">Add text to the task
-                <input class="input-field" type="text" id="text" name="text">
+            <label for="newText">Add text to the task
+                <input class="input-field" type="text" id="newText" name="newText">
             </label>
         </form>
     <#else>
         ${task.text}
     <br>
     <br>
-        <form method="get">Edit task
-            <label for="taskName">Name
-                <input class="input-field" type="text" id="taskName" name="taskName" value="${task.name}">
+        <form method="post">Edit task
+            <label for="name">Name
+                <input class="input-field" type="text" id="name" name="name" value="${task.name}">
             </label>
-            <label for="taskText">Text
-                <input class="input-field" type="text" id="taskText" name="taskText" value="${task.text}">
+            <label for="text">Text
+                <input class="input-field" type="text" id="text" name="text" value="${task.text}">
             </label>
+            <input type="submit" value="Save"/>
         </form>
     </#if>
     <br>

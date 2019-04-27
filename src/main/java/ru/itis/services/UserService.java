@@ -1,7 +1,7 @@
 package ru.itis.services;
 
 import org.springframework.security.core.Authentication;
-import ru.itis.forms.EditForm;
+import ru.itis.forms.UserEditForm;
 import ru.itis.forms.UserForm;
 import ru.itis.models.User;
 
@@ -17,7 +17,7 @@ public interface UserService {
 
     Optional<User> findByLoginAndPassword(UserForm userForm);
 
-    void saveAndFlush(EditForm editForm, Authentication authentication);
+    void saveAndFlush(UserEditForm userEditForm, Authentication authentication);
 
-    boolean checkLoginAndPassword(EditForm editForm);
+    boolean checkLoginAndPassword(UserEditForm userEditForm);
 }
