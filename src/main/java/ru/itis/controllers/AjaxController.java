@@ -26,7 +26,6 @@ public class AjaxController {
                 .name(taskName)
                 .card(card)
                 .build();
-        System.out.println(task.getName());
         Task newTask = taskService.addTask(task);
         return ResponseEntity.ok(newTask.getId());
     }

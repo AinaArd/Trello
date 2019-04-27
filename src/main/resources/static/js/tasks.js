@@ -11,7 +11,6 @@ function addTask(event) {
             "name": name.value
         },
         success: function (id) {
-            console.log("success");
             var li = document.createElement("li");
             var a = document.createElement("a");
             a.href = "/tasks/" + id;

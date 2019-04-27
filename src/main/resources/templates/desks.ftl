@@ -7,7 +7,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div onclick="show('none')" id="gray"></div>
+<#--<div onclick="show('none')" id="gray"></div>-->
 
 <div class="form-style-2">
     <div class="form-style-2-heading">
@@ -56,7 +56,7 @@
             <br>
             <br>
             <ul class="dropdown-menu">
-                <li><a href="#">Add task</a></li>
+                <li><a href="#" onclick="show(document.getElementById('addTaskTo${card.id}'))">Add task</a></li>
                 <li><a href="#">Edit name</a></li>
             </ul>
         </div>
@@ -72,7 +72,7 @@
                 </li>
             </#list>
         </ul>
-            <div id="addTaskName">
+            <div id="addTaskTo${card.id}" style="display: none;">
                 <input class="input-field" type="text" id="input${card.id}">
                 <br>
                 <br>
@@ -97,6 +97,15 @@
     </#if>
 </#if>
 
+    <script>
+        function show(div) {
+            if(div.style.display === "none") {
+                div.style.display = "block";
+            } else
+                div.style.display = "none"
+        }
+    </script>
+    
 <#-- <div id="window">
      <input type="text" name="login" placeholder="Login"/><br>
      <button class="btn btn-primary btn-block btn-large">Search</button>
