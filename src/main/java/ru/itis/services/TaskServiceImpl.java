@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import ru.itis.forms.TaskEditForm;
 import ru.itis.models.Card;
 import ru.itis.models.Task;
-import ru.itis.models.User;
 import ru.itis.repositories.TasksRepository;
 
 import java.util.ArrayList;
@@ -29,8 +28,8 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void addTask(Task task) {
-        tasksRepository.save(task);
+    public Task addTask(Task task) {
+        return tasksRepository.save(task);
     }
 
     @Override

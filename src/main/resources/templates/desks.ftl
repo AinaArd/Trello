@@ -49,10 +49,10 @@
 <#if cards??>
     <#list cards as card>
 
-        <div class="dropdown">
+        <div class="dropdown" id=card${card.id}>
 
-                ${card.name}&nbsp;&nbsp;<a class="dropdown-toggle" data-toggle="dropdown" href="#">Actions<span class="caret"></span></a>
-
+            ${card.name}&nbsp;&nbsp;<a class="dropdown-toggle" data-toggle="dropdown" href="#">Actions<span
+                class="caret"></span></a>
             <br>
             <br>
             <ul class="dropdown-menu">
@@ -60,24 +60,26 @@
                 <li><a href="#">Edit name</a></li>
             </ul>
         </div>
-
-        <#list card.cardTasks as task>
-                    <ul>
-                        <li><a href="/tasks/${task.id}">${task.name}</a></li>
+        <ul id="ul-id${card.id}">
+            <#list card.cardTasks as task>
+                <li>
+                    <div id="task${task.id}" data-cardId="${card.id}">
+                        <a href="/tasks/${task.id}">${task.name}</a>
                         <br>
-                    </ul>
-        </#list>
-    <div class="form-style-add">
-        Add task to the card
-    </div>
-        <form method="post">
-            <label for="taskName">Task Name
-                <input class="input-field" type="text" id="taskName" name="taskName">
-            </label>
-            <br>
-            <input type="submit" value="Save">
-
-        </form>
+                    </div>
+                    <br>
+                    <br>
+                </li>
+            </#list>
+        </ul>
+            <div id="addTaskName">
+                <input class="input-field" type="text" id="input${card.id}">
+                <br>
+                <br>
+                <button class="button-add" onclick="addTask(event)" id="${card.id}">Add task</button>
+            </div>
+    <br>
+    <br>
     </#list>
 
     <#if addCard??>
@@ -95,17 +97,18 @@
     </#if>
 </#if>
 
-   <#-- <div id="window">
-        <input type="text" name="login" placeholder="Login"/><br>
-        <button class="btn btn-primary btn-block btn-large">Search</button>
-    </div>
+<#-- <div id="window">
+     <input type="text" name="login" placeholder="Login"/><br>
+     <button class="btn btn-primary btn-block btn-large">Search</button>
+ </div>
 
-    <script>
-        //Функция показа
-        function show(state) {
-            document.getElementById('window').style.display = state;
-            document.getElementById('gray').style.display = state;
-        }
-    </script>-->
+ <script>
+     //Функция показа
+     function show(state) {
+         document.getElementById('window').style.display = state;
+         document.getElementById('gray').style.display = state;
+     }
+ </script>-->
+    <script type="application/javascript" src="/js/tasks.js"></script>
 </body>
 </html>

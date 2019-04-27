@@ -94,15 +94,20 @@ div#window {
     width: 50%;
     height: 50%;
     margin: 40px auto;
-    background:  #EA7B00;
+    background: #EA7B00;
     -moz-background-size: 100%; /* Firefox 3.6+ */
     -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
     -o-background-size: 100%; /* Opera 9.6+ */
     background-size: cover; /* Современные браузеры */
     border: 1px solid #fff;
     border-radius: 15px;
-    z-index: 150; display: none;
-    position: fixed; left: 0;right: 0;top: 10%;bottom: 0;
+    z-index: 150;
+    display: none;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 10%;
+    bottom: 0;
 }
 
 .form-style-add {
@@ -113,8 +118,26 @@ div#window {
     padding-bottom: 3px;
 }
 
-.card-name{
+.card-name {
     font-size: 14px;
     border-top: 2px solid #ddd;
     padding-top: 10px;
+}
+
+.button-add {
+    border: none;
+    padding: 8px 15px 8px 15px;
+    background: #FF8500;
+    color: #fff;
+    box-shadow: 1px 1px 4px #DADADA;
+    -moz-box-shadow: 1px 1px 4px #DADADA;
+    -webkit-box-shadow: 1px 1px 4px #DADADA;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+}
+
+.button-add:hover {
+    background: #EA7B00;
+    color: #fff;
 }

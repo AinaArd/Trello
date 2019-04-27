@@ -32,7 +32,7 @@ public class TasksController {
     public String editTaskInfo(@PathVariable(name = "task-id") Long taskId, TaskEditForm taskEditForm){
         if(taskService.findTaskById(taskId).isPresent()) {
             Task task = taskService.findTaskById(taskId).get();
-            if(task.getText() == null) {
+            if(task.getText() == null || task.getText().equals("")) {
                 taskService.addText(taskEditForm, task);
             } else
             taskService.edit(taskEditForm, task);
