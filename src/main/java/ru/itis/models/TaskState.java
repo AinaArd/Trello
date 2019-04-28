@@ -1,5 +1,5 @@
 package ru.itis.models;
 
-public enum CardState {
+public enum TaskState {
     TODO, DONE, IN_PROCESS, FOR_CHECK;
 }

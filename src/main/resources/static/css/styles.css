@@ -120,7 +120,6 @@ div#window {
 
 .card-name {
     font-size: 14px;
-    border-top: 2px solid #ddd;
     padding-top: 10px;
 }
 
@@ -140,4 +139,10 @@ div#window {
 .button-add:hover {
     background: #EA7B00;
     color: #fff;
+}
+
+.edit {
+    font-size: 14px;
+    padding-bottom: 5px;
+    font-style: italic;
 }

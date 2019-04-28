@@ -11,8 +11,8 @@
 
 <div class="form-style-2">
     <div class="form-style-2-heading">
-        <#if deskName??>
-            This desk cards
+        <#if selectedDesk??>
+            ${selectedDesk.name}
         <#else>User desks
         </#if>
     </div>
@@ -50,9 +50,11 @@
     <#list cards as card>
 
         <div class="dropdown" id=card${card.id}>
-
-            ${card.name}&nbsp;&nbsp;<a class="dropdown-toggle" data-toggle="dropdown" href="#">Actions<span
-                class="caret"></span></a>
+            <span class="card-name">Card: ${card.name}
+            </span>
+            &nbsp;&nbsp;
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Actions<span
+                    class="caret"></span></a>
             <br>
             <br>
             <ul class="dropdown-menu">
@@ -65,14 +67,13 @@
                 <li>
                     <div id="task${task.id}" data-cardId="${card.id}">
                         <a href="/tasks/${task.id}">${task.name}</a>
-                        <br>
                     </div>
-                    <br>
                     <br>
                 </li>
             </#list>
         </ul>
             <div id="addTaskTo${card.id}" style="display: none;">
+                Enter task name
                 <input class="input-field" type="text" id="input${card.id}">
                 <br>
                 <br>
@@ -96,16 +97,15 @@
 <br>
     </#if>
 </#if>
-
     <script>
         function show(div) {
-            if(div.style.display === "none") {
+            if (div.style.display === "none") {
                 div.style.display = "block";
             } else
                 div.style.display = "none"
         }
     </script>
-    
+
 <#-- <div id="window">
      <input type="text" name="login" placeholder="Login"/><br>
      <button class="btn btn-primary btn-block btn-large">Search</button>

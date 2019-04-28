@@ -21,13 +21,16 @@ public class Task {
     private String name;
     private String text;
 
+    @Enumerated(EnumType.STRING)
+    private TaskState state;
+
     @LazyCollection(LazyCollectionOption.TRUE)
     @ManyToOne
     @JoinColumn(name = "cardId")
     private Card card;
 
     @LazyCollection(LazyCollectionOption.TRUE)
-    @ManyToMany(mappedBy = "tasks")
+    @ManyToMany(mappedBy = "tasks", cascade = CascadeType.ALL)
     private List<User> users;
 
 }

@@ -36,7 +36,7 @@ public class User {
 //    private List<Comment> comments;
 
     @LazyCollection(LazyCollectionOption.TRUE)
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "userId")
     private List<Task> tasks;
 

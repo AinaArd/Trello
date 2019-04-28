@@ -23,7 +23,7 @@ public class Desk {
     @Enumerated(EnumType.STRING)
     private DeskState state;
 
-    @ManyToMany(mappedBy = "desks")
+    @ManyToMany(mappedBy = "desks", cascade = CascadeType.ALL)
     private List<User> users;
 
     @OneToMany(mappedBy = "desk")

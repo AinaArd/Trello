@@ -55,7 +55,7 @@ public class DesksController {
         if (deskService.findOneDesk(deskId).isPresent()) {
             Desk selectedDesk = deskService.findOneDesk(deskId).get();
             List<Card> deskCards = cardService.findDeskCards(selectedDesk.getId());
-            model.addAttribute("deskName", true);
+            model.addAttribute("selectedDesk", selectedDesk);
             model.addAttribute("addCard", true);
             model.addAttribute("cards", deskCards);
         }
@@ -65,6 +65,7 @@ public class DesksController {
     @PostMapping(path = "/desks")
     public String addDesk(DeskForm deskForm, Authentication authentication) {
         DeskState deskState = DeskState.valueOf(deskForm.getState());
+        System.out.println(deskState);
         User userOwner = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
         Desk newDesk = Desk.builder()
                 .name(deskForm.getName())
@@ -87,16 +88,4 @@ public class DesksController {
         }
         return "redirect:{desk-id}";
     }
-
-//    TODO: add card to the new task
-    /*@PostMapping(path = "/desks/{desk-id}")
-    public String addTask(TaskForm taskForm,) {
-        Card card =
-        Task task = Task.builder()
-                .name(taskForm.getTaskName())
-                .card(card)
-                .build();
-        taskService.addTask(task);
-        return "redirect:{desk-id}";
-    }*/
 }

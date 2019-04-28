@@ -44,6 +44,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Optional<User> findByNameOrLogin(String input) {
+       if(input.startsWith("@")) {
+           return usersRepository.findByLogin(input);
+       } else {
+           return usersRepository.findByName(input);
+       }
+    }
+
+    @Override
     public void saveAndFlush(UserEditForm userEditForm, Authentication authentication) {
         User user = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
         user.setName(userEditForm.getName());

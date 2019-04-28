@@ -20,4 +20,8 @@ function addTask(event) {
             name.value = "";
         }
     })
+
+    // TODO: hide add block after insert
+    var div = document.getElementById("addTaskTo" + id);
+    div.style.display = 'block';
 }
