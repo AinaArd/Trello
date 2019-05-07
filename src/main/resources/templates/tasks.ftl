@@ -1,13 +1,19 @@
 <html>
 <head>
     <link href="/css/styles.css" rel="stylesheet" type="text/css">
-</head>
+    <link href="/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script></head>
 <body>
 
 <div class="form-style-2">
     <div class="form-style-2-heading">
     ${task.name}
     </div>
+    State: ${task.state}
+    <br>
+    <br>
     <#if noText??>
         <form method="post">
             <label for="text">Add text to the task
@@ -16,7 +22,7 @@
             <input type="submit" value="Save"/>
         </form>
     <#else>
-        ${task.text}
+        Description: ${task.text}
     <br>
     <br>
     <input type="submit" value="Edit task" onclick="show(document.getElementById('edit'))""/>
@@ -39,11 +45,14 @@
     <br>
 
     <div id="findUser" style="display: none;">
-        <form method="post">
+        <div id="div-users">
             <label for="users">Find user
-                <input class="input-field" type="text" id="users" name="users">
+                <input class="input-field" type="text" id="usersto${task.id}" name="users">
             </label>
-        </form>
+            <button class="button-add" id="${task.id}" onclick="addUsers(event)">Search</button>
+            <br>
+            <br>
+        </div>
     </div>
 
     <form method="get">
@@ -59,5 +68,6 @@
             div.style.display = "none"
     }
 </script>
+<script type="application/javascript" src="/js/users.js"></script>
 </body>
 </html>

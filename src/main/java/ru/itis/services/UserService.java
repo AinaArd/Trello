@@ -17,7 +17,7 @@ public interface UserService {
 
     Optional<User> findByLoginAndPassword(UserForm userForm);
 
-    Optional<User> findByNameOrLogin(String input);
+    List<User> findByNameOrLogin(String input);
 
     void saveAndFlush(UserEditForm userEditForm, Authentication authentication);
 

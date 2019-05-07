@@ -15,5 +15,7 @@ public interface UsersRepository extends JpaRepository<User, Long> {
     Optional<User> findByLoginAndHashPassword(String login, String password);
     <S extends User> S saveAndFlush(S s);
     <S extends User> S save(S s);
+    List<User> findByNameContaining(String name);
+    List<User> findByLoginContaining(String name);
 
 }

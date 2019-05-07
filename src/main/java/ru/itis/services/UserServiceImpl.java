@@ -44,12 +44,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> findByNameOrLogin(String input) {
-       if(input.startsWith("@")) {
-           return usersRepository.findByLogin(input);
-       } else {
-           return usersRepository.findByName(input);
-       }
+    public List<User> findByNameOrLogin(String input) {
+        if (input.startsWith("@")) {
+            return usersRepository.findByLoginContaining(input);
+        } else {
+            return usersRepository.findByNameContaining(input);
+        }
     }
 
     @Override
@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean checkLoginAndPassword(UserEditForm userEditForm) {
-        if(userEditForm.getOldLogin().equals(userEditForm.getNewLogin())){
+        if (userEditForm.getOldLogin().equals(userEditForm.getNewLogin())) {
             return false;
         }
         return !userEditForm.getOldPassword().equals(userEditForm.getNewPassword());

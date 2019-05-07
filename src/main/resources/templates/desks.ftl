@@ -67,6 +67,7 @@
                 <li>
                     <div id="task${task.id}" data-cardId="${card.id}">
                         <a href="/tasks/${task.id}">${task.name}</a>
+                        State: ${task.state}
                     </div>
                     <br>
                 </li>

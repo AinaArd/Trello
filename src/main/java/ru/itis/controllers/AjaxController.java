@@ -12,6 +12,8 @@ import ru.itis.services.CardService;
 import ru.itis.services.TaskService;
 import ru.itis.services.UserServiceImpl;
 
+import java.util.List;
+
 @RestController
 public class AjaxController {
 
@@ -36,9 +38,9 @@ public class AjaxController {
     }
 
     @PostMapping("/ajax/adduser")
-    public ResponseEntity<Object> addUser(@RequestParam(name = "search") String search) {
-        User foundUser = userService.findByNameOrLogin(search).orElseThrow(IllegalArgumentException::new);
-        System.out.println(foundUser.getName());
-        return ResponseEntity.ok(foundUser);
+    public ResponseEntity<Object> addUser(@RequestParam(name = "users") String search) {
+        List<User> userCandidates = userService.findByNameOrLogin(search);
+        System.out.println(userCandidates);
+        return ResponseEntity.ok(userCandidates);
     }
 }
