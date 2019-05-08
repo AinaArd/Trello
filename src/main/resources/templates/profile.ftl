@@ -4,7 +4,7 @@
     <link href="/css/bootstrap.min.css" rel="stylesheet"/>
 </head>
 <body>
-
+<#include "header.ftl">
 <div class="form-style-2">
     <div class="form-style-2-heading">
         Profile

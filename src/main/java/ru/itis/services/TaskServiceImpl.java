@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.itis.forms.TaskEditForm;
 import ru.itis.models.Card;
 import ru.itis.models.Task;
+import ru.itis.models.TaskState;
 import ru.itis.repositories.TasksRepository;
 
 import java.util.ArrayList;
@@ -45,6 +46,7 @@ public class TaskServiceImpl implements TaskService {
     public void edit(TaskEditForm taskEditForm, Task task) {
         task.setName(taskEditForm.getName());
         task.setText(taskEditForm.getText());
+        task.setState(TaskState.valueOf(taskEditForm.getState()));
         tasksRepository.saveAndFlush(task);
     }
 
@@ -53,6 +55,11 @@ public class TaskServiceImpl implements TaskService {
         System.out.println(taskEditForm.getText());
         task.setText(taskEditForm.getText());
         tasksRepository.saveAndFlush(task);
+    }
+
+    @Override
+    public void archive(Task task) {
+
     }
 
 }

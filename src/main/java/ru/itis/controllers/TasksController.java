@@ -27,16 +27,23 @@ public class TasksController {
         }
         return "tasks";
     }
+//
+//    @PostMapping("/tasks/{task-id}")
+//    public String editTaskInfo(@PathVariable(name = "task-id") Long taskId, TaskEditForm taskEditForm){
+//        if(taskService.findTaskById(taskId).isPresent()) {
+//            Task task = taskService.findTaskById(taskId).orElseThrow(IllegalArgumentException::new);
+//            if(task.getText() == null || task.getText().equals("")) {
+//                taskService.addText(taskEditForm, task);
+//            } else
+//            taskService.edit(taskEditForm, task);
+//        }
+//        return "redirect:{task-id}";
+//    }
 
     @PostMapping("/tasks/{task-id}")
-    public String editTaskInfo(@PathVariable(name = "task-id") Long taskId, TaskEditForm taskEditForm){
-        if(taskService.findTaskById(taskId).isPresent()) {
-            Task task = taskService.findTaskById(taskId).get();
-            if(task.getText() == null || task.getText().equals("")) {
-                taskService.addText(taskEditForm, task);
-            } else
-            taskService.edit(taskEditForm, task);
-        }
-        return "redirect:{task-id}";
+    public String archiveTask(@PathVariable(name = "task-id") Long taskId ){
+        Task task = taskService.findTaskById(taskId).orElseThrow(IllegalAccessError::new);
+        taskService.archive(task);
+        return "redirect:profile";
     }
 }

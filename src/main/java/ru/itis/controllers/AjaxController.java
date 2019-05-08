@@ -28,7 +28,7 @@ public class AjaxController {
 
     @PostMapping("/ajax/addtask")
     public ResponseEntity<Object> addTask(@RequestParam(name = "id") Long cardId, @RequestParam(name = "name") String taskName) {
-        Card card = cardService.findById(cardId).orElseThrow(IllegalAccessError::new);
+        Card card = cardService.findById(cardId).orElseThrow(IllegalArgumentException::new);
         Task task = Task.builder()
                 .name(taskName)
                 .card(card)

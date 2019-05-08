@@ -6,7 +6,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script></head>
 <body>
-
+<#include "header.ftl">
 <div class="form-style-2">
     <div class="form-style-2-heading">
     ${task.name}
@@ -37,6 +37,15 @@
             <label for="text">Text
                 <textarea class="textarea-field" id="text" name="text">${task.text}</textarea>
             </label>
+            <label for="state">State
+                <select id="state" name="state" class="mdb-select md-form">
+                    <option value="" disabled selected>Choose task state</option>
+                    <option value="TODO">TODO</option>
+                    <option value="IN_PROCESS">IN_PROCESS</option>
+                    <option value="DONE">DONE</option>
+                    <option value="FOR_CHECK">FOR_CHECK</option>
+                </select>
+            </label>
             <input type="submit" value="Save"/>
         </form>
     </#if>
@@ -55,7 +64,7 @@
         </div>
     </div>
 
-    <form method="get">
+    <form method="post">
         <input type="submit" value="Archive"/>
     </form>
 </div>

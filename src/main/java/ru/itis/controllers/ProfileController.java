@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import ru.itis.models.Card;
 import ru.itis.models.Task;
 import ru.itis.models.User;
@@ -26,7 +23,7 @@ public class ProfileController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(path = "/profile", method = RequestMethod.GET)
+    @GetMapping(path = "/profile")
     public String getUserPage(ModelMap model, Authentication authentication) {
         if (authentication == null) {
             return "redirect:login";
@@ -37,7 +34,7 @@ public class ProfileController {
         return "profile";
     }
 
-    @RequestMapping(path = "/profile/{user-id}", method = RequestMethod.GET)
+    @GetMapping(path = "/profile/{user-id}")
     public String getAnotherUserPage(@PathVariable(name = "user-id") Long userId, Authentication authentication, ModelMap model) {
         User currentUser = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
 

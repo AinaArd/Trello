@@ -7,6 +7,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.itis.forms.CardForm;
 import ru.itis.forms.DeskForm;
 import ru.itis.forms.TaskForm;
@@ -61,31 +62,30 @@ public class DesksController {
         }
         return "desks";
     }
+//
+
+
+//    @PostMapping(path = "/desks/{desk-id}")
+//    public String addCard(CardForm cardForm, @PathVariable(name = "desk-id") Long deskId) {
+//        if (deskService.findOneDesk(deskId).isPresent()) {
+//            Desk desk = deskService.findOneDesk(deskId).get();
+//            Card newCard = Card.builder()
+//                    .name(cardForm.getName())
+//                    .desk(desk)
+//                    .build();
+//            cardService.addCard(newCard);
+//        }
+//        return "redirect:{desk-id}";
+//    }
 
     @PostMapping(path = "/desks")
-    public String addDesk(DeskForm deskForm, Authentication authentication) {
-        DeskState deskState = DeskState.valueOf(deskForm.getState());
-        System.out.println(deskState);
-        User userOwner = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
-        Desk newDesk = Desk.builder()
-                .name(deskForm.getName())
-                .state(deskState)
-                .owner(userOwner)
-                .build();
-        deskService.addDesk(newDesk);
-        return "redirect:desks";
-    }
-
-    @PostMapping(path = "/desks/{desk-id}")
-    public String addCard(CardForm cardForm, @PathVariable(name = "desk-id") Long deskId) {
-        if (deskService.findOneDesk(deskId).isPresent()) {
-            Desk desk = deskService.findOneDesk(deskId).get();
-            Card newCard = Card.builder()
-                    .name(cardForm.getName())
-                    .desk(desk)
-                    .build();
-            cardService.addCard(newCard);
+    public String showOtherUserPage(@RequestParam(name = "userName") String userName,
+                                    ModelMap model){
+        if(!userName.equals("")){
+            User userCandidate = userService.findByLogin(userName).orElseThrow(IllegalArgumentException::new);
+            System.out.println(userCandidate);
+            model.addAttribute("user", userCandidate);
         }
-        return "redirect:{desk-id}";
+        return "redirect:profile/{user-id}";
     }
 }

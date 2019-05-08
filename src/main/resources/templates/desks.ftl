@@ -9,6 +9,7 @@
 <body>
 <#--<div onclick="show('none')" id="gray"></div>-->
 
+<#include "header.ftl">
 <div class="form-style-2">
     <div class="form-style-2-heading">
         <#if selectedDesk??>

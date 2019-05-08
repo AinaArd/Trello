@@ -9,7 +9,9 @@ function addUsers(event) {
         },
         success: function (users) {
             console.log("success");
-            var text = document.createElement()
+            var user = document.createElement("textarea");
+
+
         }
     })
 }

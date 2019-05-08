@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class TaskEditForm {
     private String name;
     private String text;
+    private String state;
 }
