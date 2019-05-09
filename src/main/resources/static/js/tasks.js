@@ -21,9 +21,30 @@ function addTask(event) {
             ul.appendChild(liState);
             name.value = "";
         }
-    })
+    });
 
     // TODO: hide add block after insert
     var div = document.getElementById("addTaskTo" + id);
     div.style.display = 'block';
+}
+
+function commentTask(event) {
+    var id = event.target.id;
+    var comment = document.getElementById("comment");
+    var ul = document.getElementById("ul-id" + id);
+    $.ajax({
+        url: "/ajax/addcomment",
+        type: "post",
+        data: {
+            "id": id,
+            "comment": comment.value
+        },
+        success: function () {
+            var li = document.createElement("li");
+            var text = document.createTextNode(comment.value);
+            li.appendChild(text);
+            ul.appendChild(li);
+            comment.value = "";
+        }
+    })
 }

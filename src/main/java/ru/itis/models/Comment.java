@@ -21,8 +21,8 @@ public class Comment {
     private String content;
 
     @ManyToOne
-    @JoinColumn(name = "card")
-    private Card card;
+    @JoinColumn(name = "taskId")
+    private Task task;
 
     @ManyToOne
     @JoinColumn(name = "author")

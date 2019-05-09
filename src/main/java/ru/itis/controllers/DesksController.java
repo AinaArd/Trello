@@ -30,9 +30,6 @@ public class DesksController {
     private CardService cardService;
 
     @Autowired
-    private TaskService taskService;
-
-    @Autowired
     private UserService userService;
 
 
@@ -78,14 +75,14 @@ public class DesksController {
 //        return "redirect:{desk-id}";
 //    }
 
-//    @PostMapping(path = "/desks")
-//    public String showOtherUserPage(@RequestParam(name = "userName") String userName,
-//                                    ModelMap model){
-//        if(!userName.equals("")){
-//            User userCandidate = userService.findByLogin(userName).orElseThrow(IllegalArgumentException::new);
-//            System.out.println(userCandidate);
-//            model.addAttribute("user", userCandidate);
-//        }
-//        return "redirect:profile/{user-id}";
-//    }
+    @PostMapping(path = "/desks")
+    public String showOtherUserPage(@RequestParam(name = "userName") String userName,
+                                    ModelMap model){
+        if(!userName.equals("")){
+            User userCandidate = userService.findByLogin(userName).orElseThrow(IllegalArgumentException::new);
+            System.out.println(userCandidate);
+            model.addAttribute("user", userCandidate);
+        }
+        return "redirect:profile/{user-id}";
+    }
 }

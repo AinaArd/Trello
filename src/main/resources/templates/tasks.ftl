@@ -4,7 +4,8 @@
     <link href="/css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script></head>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
 <body>
 <#include "header.ftl">
 <div class="form-style-2">
@@ -25,6 +26,24 @@
         Description: ${task.text}
     <br>
     <br>
+    Comments:
+        <br>
+        <br>
+         <ul id="ul-id${task.id}">
+            <#list task.comments as comment>
+                <li>${comment.content}</li>
+            </#list>
+         </ul>
+     <br>
+
+    <div id="commentTask">
+        <label for="comment">Comment
+            <textarea class="textarea-field" id="comment" name="comment"></textarea>
+        </label>
+        <button class="button-add" onclick="commentTask(event)" id="${task.id}">Comment</button>
+    </div>
+    <br>
+
     <input type="submit" value="Edit task" onclick="show(document.getElementById('edit'))""/>
     <br>
     <br>
@@ -78,5 +97,6 @@
     }
 </script>
 <script type="application/javascript" src="/js/users.js"></script>
+<script type="application/javascript" src="/js/tasks.js"></script>
 </body>
 </html>

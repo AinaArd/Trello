@@ -36,4 +36,8 @@ public class Task {
     @ManyToMany(mappedBy = "tasks", cascade = CascadeType.ALL)
     private List<User> users;
 
+    @LazyCollection(LazyCollectionOption.TRUE)
+    @OneToMany(mappedBy = "task")
+    private List<Comment> comments;
+
 }

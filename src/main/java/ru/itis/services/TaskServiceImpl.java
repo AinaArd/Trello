@@ -4,8 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.itis.forms.TaskEditForm;
 import ru.itis.models.Card;
+import ru.itis.models.Comment;
 import ru.itis.models.Task;
 import ru.itis.models.TaskState;
+import ru.itis.repositories.CardsRepository;
+import ru.itis.repositories.CommentRepository;
 import ru.itis.repositories.TasksRepository;
 
 import java.util.ArrayList;
@@ -17,6 +20,9 @@ public class TaskServiceImpl implements TaskService {
 
     @Autowired
     private TasksRepository tasksRepository;
+
+    @Autowired
+    private CommentRepository commentsRepository;
 
     @Override
     public List<Task> findCardTasks(Card card) {
@@ -52,7 +58,6 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void addText(TaskEditForm taskEditForm, Task task) {
-        System.out.println(taskEditForm.getText());
         task.setText(taskEditForm.getText());
         tasksRepository.saveAndFlush(task);
     }
@@ -64,4 +69,8 @@ public class TaskServiceImpl implements TaskService {
 //        TODO: hide task from the screen
     }
 
+    @Override
+    public Comment addComment(Comment comment) {
+        return commentsRepository.save(comment);
+    }
 }

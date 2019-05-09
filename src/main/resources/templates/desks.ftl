@@ -49,11 +49,6 @@
 
 <#if cards??>
     <#list cards as card>
-
-
-
-    
-
         <div class="dropdown" id=card${card.id}>
             <span class="card-name">Card: ${card.name}
             </span>
