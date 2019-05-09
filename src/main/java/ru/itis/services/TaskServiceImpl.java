@@ -59,7 +59,9 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void archive(Task task) {
-
+        task.setFlag(true);
+        tasksRepository.saveAndFlush(task);
+//        TODO: hide task from the screen
     }
 
 }

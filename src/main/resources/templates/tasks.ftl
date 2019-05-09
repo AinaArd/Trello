@@ -65,7 +65,7 @@
     </div>
 
     <form method="post">
-        <input type="submit" value="Archive"/>
+        <input type="submit" name="archive" value="Archive"/>
     </form>
 </div>
 

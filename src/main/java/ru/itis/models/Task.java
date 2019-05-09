@@ -21,6 +21,9 @@ public class Task {
     private String name;
     private String text;
 
+    @Column(name = "flag")
+    private boolean flag;
+
     @Enumerated(EnumType.STRING)
     private TaskState state;
 

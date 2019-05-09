@@ -50,12 +50,15 @@
 <#if cards??>
     <#list cards as card>
 
+
+
+    
+
         <div class="dropdown" id=card${card.id}>
             <span class="card-name">Card: ${card.name}
             </span>
             &nbsp;&nbsp;
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Actions<span
-                    class="caret"></span></a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Actions<span class="caret"></span></a>
             <br>
             <br>
             <ul class="dropdown-menu">
