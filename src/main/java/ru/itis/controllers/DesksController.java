@@ -75,13 +75,24 @@ public class DesksController {
 //        return "redirect:{desk-id}";
 //    }
 
-    @PostMapping(path = "/desks")
-    public String showOtherUserPage(@RequestParam(name = "userName") String userName,
-                                    ModelMap model){
-        if(!userName.equals("")){
+    @PostMapping("/desks")
+    public String showOtherUserPage(@RequestParam(name = "userName") String userName, ModelMap model) {
+        if (!userName.equals("")) {
             User userCandidate = userService.findByLogin(userName).orElseThrow(IllegalArgumentException::new);
             model.addAttribute("user", userCandidate);
         }
         return "redirect:profile/{user-id}";
+    }
+
+    @PostMapping(value = "/desks", params = "save")
+    public String addDesk(DeskForm deskForm, Authentication authentication) {
+        User deskOwner = ((UserDetailsImpl)authentication.getPrincipal()).getUser();
+        Desk newDesk = Desk.builder()
+                .name(deskForm.getName())
+                .state(DeskState.valueOf(deskForm.getState()))
+                .owner(deskOwner)
+                .build();
+        deskService.addDesk(newDesk);
+        return "redirect:desks";
     }
 }

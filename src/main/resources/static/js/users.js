@@ -10,8 +10,7 @@ function addUsers(event) {
         },
         success: function (users) {
             var usersNames = document.createElement("p");
-            usersNames.forEach(function (item, index, users) {
-                console.log(item.name);
+            usersNames.forEach(function (user, index, users) {
             })
         }
     })
