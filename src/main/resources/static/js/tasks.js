@@ -39,9 +39,10 @@ function commentTask(event) {
             "id": id,
             "comment": comment.value
         },
-        success: function () {
+        success: function (name) {
             var li = document.createElement("li");
             var text = document.createTextNode(comment.value);
+            li.innerHTML = name + ": ";
             li.appendChild(text);
             ul.appendChild(li);
             comment.value = "";

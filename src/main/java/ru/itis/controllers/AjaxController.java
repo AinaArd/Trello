@@ -2,6 +2,7 @@ package ru.itis.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,6 +10,7 @@ import ru.itis.models.Card;
 import ru.itis.models.Comment;
 import ru.itis.models.Task;
 import ru.itis.models.User;
+import ru.itis.security.details.UserDetailsImpl;
 import ru.itis.services.CardService;
 import ru.itis.services.TaskService;
 import ru.itis.services.UserServiceImpl;
@@ -40,21 +42,23 @@ public class AjaxController {
     }
 
     @PostMapping("/ajax/adduser")
-    public ResponseEntity<Object> addUser(@RequestParam(name = "users") String search) {
+    public ResponseEntity<Object> addUser(@RequestParam(name = "search") String search) {
         List<User> userCandidates = userService.findByNameOrLogin(search);
-        System.out.println(userCandidates);
+        System.out.println(userCandidates.get(0).getName());
         return ResponseEntity.ok(userCandidates);
     }
 
     @PostMapping("/ajax/addcomment")
-    public ResponseEntity<Object> addComment(@RequestParam(name = "id") Long taskId, @RequestParam(name = "comment") String text) {
+    public ResponseEntity<Object> addComment(@RequestParam(name = "id") Long taskId, @RequestParam(name = "comment") String text,
+                                             Authentication authentication) {
         Task task = taskService.findTaskById(taskId).orElseThrow(IllegalArgumentException::new);
+        User currentUser = ((UserDetailsImpl)authentication.getPrincipal()).getUser();
         Comment comment = Comment.builder()
                 .task(task)
                 .content(text)
-//                .author()
+                .author(currentUser)
                 .build();
         Comment newComment = taskService.addComment(comment);
-        return ResponseEntity.ok(newComment.getContent()    );
+        return ResponseEntity.ok(newComment.getAuthor().getName());
     }
 }

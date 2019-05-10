@@ -30,10 +30,9 @@ public class User {
     @JoinColumn(name = "userId")
     private List<Desk> desks;
 
-//    TODO: make comments of user to tasks
-//    @LazyCollection(LazyCollectionOption.TRUE)
-//    @OneToMany(mappedBy = "author")
-//    private List<Comment> comments;
+    @LazyCollection(LazyCollectionOption.TRUE)
+    @OneToMany(mappedBy = "author")
+    private List<Comment> comments;
 
     @LazyCollection(LazyCollectionOption.TRUE)
     @ManyToMany(cascade = CascadeType.ALL)

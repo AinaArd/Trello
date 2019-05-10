@@ -1,17 +1,18 @@
 function addUsers(event) {
     var id = event.target.id;
-    var users = document.getElementById("usersto" + id);
+    var search = document.getElementById("usersto" + id);
     $.ajax({
         url: "/ajax/adduser",
         type: "post",
         data: {
-            "users": users
+            "id": id,
+            "search": search.value
         },
         success: function (users) {
-            console.log("success");
-            var user = document.createElement("textarea");
-
-
+            var usersNames = document.createElement("p");
+            usersNames.forEach(function (item, index, users) {
+                console.log(item.name);
+            })
         }
     })
 }

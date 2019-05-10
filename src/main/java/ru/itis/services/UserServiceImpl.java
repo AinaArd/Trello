@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findByNameOrLogin(String input) {
-        if (input.startsWith("@")) {
+        if (input.contains("@")) {
             return usersRepository.findByLoginContaining(input);
         } else {
             return usersRepository.findByNameContaining(input);

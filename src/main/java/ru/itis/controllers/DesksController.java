@@ -80,7 +80,6 @@ public class DesksController {
                                     ModelMap model){
         if(!userName.equals("")){
             User userCandidate = userService.findByLogin(userName).orElseThrow(IllegalArgumentException::new);
-            System.out.println(userCandidate);
             model.addAttribute("user", userCandidate);
         }
         return "redirect:profile/{user-id}";

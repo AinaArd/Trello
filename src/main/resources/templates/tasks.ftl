@@ -29,9 +29,9 @@
     Comments:
         <br>
         <br>
-         <ul id="ul-id${task.id}">
+         <ul id="ul-id${task.id}" typeof="">
             <#list task.comments as comment>
-                <li>${comment.content}</li>
+                <li>${comment.author.name}:  ${comment.content}</li>
             </#list>
          </ul>
      <br>
@@ -68,8 +68,11 @@
             <input type="submit" value="Save"/>
         </form>
     </#if>
-    <input type="submit" value="Add users to task" onclick="show(document.getElementById('findUser'))""/>
-    <br>
+
+    <label for="user-name">
+        <input type="submit" id="user-name" name="user-name" value="Add users to task"
+               onclick="show(document.getElementById('findUser'))"/>
+    </label>
     <br>
 
     <div id="findUser" style="display: none;">
