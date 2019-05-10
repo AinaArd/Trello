@@ -59,21 +59,19 @@ public class DesksController {
         }
         return "desks";
     }
-//
 
-
-//    @PostMapping(path = "/desks/{desk-id}")
-//    public String addCard(CardForm cardForm, @PathVariable(name = "desk-id") Long deskId) {
-//        if (deskService.findOneDesk(deskId).isPresent()) {
-//            Desk desk = deskService.findOneDesk(deskId).get();
-//            Card newCard = Card.builder()
-//                    .name(cardForm.getName())
-//                    .desk(desk)
-//                    .build();
-//            cardService.addCard(newCard);
-//        }
-//        return "redirect:{desk-id}";
-//    }
+    @PostMapping(value = "/desks/{desk-id}", params = "saveCard")
+    public String addCard(CardForm cardForm, @PathVariable(name = "desk-id") Long deskId) {
+        if (deskService.findOneDesk(deskId).isPresent()) {
+            Desk desk = deskService.findOneDesk(deskId).get();
+            Card newCard = Card.builder()
+                    .name(cardForm.getName())
+                    .desk(desk)
+                    .build();
+            cardService.addCard(newCard);
+        }
+        return "redirect:{desk-id}";
+    }
 
     @PostMapping("/desks")
     public String showOtherUserPage(@RequestParam(name = "userName") String userName, ModelMap model) {
@@ -84,7 +82,7 @@ public class DesksController {
         return "redirect:profile/{user-id}";
     }
 
-    @PostMapping(value = "/desks", params = "save")
+    @PostMapping(value = "/desks", params = "saveDesc")
     public String addDesk(DeskForm deskForm, Authentication authentication) {
         User deskOwner = ((UserDetailsImpl)authentication.getPrincipal()).getUser();
         Desk newDesk = Desk.builder()

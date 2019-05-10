@@ -42,7 +42,7 @@
             <input class="input-field" type="text" id="state" name="state">
         </label>
         <br>
-        <input type="submit" name="save" value="Save">
+        <input type="submit" name="saveDesc" value="Save">
     </form>
 <br>
 </#if>
@@ -92,7 +92,7 @@
             <input class="input-field" type="text" id="name" name="name">
         </label>
         <br>
-        <input type="submit" value="Save">
+        <input type="submit" name="saveCard" value="Save">
     </form>
 <br>
     </#if>
