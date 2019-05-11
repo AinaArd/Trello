@@ -2,13 +2,15 @@ function addTask(event) {
     var id = event.target.id;
     var card = document.getElementById("card" + id);
     var name = document.getElementById("input" + id);
+    var state = document.getElementById("taskState");
     var ul = document.getElementById("ul-id" + id);
     $.ajax({
         url: "/ajax/addtask",
         type: "post",
         data: {
             "id": id,
-            "name": name.value
+            "name": name.value,
+            "state": state.value
         },
         success: function (id) {
             var li = document.createElement("li");
@@ -20,6 +22,7 @@ function addTask(event) {
             ul.appendChild(li);
             ul.appendChild(liState);
             name.value = "";
+            state.value = "";
         }
     });
 

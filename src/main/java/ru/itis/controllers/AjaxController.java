@@ -6,10 +6,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ru.itis.models.Card;
-import ru.itis.models.Comment;
-import ru.itis.models.Task;
-import ru.itis.models.User;
+import ru.itis.forms.TaskForm;
+import ru.itis.models.*;
 import ru.itis.security.details.UserDetailsImpl;
 import ru.itis.services.CardService;
 import ru.itis.services.TaskService;
@@ -30,16 +28,16 @@ public class AjaxController {
     private UserServiceImpl userService;
 
     @PostMapping("/ajax/addtask")
-    public ResponseEntity<Object> addTask(@RequestParam(name = "id") Long cardId, @RequestParam(name = "name") String taskName) {
+    public ResponseEntity<Object> addTask(@RequestParam(name = "id") Long cardId, TaskForm taskForm) {
         Card card = cardService.findById(cardId).orElseThrow(IllegalArgumentException::new);
         Task task = Task.builder()
-                .name(taskName)
+                .name(taskForm.getName())
                 .card(card)
-//                .state(taskForm.getState())
+                .state(TaskState.valueOf(taskForm.getState()))
                 .flag(false)
                 .build();
-        System.out.println(task.getName());
         Task newTask = taskService.addTask(task);
+//        TODO: state isn't printed immediately
         return ResponseEntity.ok(newTask.getId());
     }
 
@@ -54,13 +52,16 @@ public class AjaxController {
     public ResponseEntity<Object> addComment(@RequestParam(name = "id") Long taskId, @RequestParam(name = "comment") String text,
                                              Authentication authentication) {
         Task task = taskService.findTaskById(taskId).orElseThrow(IllegalArgumentException::new);
-        User currentUser = ((UserDetailsImpl)authentication.getPrincipal()).getUser();
-        Comment comment = Comment.builder()
-                .task(task)
-                .content(text)
-                .author(currentUser)
-                .build();
-        Comment newComment = taskService.addComment(comment);
-        return ResponseEntity.ok(newComment.getAuthor().getName());
+        User currentUser = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
+        if(!text.equals("")) {
+            Comment comment = Comment.builder()
+                    .task(task)
+                    .content(text)
+                    .author(currentUser)
+                    .build();
+            Comment newComment = taskService.addComment(comment);
+            return ResponseEntity.ok(newComment.getAuthor().getName());
+        }
+        return ResponseEntity.ok().build();
     }
 }
