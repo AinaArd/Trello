@@ -35,8 +35,10 @@ public class AjaxController {
         Task task = Task.builder()
                 .name(taskName)
                 .card(card)
+//                .state(taskForm.getState())
                 .flag(false)
                 .build();
+        System.out.println(task.getName());
         Task newTask = taskService.addTask(task);
         return ResponseEntity.ok(newTask.getId());
     }
