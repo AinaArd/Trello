@@ -38,7 +38,7 @@
 
     <div id="commentTask">
         <label for="comment">Comment
-            <textarea class="textarea-field" id="comment" name="comment"></textarea>
+            <textarea class="textarea-field" id="comment" name="comment" required="required"></textarea>
         </label>
         <button class="button-add" onclick="commentTask(event)" id="${task.id}">Comment</button>
     </div>

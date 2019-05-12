@@ -50,10 +50,13 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void edit(TaskEditForm taskEditForm, Task task) {
-        task.setName(taskEditForm.getName());
-        task.setText(taskEditForm.getText());
-        task.setState(TaskState.valueOf(taskEditForm.getState()));
-        tasksRepository.saveAndFlush(task);
+        if(!taskEditForm.getText().equals("") || !taskEditForm.getName().equals("")){
+            task.setName(taskEditForm.getName());
+            task.setText(taskEditForm.getText());
+            task.setState(TaskState.valueOf(taskEditForm.getState()));
+            tasksRepository.saveAndFlush(task);
+        }
+//       TODO: send alert that fields are empty
     }
 
     @Override
@@ -66,7 +69,6 @@ public class TaskServiceImpl implements TaskService {
     public void archive(Task task) {
         task.setFlag(true);
         tasksRepository.saveAndFlush(task);
-//        TODO: hide task from the screen
     }
 
     @Override

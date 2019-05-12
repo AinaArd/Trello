@@ -77,13 +77,23 @@
         </div>
         <ul id="ul-id${card.id}">
             <#list card.cardTasks as task>
-                <li>
-                    <div id="task${task.id}" data-cardId="${card.id}">
-                        <a href="/tasks/${task.id}">${task.name}</a>
-                        State: ${task.state}
-                    </div>
-                    <br>
-                </li>
+                <#if task.flag == false>
+                     <li>
+                         <div id="task${task.id}" data-cardId="${card.id}">
+                             <a href="/tasks/${task.id}">${task.name}</a>
+                             State: ${task.state}
+                         </div>
+                         <br>
+                     </li>
+                <#elseif task.flag == true>
+                    <li>
+                        <div>
+                            Task is archived
+                        </div>
+                        <br>
+                    </li>
+                </#if>
+
             </#list>
         </ul>
             <div id="addTaskTo${card.id}" style="display: none;">

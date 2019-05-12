@@ -1,6 +1,7 @@
 package ru.itis.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -53,15 +54,12 @@ public class AjaxController {
                                              Authentication authentication) {
         Task task = taskService.findTaskById(taskId).orElseThrow(IllegalArgumentException::new);
         User currentUser = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
-        if(!text.equals("")) {
-            Comment comment = Comment.builder()
-                    .task(task)
-                    .content(text)
-                    .author(currentUser)
-                    .build();
-            Comment newComment = taskService.addComment(comment);
-            return ResponseEntity.ok(newComment.getAuthor().getName());
-        }
-        return ResponseEntity.ok().build();
+        Comment comment = Comment.builder()
+                .task(task)
+                .content(text)
+                .author(currentUser)
+                .build();
+        Comment newComment = taskService.addComment(comment);
+        return ResponseEntity.ok(newComment.getAuthor().getName());
     }
 }
