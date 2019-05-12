@@ -18,7 +18,7 @@
     <#if noText??>
         <form method="post">
             <label for="text">Add text to the task
-                <input class="input-field" type="text" id="text" name="text">
+                <input class="input-field" type="text" id="text" name="text" required="required">
             </label>
             <input type="submit" value="Save"/>
         </form>
@@ -38,7 +38,8 @@
 
     <div id="commentTask">
         <label for="comment">Comment
-            <textarea class="textarea-field" id="comment" name="comment" required="required"></textarea>
+            <input class="textarea-field" id="comment" name="comment" required="required">
+            <#--TODO: fix empty comment-->
         </label>
         <button class="button-add" onclick="commentTask(event)" id="${task.id}">Comment</button>
     </div>
@@ -51,10 +52,10 @@
         <form method="post" id="edit" style="display: none;">
             <div class="edit">Edit task</div>
             <label for="name">Name
-                <input class="input-field" type="text" id="name" name="name" value="${task.name}">
+                <input class="input-field" type="text" id="name" name="name" value="${task.name}" required="required">
             </label>
             <label for="text">Text
-                <textarea class="textarea-field" id="text" name="text">${task.text}</textarea>
+                <input class="textarea-field" id="text" name="text" required="required" value="${task.text}">
             </label>
             <label for="state">State
                 <select id="state" name="state" class="mdb-select md-form">

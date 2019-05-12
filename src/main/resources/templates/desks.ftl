@@ -50,10 +50,10 @@
  </div>
     <form method="post">
         <label for="name">Name
-            <input class="input-field" type="text" id="name" name="name">
+            <input class="input-field" type="text" id="name" name="name" required="required">
         </label>
         <label for="state">State
-            <input class="input-field" type="text" id="state" name="state">
+            <input class="input-field" type="text" id="state" name="state" required="required">
         </label>
         <br>
         <input type="submit" name="saveDesc" value="Save">
@@ -98,7 +98,7 @@
         </ul>
             <div id="addTaskTo${card.id}" style="display: none;">
                 Enter task name
-                <input class="input-field" type="text" name="name" id="input${card.id}">
+                <input class="input-field" type="text" name="name" id="input${card.id}" required="required">
                 <br>
                 <br>
                 <label for="taskState">State
@@ -123,7 +123,7 @@
      </div>
     <form method="post">
         <label for="name">Name
-            <input class="input-field" type="text" id="name" name="name">
+            <input class="input-field" type="text" id="name" name="name" required="required">
         </label>
         <br>
         <input type="submit" name="saveCard" value="Save">
