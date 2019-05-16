@@ -29,6 +29,9 @@ public class Desk {
     @OneToMany(mappedBy = "desk")
     private List<Card> cards;
 
+    @OneToMany(mappedBy = "desk")
+    private List<Task> tasks;
+
     @ManyToOne
     @JoinColumn(name = "owner")
     private User owner;

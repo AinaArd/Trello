@@ -66,11 +66,10 @@ public class CardsController {
         return "cards";
     }
 
-    @PostMapping(path = "/cards/{card-id}/tasks", params = "text")
+   /* @PostMapping(path = "/cards/{card-id}/tasks", params = "text")
     public String addUserToTask(ModelMap model, @RequestParam(name = "text") String text){
         Task newTask = Task.builder().text(text).build();
         taskService.addTask(newTask);
-        System.out.println(newTask  );
         return "redirect:cards";
-    }
+    }*/
 }

@@ -3,6 +3,7 @@ function addTask(event) {
     var card = document.getElementById("card" + id);
     var name = document.getElementById("input" + id);
     var state = document.getElementById("taskState");
+    var picture = document.getElementById("file");
     var ul = document.getElementById("ul-id" + id);
     $.ajax({
         url: "/ajax/addtask",
@@ -10,7 +11,8 @@ function addTask(event) {
         data: {
             "id": id,
             "name": name.value,
-            "state": state.value
+            "state": state.value,
+            "picture": picture.value
         },
         success: function (id) {
             var li = document.createElement("li");
@@ -49,6 +51,20 @@ function commentTask(event) {
             li.appendChild(text);
             ul.appendChild(li);
             comment.value = "";
+        }
+    })
+}
+
+function returnTask(event) {
+    var id = event.target.id;
+    $.ajax({
+        url: "/ajax/returntask",
+        type: "post",
+        data: {
+            "id": id
+        },
+        success: function (id) {
+            console.log(id)
         }
     })
 }

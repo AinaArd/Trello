@@ -32,6 +32,9 @@ public class DesksController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private TaskService taskService;
+
 
     @GetMapping(path = "/desks")
     public String getLoginPage(Authentication authentication, ModelMap model) {
@@ -92,5 +95,13 @@ public class DesksController {
                 .build();
         deskService.addDesk(newDesk);
         return "redirect:desks";
+    }
+
+    @PostMapping(value = "/desks/{desk-id}", params = "return")
+    public String returnTask(@RequestParam(name = "task-id") Long taskId){
+        System.out.println(taskId);
+        Task returnedTask = taskService.findTaskById(taskId).orElseThrow(IllegalArgumentException::new);
+        taskService.changeFlag(returnedTask);
+        return "redirect:{desk-id}";
     }
 }

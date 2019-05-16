@@ -6,7 +6,11 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import ru.itis.forms.TaskEditForm;
+import ru.itis.models.Desk;
 import ru.itis.models.Task;
 import ru.itis.services.TaskService;
 
@@ -17,10 +21,10 @@ public class TasksController {
     private TaskService taskService;
 
     @GetMapping("/tasks/{task-id}")
-    public String getCardTasks(ModelMap model, @PathVariable(name = "task-id") Long taskId){
-        if(taskService.findTaskById(taskId).isPresent()) {
+    public String getCardTasks(ModelMap model, @PathVariable(name = "task-id") Long taskId) {
+        if (taskService.findTaskById(taskId).isPresent()) {
             Task task = taskService.findTaskById(taskId).get();
-            if(task.getText() == null) {
+            if (task.getText() == null) {
                 model.addAttribute("noText", true);
             }
             model.addAttribute("task", task);
@@ -29,21 +33,25 @@ public class TasksController {
     }
 
     @PostMapping("/tasks/{task-id}")
-    public String editTaskInfo(@PathVariable(name = "task-id") Long taskId, TaskEditForm taskEditForm){
-        if(taskService.findTaskById(taskId).isPresent()) {
+    public String editTaskInfo(@PathVariable(name = "task-id") Long taskId, @RequestParam(name = "name") String name,
+                               @RequestParam(name = "text") String text, @RequestParam(name = "state") String state,
+                               @RequestParam(name = "file") MultipartFile file, TaskEditForm taskEditForm) {
+        if (taskService.findTaskById(taskId).isPresent()) {
             Task task = taskService.findTaskById(taskId).orElseThrow(IllegalArgumentException::new);
-            if(task.getText() == null || task.getText().equals("")) {
+            if (task.getText() == null || task.getText().equals("")) {
                 taskService.addText(taskEditForm, task);
             } else
-            taskService.edit(taskEditForm, task);
+                System.out.println(task.getPicturePath());
+                taskService.edit(name, text, state, file, task);
         }
         return "redirect:{task-id}";
     }
 
     @PostMapping(value = "/tasks/{task-id}", params = "archive")
-    public String archiveTask(@PathVariable(name = "task-id") Long taskId ){
+    public String archiveTask(@PathVariable(name = "task-id") Long taskId) {
         Task task = taskService.findTaskById(taskId).orElseThrow(IllegalAccessError::new);
+        Long deskId = task.getDesk().getId();
         taskService.archive(task);
-        return "redirect:/profile";
+        return "redirect:/desks/" + deskId;
     }
 }

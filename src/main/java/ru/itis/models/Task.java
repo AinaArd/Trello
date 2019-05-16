@@ -3,6 +3,7 @@ package ru.itis.models;
 import lombok.*;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 import java.util.List;
@@ -20,6 +21,7 @@ public class Task {
 
     private String name;
     private String text;
+    private String picturePath;
 
     @Column(name = "flag")
     private boolean flag;
@@ -40,4 +42,12 @@ public class Task {
     @OneToMany(mappedBy = "task")
     private List<Comment> comments;
 
+    @LazyCollection(LazyCollectionOption.TRUE)
+    @ManyToOne
+    @JoinColumn(name = "deskId")
+    private Desk desk;
+
+//    public String getPicturePath() {
+//        return "C:\\AinaArd\\images\\" + picturePath;
+//    }
 }

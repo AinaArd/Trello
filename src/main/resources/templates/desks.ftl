@@ -87,16 +87,18 @@
                      </li>
                 <#elseif task.flag == true>
                     <li>
-                        <div>
-                            Task is archived
-                        </div>
+                        Task is archived
                         <br>
+                        <form method="post">
+                            <input type="hidden" value="${task.id}" name="task-id">
+                            <input type="submit" class="button-add" <#--onclick="returnTask(event)"--> name="return" value="Return"/>
+                        </form>
                     </li>
                 </#if>
 
             </#list>
         </ul>
-            <div id="addTaskTo${card.id}" style="display: none;">
+            <div id="addTaskTo${card.id}" style="display: none;" enctype="multipart/form-data">
                 Enter task name
                 <input class="input-field" type="text" name="name" id="input${card.id}" required="required">
                 <br>
@@ -110,6 +112,8 @@
                         <option value="FOR_CHECK">FOR_CHECK</option>
                     </select>
                 </label>
+                <br>
+                <input type="file" name="file" id="file">
                 <br>
                 <button class="button-add" onclick="addTask(event)" id="${card.id}">Add task</button>
             </div>

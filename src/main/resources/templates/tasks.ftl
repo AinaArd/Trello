@@ -14,6 +14,7 @@
     </div>
     State: ${task.state}
     <br>
+    <img src="${task.getPicturePath()}" height="130px" width="130px">
     <br>
     <#if noText??>
         <form method="post">
@@ -29,7 +30,7 @@
     Comments:
         <br>
         <br>
-         <ul id="ul-id${task.id}" typeof="">
+         <ul id="ul-id${task.id}">
             <#list task.comments as comment>
                 <li>${comment.author.name}:  ${comment.content}</li>
             </#list>
@@ -49,7 +50,7 @@
     <br>
     <br>
 
-        <form method="post" id="edit" style="display: none;">
+        <form method="post" id="edit" style="display: none;"  enctype="multipart/form-data">
             <div class="edit">Edit task</div>
             <label for="name">Name
                 <input class="input-field" type="text" id="name" name="name" value="${task.name}" required="required">
@@ -58,7 +59,7 @@
                 <input class="textarea-field" id="text" name="text" required="required" value="${task.text}">
             </label>
             <label for="state">State
-                <select id="state" name="state" class="mdb-select md-form">
+                <select id="state" name="state" class="mdb-select md-form" required="required">
                     <option value="" disabled selected>Choose task state</option>
                     <option value="TODO">TODO</option>
                     <option value="IN_PROCESS">IN_PROCESS</option>
@@ -66,6 +67,8 @@
                     <option value="FOR_CHECK">FOR_CHECK</option>
                 </select>
             </label>
+            <input type="file" name="file" id="file">
+            <br>
             <input type="submit" value="Save"/>
         </form>
     </#if>
@@ -74,7 +77,6 @@
         <input type="submit" id="user-name" name="user-name" value="Add users to task"
                onclick="show(document.getElementById('findUser'))"/>
     </label>
-    <br>
 
     <div id="findUser" style="display: none;">
         <div id="div-users">
