@@ -90,6 +90,7 @@
             <button class="button-add" id="${task.id}" onclick="addUsers(event)">Search</button>
             <br>
             <br>
+            <div id="result"></div>
         </div>
     </div>
 

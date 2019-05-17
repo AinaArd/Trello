@@ -1,6 +1,7 @@
 function addUsers(event) {
     var id = event.target.id;
     var search = document.getElementById("usersto" + id);
+    var result = document.getElementById("result");
     $.ajax({
         url: "/ajax/adduser",
         type: "post",
@@ -9,24 +10,19 @@ function addUsers(event) {
             "search": search.value
         },
         success: function (userCandidates) {
+            result.innerText = "";
             for(var user in userCandidates) {
                 var textNode = document.createElement("p");
-                // var a = document.createElement("a");
-                // a.href = "profile/" + userCandidates[user].
-                // usersNames.innerHTML = userCandidates[user];
-                textNode.innerHTML = userCandidates[user];
-                document.body.appendChild(textNode);
+                var a = document.createElement("a");
+                a.href = "profile/" + userCandidates[user];
+                a.innerHTML = userCandidates[user];
+                textNode.appendChild(a);
+                // textNode.innerHTML = userCandidates[user];
+                result.appendChild(textNode);
                 console.log(userCandidates[user]);
             }
             // TODO: clean previous variants
-            // var line = document.createElement('p');
-            // line.innerHTML = "variants: ";
-            // userCandidates.forEach(function (user, index, userCandidates) {
-            //     var text = document.createTextNode(user);
-            //     line.innerHTML = user;
-            //     line.appendChild(text);
-            // })
-
         }
+
     })
 }
