@@ -21,11 +21,14 @@ public class TasksController {
     private TaskService taskService;
 
     @GetMapping("/tasks/{task-id}")
-    public String getCardTasks(ModelMap model, @PathVariable(name = "task-id") Long taskId) {
+    public String getSingleTask(ModelMap model, @PathVariable(name = "task-id") Long taskId) {
         if (taskService.findTaskById(taskId).isPresent()) {
             Task task = taskService.findTaskById(taskId).get();
             if (task.getText() == null) {
                 model.addAttribute("noText", true);
+            }
+            if(task.getPicturePath() == null){
+                model.addAttribute("noPic", true);
             }
             model.addAttribute("task", task);
         }
@@ -33,16 +36,13 @@ public class TasksController {
     }
 
     @PostMapping("/tasks/{task-id}")
-    public String editTaskInfo(@PathVariable(name = "task-id") Long taskId, @RequestParam(name = "name") String name,
-                               @RequestParam(name = "text") String text, @RequestParam(name = "state") String state,
-                               @RequestParam(name = "file") MultipartFile file, TaskEditForm taskEditForm) {
+    public String editTaskInfo(@PathVariable(name = "task-id") Long taskId, TaskEditForm taskEditForm) {
         if (taskService.findTaskById(taskId).isPresent()) {
             Task task = taskService.findTaskById(taskId).orElseThrow(IllegalArgumentException::new);
             if (task.getText() == null || task.getText().equals("")) {
                 taskService.addText(taskEditForm, task);
             } else
-                System.out.println(task.getPicturePath());
-                taskService.edit(name, text, state, file, task);
+                taskService.edit(taskEditForm.getName(), taskEditForm.getText(), taskEditForm.getState(), taskEditForm.getFile(), task);
         }
         return "redirect:{task-id}";
     }

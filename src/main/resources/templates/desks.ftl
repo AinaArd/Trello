@@ -91,32 +91,32 @@
                         <br>
                         <form method="post">
                             <input type="hidden" value="${task.id}" name="task-id">
-                            <input type="submit" class="button-add" <#--onclick="returnTask(event)"--> name="return" value="Return"/>
+                            <input type="submit" class="button-add" <#--onclick="returnTask(event)"--> name="return"
+                                   value="Return"/>
                         </form>
                     </li>
                 </#if>
 
             </#list>
         </ul>
-            <div id="addTaskTo${card.id}" style="display: none;" enctype="multipart/form-data">
-                Enter task name
-                <input class="input-field" type="text" name="name" id="input${card.id}" required="required">
-                <br>
-                <br>
-                <label for="taskState">State
-                    <select id="taskState" name="state" class="mdb-select md-form">
-                        <option value="" disabled selected>Choose task state</option>
-                        <option value="TODO">TODO</option>
-                        <option value="IN_PROCESS">IN_PROCESS</option>
-                        <option value="DONE">DONE</option>
-                        <option value="FOR_CHECK">FOR_CHECK</option>
-                    </select>
-                </label>
-                <br>
-                <input type="file" name="file" id="file">
-                <br>
-                <button class="button-add" onclick="addTask(event)" id="${card.id}">Add task</button>
-            </div>
+        <div id="addTaskTo${card.id}" style="display: none;" >
+            Enter task name
+            <input class="input-field" type="text" name="name" id="input${card.id}" required="required">
+            <br>
+            <br>
+            <label for="taskState">State
+                <select id="state${card.id}" name="state" class="mdb-select md-form">
+                    <option value="" disabled selected>Choose task state</option>
+                    <option value="TODO">TODO</option>
+                    <option value="IN_PROCESS">IN_PROCESS</option>
+                    <option value="DONE">DONE</option>
+                    <option value="FOR_CHECK">FOR_CHECK</option>
+                </select>
+            </label>
+            <br>
+            <br>
+            <button class="button-add" onclick="addTask(event)" id="${card.id}">Add task</button>
+        </div>
     <br>
     <br>
     </#list>

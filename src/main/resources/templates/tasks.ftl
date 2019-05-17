@@ -14,7 +14,11 @@
     </div>
     State: ${task.state}
     <br>
-    <img src="${task.getPicturePath()}" height="130px" width="130px">
+    <#if noPic??>
+    <img src="/static/images/default.png"
+        <#else ><img src="${task.getPicturePath()}" height="130px" width="130px">
+    </#if>
+    <br>
     <br>
     <#if noText??>
         <form method="post">

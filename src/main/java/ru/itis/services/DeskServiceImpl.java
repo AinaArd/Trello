@@ -36,4 +36,9 @@ public class DeskServiceImpl implements DeskService {
         owner.setRole(Role.CREATOR);
         desksRepository.addDesk(desk.getName(), String.valueOf(desk.getState()), owner.getId());
     }
+
+    @Override
+    public Optional<Desk> findDeskByCard(Long id) {
+        return desksRepository.findDeskByCard_id(id);
+    }
 }

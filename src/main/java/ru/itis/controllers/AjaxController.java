@@ -13,6 +13,7 @@ import ru.itis.forms.TaskForm;
 import ru.itis.models.*;
 import ru.itis.security.details.UserDetailsImpl;
 import ru.itis.services.CardService;
+import ru.itis.services.DeskService;
 import ru.itis.services.TaskService;
 import ru.itis.services.UserServiceImpl;
 import ru.itis.utils.FileDownloader;
@@ -32,18 +33,20 @@ public class AjaxController {
     private CardService cardService;
 
     @Autowired
+    private DeskService deskService;
+
+    @Autowired
     private UserServiceImpl userService;
 
     @PostMapping("/ajax/addtask")
-    public ResponseEntity<Object> addTask(@RequestParam(name = "id") Long cardId, TaskForm taskForm,
-                                          @RequestParam(name = "file") MultipartFile file) {
+    public ResponseEntity<Object> addTask(@RequestParam(name = "id") Long cardId, TaskForm taskForm) {
         Card card = cardService.findById(cardId).orElseThrow(IllegalArgumentException::new);
-        String photoPath = fileDownloader.upload(file, taskForm.getName()).orElseThrow(IllegalArgumentException::new);
+        Desk desk = deskService.findDeskByCard(card.getId()).orElseThrow(IllegalArgumentException::new);
         Task task = Task.builder()
                 .name(taskForm.getName())
                 .card(card)
+                .desk(desk)
                 .state(TaskState.valueOf(taskForm.getState()))
-                .picturePath(photoPath)
                 .flag(false)
                 .build();
         Task newTask = taskService.addTask(task);
@@ -54,8 +57,8 @@ public class AjaxController {
     @PostMapping("/ajax/adduser")
     public ResponseEntity<Object> addUser(@RequestParam(name = "search") String search) {
         List<User> userCandidates = userService.findByNameOrLogin(search);
-        System.out.println(userCandidates.get(0).getName());
-        return ResponseEntity.ok(userCandidates);
+        List<String> userNames = userService.getNames(userCandidates);
+        return ResponseEntity.ok(userNames);
     }
 
     @PostMapping("/ajax/addcomment")

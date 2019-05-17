@@ -2,8 +2,7 @@ function addTask(event) {
     var id = event.target.id;
     var card = document.getElementById("card" + id);
     var name = document.getElementById("input" + id);
-    var state = document.getElementById("taskState");
-    var picture = document.getElementById("file");
+    var state = document.getElementById("state" + id);
     var ul = document.getElementById("ul-id" + id);
     $.ajax({
         url: "/ajax/addtask",
@@ -11,8 +10,7 @@ function addTask(event) {
         data: {
             "id": id,
             "name": name.value,
-            "state": state.value,
-            "picture": picture.value
+            "state": state.value
         },
         success: function (id) {
             var li = document.createElement("li");

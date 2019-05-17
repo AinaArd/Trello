@@ -13,4 +13,6 @@ public interface CardService {
     List<Card> findAll();
 
     void addCard(Card newCard);
+
+
 }

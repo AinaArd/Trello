@@ -22,4 +22,6 @@ public interface UserService {
     void saveAndFlush(UserEditForm userEditForm, Authentication authentication);
 
     boolean checkLoginAndPassword(UserEditForm userEditForm);
+
+    List<String> getNames(List<User> userCandidates);
 }

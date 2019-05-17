@@ -23,4 +23,7 @@ public interface DesksRepository extends JpaRepository<Desk, Long> {
             "returning id)\n" +
             "insert into desk_desk_members(desks_id, desk_members_id) values ((select id from ins1), ?)")
     void addDesk(String name, String state, Long userId);
+
+    @Query(nativeQuery = true, value = "select * from desk inner join card c2 on desk.id = c2.desk_id where c2.id = ?")
+    Optional<Desk> findDeskByCard_id(Long cardId);
 }

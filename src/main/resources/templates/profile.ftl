@@ -17,7 +17,7 @@
 
         <br>
 
-            @${user.login}
+            ${user.login}
 
         <br>
         <br>

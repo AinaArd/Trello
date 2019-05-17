@@ -12,6 +12,7 @@ import ru.itis.security.details.UserDetailsImpl;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -67,5 +68,10 @@ public class UserServiceImpl implements UserService {
             return false;
         }
         return !userEditForm.getOldPassword().equals(userEditForm.getNewPassword());
+    }
+
+    @Override
+    public List<String> getNames(List<User> userCandidates) {
+        return userCandidates.stream().map(user -> user.getName()).collect(Collectors.toList());
     }
 }

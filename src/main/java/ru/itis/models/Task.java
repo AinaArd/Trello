@@ -47,7 +47,7 @@ public class Task {
     @JoinColumn(name = "deskId")
     private Desk desk;
 
-//    public String getPicturePath() {
-//        return "C:\\AinaArd\\images\\" + picturePath;
-//    }
+    public String getPicturePath() {
+        return "C:\\AinaArd\\images\\" + picturePath;
+    }
 }

@@ -18,6 +18,7 @@ import ru.itis.services.DeskService;
 import ru.itis.services.TaskService;
 import ru.itis.services.UserService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -52,7 +53,7 @@ public class DesksController {
     }
 
     @GetMapping(path = "/desks/{desk-id}")
-    public String getOneDesk(ModelMap model, @PathVariable(name = "desk-id") Long deskId) {
+    public String getOneDesk(ModelMap model, @PathVariable(name = "desk-id") Long deskId, HttpServletRequest request) {
         if (deskService.findOneDesk(deskId).isPresent()) {
             Desk selectedDesk = deskService.findOneDesk(deskId).get();
             List<Card> deskCards = cardService.findDeskCards(selectedDesk.getId());
@@ -99,7 +100,6 @@ public class DesksController {
 
     @PostMapping(value = "/desks/{desk-id}", params = "return")
     public String returnTask(@RequestParam(name = "task-id") Long taskId){
-        System.out.println(taskId);
         Task returnedTask = taskService.findTaskById(taskId).orElseThrow(IllegalArgumentException::new);
         taskService.changeFlag(returnedTask);
         return "redirect:{desk-id}";
