@@ -10,6 +10,7 @@ import ru.itis.models.User;
 import ru.itis.repositories.UsersRepository;
 import ru.itis.security.details.UserDetailsImpl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -73,5 +74,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<String> getNames(List<User> userCandidates) {
         return userCandidates.stream().map(user -> user.getName()).collect(Collectors.toList());
+    }
+
+    public HashMap<Long, String> findUsers(String input){
+        HashMap<Long, String> result = new HashMap<>();
+        result.put((long) 5, "Masha");
+        List<User> users = findByNameOrLogin(input);
+        for(User user : users) {
+            System.out.println(user.getName());
+            result.put(user.getId(), user.getName());
+        }
+        return result;
     }
 }

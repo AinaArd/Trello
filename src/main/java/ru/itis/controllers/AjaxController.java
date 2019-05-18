@@ -18,6 +18,7 @@ import ru.itis.services.TaskService;
 import ru.itis.services.UserServiceImpl;
 import ru.itis.utils.FileDownloader;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -57,8 +58,9 @@ public class AjaxController {
     @PostMapping("/ajax/adduser")
     public ResponseEntity<Object> addUser(@RequestParam(name = "search") String search) {
         List<User> userCandidates = userService.findByNameOrLogin(search);
-        List<String> userNames = userService.getNames(userCandidates);
-        return ResponseEntity.ok(userNames);
+        System.out.println(userCandidates.get(0).getName());
+//        List<String> userNames = userService.getNames(userCandidates);
+        return ResponseEntity.ok(userCandidates);
     }
 
     @PostMapping("/ajax/addcomment")

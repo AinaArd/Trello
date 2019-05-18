@@ -1,5 +1,6 @@
 package ru.itis.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -25,20 +26,24 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
+    @JsonIgnore
     @LazyCollection(LazyCollectionOption.TRUE)
     @ManyToMany
     @JoinColumn(name = "userId")
     private List<Desk> desks;
 
+    @JsonIgnore
     @LazyCollection(LazyCollectionOption.TRUE)
     @OneToMany(mappedBy = "author")
     private List<Comment> comments;
 
+    @JsonIgnore
     @LazyCollection(LazyCollectionOption.TRUE)
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "userId")
     private List<Task> tasks;
 
+    @JsonIgnore
     @LazyCollection(LazyCollectionOption.TRUE)
     @OneToMany(mappedBy = "owner")
     @OrderBy()

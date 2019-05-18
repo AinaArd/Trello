@@ -11,11 +11,12 @@ function addUsers(event) {
         },
         success: function (userCandidates) {
             result.innerText = "";
-            for(var user in userCandidates) {
+            for (var user in userCandidates) {
+                console.log(user.id);
                 var textNode = document.createElement("p");
                 var a = document.createElement("a");
-                a.href = "profile/" + userCandidates[user];
-                a.innerHTML = userCandidates[user];
+                a.href = "../profile/" + userCandidates[user].id;
+                a.innerHTML = userCandidates[user].name;
                 textNode.appendChild(a);
                 // textNode.innerHTML = userCandidates[user];
                 result.appendChild(textNode);
