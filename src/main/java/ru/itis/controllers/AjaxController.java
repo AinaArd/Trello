@@ -16,6 +16,7 @@ import ru.itis.services.CardService;
 import ru.itis.services.DeskService;
 import ru.itis.services.TaskService;
 import ru.itis.services.UserServiceImpl;
+import ru.itis.transfer.UserDto;
 import ru.itis.utils.FileDownloader;
 
 import java.util.HashMap;
@@ -56,10 +57,9 @@ public class AjaxController {
     }
 
     @PostMapping("/ajax/adduser")
-    public ResponseEntity<Object> addUser(@RequestParam(name = "search") String search) {
-        List<User> userCandidates = userService.findByNameOrLogin(search);
-        System.out.println(userCandidates.get(0).getName());
-//        List<String> userNames = userService.getNames(userCandidates);
+    public ResponseEntity<Object> addUser(@RequestParam(name = "search") String search, Authentication authentication) {
+        User currentUser = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
+        List<UserDto> userCandidates = userService.findByNameOrLogin(search, currentUser);
         return ResponseEntity.ok(userCandidates);
     }
 

@@ -4,6 +4,7 @@ import org.springframework.security.core.Authentication;
 import ru.itis.forms.UserEditForm;
 import ru.itis.forms.UserForm;
 import ru.itis.models.User;
+import ru.itis.transfer.UserDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,7 +18,7 @@ public interface UserService {
 
     Optional<User> findByLoginAndPassword(UserForm userForm);
 
-    List<User> findByNameOrLogin(String input);
+    List<UserDto> findByNameOrLogin(String input, User user);
 
     void saveAndFlush(UserEditForm userEditForm, Authentication authentication);
 

@@ -1,8 +1,8 @@
 package ru.itis.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import ru.itis.models.User;
+import ru.itis.transfer.UserDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,7 +15,7 @@ public interface UsersRepository extends JpaRepository<User, Long> {
     Optional<User> findByLoginAndHashPassword(String login, String password);
     <S extends User> S saveAndFlush(S s);
     <S extends User> S save(S s);
-    List<User> findByNameContaining(String name);
-    List<User> findByLoginContaining(String name);
+    List<UserDto> findByNameContaining(String name);
+    List<UserDto> findByLoginContaining(String name);
 
 }

@@ -50,4 +50,8 @@ public class Task {
     public String getPicturePath() {
         return "C:\\AinaArd\\images\\" + picturePath;
     }
+
+    public boolean getFlag() {
+        return this.flag;
+    }
 }

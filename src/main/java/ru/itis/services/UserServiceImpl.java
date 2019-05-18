@@ -9,11 +9,15 @@ import ru.itis.forms.UserForm;
 import ru.itis.models.User;
 import ru.itis.repositories.UsersRepository;
 import ru.itis.security.details.UserDetailsImpl;
+import ru.itis.transfer.UserDto;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static ru.itis.transfer.UserDto.from;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -46,12 +50,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findByNameOrLogin(String input) {
+    public List<UserDto> findByNameOrLogin(String input, User user) {
+        List<UserDto> users;
+        UserDto currentUser = from(user);
         if (input.contains("@")) {
-            return usersRepository.findByLoginContaining(input);
+            users = usersRepository.findByLoginContaining(input);
+            users.remove(currentUser);
         } else {
-            return usersRepository.findByNameContaining(input);
+            users = usersRepository.findByNameContaining(input);
+            users.remove(currentUser);
         }
+        return users;
     }
 
     @Override
@@ -76,14 +85,13 @@ public class UserServiceImpl implements UserService {
         return userCandidates.stream().map(user -> user.getName()).collect(Collectors.toList());
     }
 
-    public HashMap<Long, String> findUsers(String input){
-        HashMap<Long, String> result = new HashMap<>();
-        result.put((long) 5, "Masha");
-        List<User> users = findByNameOrLogin(input);
-        for(User user : users) {
-            System.out.println(user.getName());
-            result.put(user.getId(), user.getName());
-        }
-        return result;
-    }
+//    public HashMap<Long, String> findUsers(String input){
+//        HashMap<Long, String> result = new HashMap<>();
+//        result.put((long) 5, "Masha");
+//        List<User> users = findByNameOrLogin(input);
+//        for(User user : users) {
+//            result.put(user.getId(), user.getName());
+//        }
+//        return result;
+//    }
 }
