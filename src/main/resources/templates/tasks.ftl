@@ -87,7 +87,7 @@
             <label for="users">Find user
                 <input class="input-field" type="text" id="usersto${task.id}" name="users">
             </label>
-            <button class="button-add" id="${task.id}" onclick="addUsers(event)">Search</button>
+            <button class="button-add" id="${task.id}" onclick="addUsersToTask(event)">Search</button>
             <br>
             <br>
             <div id="result"></div>

@@ -1,5 +1,7 @@
 package ru.itis.controllers;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -82,5 +84,12 @@ public class AjaxController {
         Task task = taskService.findTaskById(taskId).orElseThrow(IllegalArgumentException::new);
         taskService.changeFlag(task);
         return ResponseEntity.ok(task.getId());
+    }
+
+    @PostMapping("/ajax/inviteusers")
+    public ResponseEntity<Object> inviteUsers(@RequestParam(name = "search") String search, Authentication authentication) {
+        User currentUser = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
+        List<UserDto> userCandidates = userService.findByNameOrLogin(search, currentUser);
+        return ResponseEntity.ok(userCandidates);
     }
 }

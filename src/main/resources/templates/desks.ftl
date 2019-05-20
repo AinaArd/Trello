@@ -27,7 +27,11 @@
 <div class="form-style-2">
     <div class="form-style-2-heading">
         <#if selectedDesk??>
-            ${selectedDesk.name}
+            ${selectedDesk.name}&nbsp;&nbsp;
+            <input class="input-field" type="text" id="input" name="users" oninput="addUsersToDesk(event)">
+            <button class="button-add" id="${selectedDesk.id}" onclick="addUsersToDesk(event)">Search</button>
+            <br>
+            <div id="result"></div>
         <#else>User desks
         </#if>
     </div>
@@ -99,7 +103,7 @@
 
             </#list>
         </ul>
-        <div id="addTaskTo${card.id}" style="display: none;" >
+        <div id="addTaskTo${card.id}" style="display: none;">
             Enter task name
             <input class="input-field" type="text" name="name" id="input${card.id}" required="required">
             <br>
@@ -157,5 +161,6 @@
      }
  </script>-->
     <script type="application/javascript" src="/js/tasks.js"></script>
+    <script type="application/javascript" src="/js/users.js"></script>
 </body>
 </html>
