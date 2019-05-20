@@ -1,6 +1,7 @@
 package ru.itis.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import ru.itis.models.User;
 import ru.itis.transfer.UserDto;
 
@@ -18,4 +19,6 @@ public interface UsersRepository extends JpaRepository<User, Long> {
     List<UserDto> findByNameContaining(String name);
     List<UserDto> findByLoginContaining(String name);
 
+    @Query(nativeQuery = true, value = "select * from \"user\" inner join user_desks ud on \"user\".id = ud.users_id where desks_id = ?")
+    List<User> findAllMembers(Long deskId);
 }

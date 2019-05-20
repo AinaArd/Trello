@@ -16,6 +16,8 @@ public interface UserService {
 
     Optional<User> findByLogin(String login);
 
+    Optional<User> findByName(String name);
+
     Optional<User> findByLoginAndPassword(UserForm userForm);
 
     List<UserDto> findByNameOrLogin(String input, User user);
@@ -25,4 +27,6 @@ public interface UserService {
     boolean checkLoginAndPassword(UserEditForm userEditForm);
 
     List<String> getNames(List<User> userCandidates);
+
+    List<User> findAllMembers(Long deskId);
 }

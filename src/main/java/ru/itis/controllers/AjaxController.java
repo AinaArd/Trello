@@ -28,9 +28,6 @@ import java.util.List;
 public class AjaxController {
 
     @Autowired
-    private FileDownloader fileDownloader;
-
-    @Autowired
     private TaskService taskService;
 
     @Autowired
@@ -59,10 +56,12 @@ public class AjaxController {
     }
 
     @PostMapping("/ajax/adduser")
-    public ResponseEntity<Object> addUser(@RequestParam(name = "search") String search, Authentication authentication) {
-        User currentUser = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
-        List<UserDto> userCandidates = userService.findByNameOrLogin(search, currentUser);
-        return ResponseEntity.ok(userCandidates);
+    public ResponseEntity<Object> addUser(@RequestParam(name = "userName") String userName, @RequestParam(name = "deskId") Long deskId) {
+        User user = userService.findByName(userName).orElseThrow(IllegalArgumentException::new);
+        Desk desk = deskService.findOneDesk(deskId).orElseThrow(IllegalArgumentException::new);
+        deskService.addMembersToDesk(user.getId(), desk.getId());
+//        desk.getUsers().add(user);
+        return ResponseEntity.ok(user);
     }
 
     @PostMapping("/ajax/addcomment")

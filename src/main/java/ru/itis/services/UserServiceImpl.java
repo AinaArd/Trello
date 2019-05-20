@@ -45,6 +45,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Optional<User> findByName(String name) {
+        return usersRepository.findByName(name);
+    }
+
+    @Override
     public Optional<User> findByLoginAndPassword(UserForm userForm) {
         return usersRepository.findByLoginAndHashPassword(userForm.getLogin(), userForm.getPassword());
     }
@@ -85,13 +90,8 @@ public class UserServiceImpl implements UserService {
         return userCandidates.stream().map(user -> user.getName()).collect(Collectors.toList());
     }
 
-//    public HashMap<Long, String> findUsers(String input){
-//        HashMap<Long, String> result = new HashMap<>();
-//        result.put((long) 5, "Masha");
-//        List<User> users = findByNameOrLogin(input);
-//        for(User user : users) {
-//            result.put(user.getId(), user.getName());
-//        }
-//        return result;
-//    }
+    @Override
+    public List<User> findAllMembers(Long deskId) {
+        return usersRepository.findAllMembers(deskId);
+    }
 }

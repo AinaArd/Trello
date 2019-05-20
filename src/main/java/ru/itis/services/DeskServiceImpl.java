@@ -6,6 +6,7 @@ import ru.itis.models.Desk;
 import ru.itis.models.Role;
 import ru.itis.models.User;
 import ru.itis.repositories.DesksRepository;
+import ru.itis.transfer.UserDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,14 +32,23 @@ public class DeskServiceImpl implements DeskService {
         desksRepository.save(desk);
     }
 
-    @Override
-    public void addDeskOwner(Desk desk, User owner) {
-        owner.setRole(Role.CREATOR);
-        desksRepository.addDesk(desk.getName(), String.valueOf(desk.getState()), owner.getId());
-    }
+//    @Override
+//    public void addDeskOwner(Desk desk, User owner) {
+//        owner.setRole(Role.CREATOR);
+//        desksRepository.addDesk(desk.getName(), String.valueOf(desk.getState()), owner.getId());
+//    }
 
     @Override
     public Optional<Desk> findDeskByCard(Long id) {
         return desksRepository.findDeskByCard_id(id);
+    }
+
+    @Override
+    public void addMembersToDesk(Long userId, Long deskId) {
+        if (desksRepository.findAllByDeskIdOrUserId(userId, deskId).isEmpty()) {
+            desksRepository.addMembersToDesk(userId, deskId);
+        } else {
+            System.out.println("duplicate");
+        }
     }
 }

@@ -33,10 +33,12 @@ function addUsersToTask(event) {
     })
 }
 
-function addUsersToDesk(event) {
+function addUsersToDesk() {
     var search = document.getElementById("input");
     var result = document.getElementById("result");
-    if(search.value.length > 0) {
+    var desk = document.getElementById("desk-id");
+
+    if (search.value.length > 0) {
         $.ajax({
             url: "/ajax/inviteusers",
             type: "post",
@@ -47,9 +49,38 @@ function addUsersToDesk(event) {
                 result.innerText = "";
                 for (var user in userCandidates) {
                     var textNode = document.createElement("p");
+
+                    var buttonAdd = document.createElement("button");
+                    buttonAdd.innerText = "Add";
+                    // buttonAdd.name = "Add";
+                    buttonAdd.onclick = function add() {
+                        buttonAdd.innerHTML = "Added";
+                        var userName = userCandidates[user].name;
+                        var deskId = desk.dataset.id;
+                        $.ajax({
+                                url: "/ajax/adduser",
+                                type: "post",
+                                data: {
+                                    "userName": userName,
+                                    "deskId": deskId
+                                },
+                                success: function (user) {
+                                    var members = document.getElementById("member");
+
+                                    members.innerHTML = user.name;
+                                    console.log(user.name);
+
+                                }
+                            }
+                        )
+                    }
+                    ;
+
                     var a = document.createElement("a");
                     a.href = "../profile/" + userCandidates[user].id;
                     a.innerHTML = userCandidates[user].name;
+
+                    textNode.appendChild(buttonAdd);
                     textNode.appendChild(a);
                     result.appendChild(textNode);
                 }
@@ -60,3 +91,21 @@ function addUsersToDesk(event) {
         result.innerHTML = "";
     }
 }
+
+// function add() {
+//     buttonAdd.innerHTML = "Added";
+//     var userName = userCandidate[user].name;
+//     var deskId = document.getElementById("desk-id");
+//     console.log("added");
+//     $.ajax({
+//         url: "/ajax/adduser",
+//         type: "post",
+//         data: {
+//             "userName": userName,
+//             "deskId": deskId
+//         },
+//         success: function (text) {
+//             console.log(text);
+//         }
+//     })
+// }

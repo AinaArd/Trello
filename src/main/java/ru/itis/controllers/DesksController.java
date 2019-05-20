@@ -88,7 +88,7 @@ public class DesksController {
 
     @PostMapping(value = "/desks", params = "saveDesc")
     public String addDesk(DeskForm deskForm, Authentication authentication) {
-        User deskOwner = ((UserDetailsImpl)authentication.getPrincipal()).getUser();
+        User deskOwner = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
         Desk newDesk = Desk.builder()
                 .name(deskForm.getName())
                 .state(DeskState.valueOf(deskForm.getState()))
@@ -99,7 +99,7 @@ public class DesksController {
     }
 
     @PostMapping(value = "/desks/{desk-id}", params = "return")
-    public String returnTask(@RequestParam(name = "task-id") Long taskId){
+    public String returnTask(@RequestParam(name = "task-id") Long taskId) {
         Task returnedTask = taskService.findTaskById(taskId).orElseThrow(IllegalArgumentException::new);
         taskService.changeFlag(returnedTask);
         return "redirect:{desk-id}";
