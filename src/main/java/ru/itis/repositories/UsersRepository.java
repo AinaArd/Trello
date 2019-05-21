@@ -25,6 +25,9 @@ public interface UsersRepository extends JpaRepository<User, Long> {
     @Query(nativeQuery = true, value = "insert into user_desks(users_id, desks_id) values(?,?)")
     void addMembersToDesk(Long userId, Long deskId);
 
+    @Query(nativeQuery = true, value = "insert into user_tasks(users_id, tasks_id) values(?,?)")
+    void addMembersToTask(Long userId, Long taskId);
+
     @Query(nativeQuery = true, value = "select users_id from user_desks" +
             " where exists (select * from user_desks where users_id = ? and desks_id = ?)")
     List<Long> findAllByDeskIdOrUserId(Long userId, Long deskId);

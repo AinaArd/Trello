@@ -9,9 +9,18 @@
 <body>
 <#include "header.ftl">
 <div class="form-style-2">
-    <div class="form-style-2-heading">
+    <div id="task-id" data-id="${task.id}" class="form-style-2-heading">
     ${task.name}
     </div>
+    <div> Members:
+<#--        <#if task.users??>-->
+            <#list task.users as member>
+                <a href="/profile/${member.id}">${member.name}</a>
+                <div id="member"></div>
+            </#list>
+<#--        </#if>-->
+    </div>
+    <br>
     State: ${task.state}
     <br>
     <#if noPic??>
@@ -85,12 +94,12 @@
     <div id="findUser" style="display: none;">
         <div id="div-users">
             <label for="users">Find user
-                <input class="input-field" type="text" id="usersto${task.id}" name="users">
+                <input class="input-field" type="text" id="search" name="users" oninput="addUsersToTask()">
             </label>
-            <button class="button-add" id="${task.id}" onclick="addUsersToTask(event)">Search</button>
-            <br>
-            <br>
             <div id="result"></div>
+            <br>
+            <br>
+            <div id="user-candidates"></div>
         </div>
     </div>
 

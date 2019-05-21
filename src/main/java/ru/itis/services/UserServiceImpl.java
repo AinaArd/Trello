@@ -72,6 +72,16 @@ public class UserServiceImpl implements UserService {
         return users;
     }
 
+    public List<UserDto> findByNameOrLogin(String input) {
+        List<UserDto> users;
+        if (input.contains("@")) {
+            users = usersRepository.findByLoginContaining(input);
+        } else {
+            users = usersRepository.findByNameContaining(input);
+        }
+        return users;
+    }
+
     @Override
     public void saveAndFlush(UserEditForm userEditForm, Authentication authentication) {
         User user = ((UserDetailsImpl) authentication.getPrincipal()).getUser();

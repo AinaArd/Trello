@@ -34,7 +34,7 @@
             <div> Members:
                 <#if selectedDesk.users??>
                     <#list selectedDesk.users as member>
-                        <div>${member.name}</div>
+                        <a href="/profile/${member.id}">${member.name}</a>
                         <div id="member"></div>
                     </#list>
                 <#else> no users in this desk yet

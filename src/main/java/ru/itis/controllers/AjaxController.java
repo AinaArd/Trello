@@ -55,13 +55,22 @@ public class AjaxController {
         return ResponseEntity.ok(newTask.getId());
     }
 
-    @PostMapping("/ajax/adduser")
-    public ResponseEntity<Object> addUser(@RequestParam(name = "userName") String userName, @RequestParam(name = "deskId") Long deskId) {
+    @PostMapping("/ajax/addusertodesk")
+    public ResponseEntity<Object> addUserToDesk(@RequestParam(name = "userName") String userName, @RequestParam(name = "deskId") Long deskId) {
         User user = userService.findByName(userName).orElseThrow(IllegalArgumentException::new);
         Desk desk = deskService.findOneDesk(deskId).orElseThrow(IllegalArgumentException::new);
-//        User newUser = userService.addMembersToDesk(user.getId(), desk.getId()).orElseThrow(IllegalArgumentException::new);
         desk.getUsers().add(user);
         user.getDesks().add(desk);
+        User newUser = userService.save(user);
+        return ResponseEntity.ok(newUser);
+    }
+
+    @PostMapping("/ajax/addusertotask")
+    public ResponseEntity<Object> addUserToTask(@RequestParam(name = "userName") String userName, @RequestParam(name = "taskId") Long taskId) {
+        User user = userService.findByName(userName).orElseThrow(IllegalArgumentException::new);
+        Task task = taskService.findTaskById(taskId).orElseThrow(IllegalArgumentException::new);
+        task.getUsers().add(user);
+        user.getTasks().add(task);
         User newUser = userService.save(user);
         return ResponseEntity.ok(newUser);
     }
@@ -87,10 +96,16 @@ public class AjaxController {
         return ResponseEntity.ok(task.getId());
     }
 
-    @PostMapping("/ajax/inviteusers")
+    @PostMapping("/ajax/inviteuserstodesk")
     public ResponseEntity<Object> inviteUsers(@RequestParam(name = "search") String search, Authentication authentication) {
         User currentUser = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
         List<UserDto> userCandidates = userService.findByNameOrLogin(search, currentUser);
+        return ResponseEntity.ok(userCandidates);
+    }
+
+    @PostMapping("/ajax/inviteuserstotask")
+    public ResponseEntity<Object> inviteUsers(@RequestParam(name = "search") String search) {
+        List<UserDto> userCandidates = userService.findByNameOrLogin(search);
         return ResponseEntity.ok(userCandidates);
     }
 }
