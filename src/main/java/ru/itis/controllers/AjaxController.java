@@ -59,9 +59,11 @@ public class AjaxController {
     public ResponseEntity<Object> addUser(@RequestParam(name = "userName") String userName, @RequestParam(name = "deskId") Long deskId) {
         User user = userService.findByName(userName).orElseThrow(IllegalArgumentException::new);
         Desk desk = deskService.findOneDesk(deskId).orElseThrow(IllegalArgumentException::new);
-        deskService.addMembersToDesk(user.getId(), desk.getId());
-//        desk.getUsers().add(user);
-        return ResponseEntity.ok(user);
+//        User newUser = userService.addMembersToDesk(user.getId(), desk.getId()).orElseThrow(IllegalArgumentException::new);
+        desk.getUsers().add(user);
+        user.getDesks().add(desk);
+        User newUser = userService.save(user);
+        return ResponseEntity.ok(newUser);
     }
 
     @PostMapping("/ajax/addcomment")

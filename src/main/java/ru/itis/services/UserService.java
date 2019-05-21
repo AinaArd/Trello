@@ -29,4 +29,8 @@ public interface UserService {
     List<String> getNames(List<User> userCandidates);
 
     List<User> findAllMembers(Long deskId);
+
+    Optional<User> addMembersToDesk(Long userId, Long deskId);
+
+    User save(User user);
 }

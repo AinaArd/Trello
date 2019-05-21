@@ -14,5 +14,4 @@ public interface DeskService {
     Optional<Desk> findOneDesk(Long id);
     void addDesk(Desk desk);
     Optional<Desk> findDeskByCard(Long id);
-    void addMembersToDesk(Long userId, Long deskId);
 }

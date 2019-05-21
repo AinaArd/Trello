@@ -21,4 +21,14 @@ public interface UsersRepository extends JpaRepository<User, Long> {
 
     @Query(nativeQuery = true, value = "select * from \"user\" inner join user_desks ud on \"user\".id = ud.users_id where desks_id = ?")
     List<User> findAllMembers(Long deskId);
+
+    @Query(nativeQuery = true, value = "insert into user_desks(users_id, desks_id) values(?,?)")
+    void addMembersToDesk(Long userId, Long deskId);
+
+    @Query(nativeQuery = true, value = "select users_id from user_desks" +
+            " where exists (select * from user_desks where users_id = ? and desks_id = ?)")
+    List<Long> findAllByDeskIdOrUserId(Long userId, Long deskId);
+
+    @Query(nativeQuery = true, value = "select * from user_desks ud inner join \"user\" u on ud.users_id = u.id where users_id = ?")
+    Optional<User> findMemberById(Long userId);
 }

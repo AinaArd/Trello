@@ -22,11 +22,15 @@ import static ru.itis.transfer.UserDto.from;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
     private UsersRepository usersRepository;
 
-    @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public UserServiceImpl(UsersRepository usersRepository, PasswordEncoder passwordEncoder) {
+        this.usersRepository = usersRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
 
     @Override
@@ -93,5 +97,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findAllMembers(Long deskId) {
         return usersRepository.findAllMembers(deskId);
+    }
+
+    @Override
+    public Optional<User> addMembersToDesk(Long userId, Long deskId) {
+        if (usersRepository.findAllByDeskIdOrUserId(userId, deskId).isEmpty()) {
+             usersRepository.addMembersToDesk(userId, deskId);
+             return usersRepository.findMemberById(userId);
+        } else {
+            System.out.println("duplicate");
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public User save(User user) {
+        return usersRepository.save(user);
     }
 }

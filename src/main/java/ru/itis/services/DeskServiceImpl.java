@@ -43,12 +43,4 @@ public class DeskServiceImpl implements DeskService {
         return desksRepository.findDeskByCard_id(id);
     }
 
-    @Override
-    public void addMembersToDesk(Long userId, Long deskId) {
-        if (desksRepository.findAllByDeskIdOrUserId(userId, deskId).isEmpty()) {
-            desksRepository.addMembersToDesk(userId, deskId);
-        } else {
-            System.out.println("duplicate");
-        }
-    }
 }
