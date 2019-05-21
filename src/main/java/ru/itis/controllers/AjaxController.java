@@ -18,6 +18,7 @@ import ru.itis.services.CardService;
 import ru.itis.services.DeskService;
 import ru.itis.services.TaskService;
 import ru.itis.services.UserServiceImpl;
+import ru.itis.transfer.TaskDto;
 import ru.itis.transfer.UserDto;
 import ru.itis.utils.FileDownloader;
 
@@ -50,9 +51,8 @@ public class AjaxController {
                 .state(TaskState.valueOf(taskForm.getState()))
                 .flag(false)
                 .build();
-        Task newTask = taskService.addTask(task);
-//        TODO: state isn't printed immediately
-        return ResponseEntity.ok(newTask.getId());
+        TaskDto newTask = taskService.addTask(task);
+        return ResponseEntity.ok(newTask);
     }
 
     @PostMapping("/ajax/addusertodesk")
@@ -107,5 +107,16 @@ public class AjaxController {
     public ResponseEntity<Object> inviteUsers(@RequestParam(name = "search") String search) {
         List<UserDto> userCandidates = userService.findByNameOrLogin(search);
         return ResponseEntity.ok(userCandidates);
+    }
+
+    @PostMapping("/ajax/deleteuser")
+    public ResponseEntity<Object> deleteUserFromDesk(@RequestParam(name = "userName") String name, @RequestParam(name = "desk-id") Long deskId){
+        User user = userService.findByName(name).orElseThrow(IllegalArgumentException::new);
+        Desk desk = deskService.findOneDesk(deskId).orElseThrow(IllegalArgumentException::new);
+        userService.removeFromDesk(user, desk);
+        desk.getUsers().remove(user);
+        user.getDesks().remove(desk);
+        return ResponseEntity.ok().build();
+
     }
 }

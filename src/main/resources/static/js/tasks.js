@@ -12,15 +12,16 @@ function addTask(event) {
             "name": name.value,
             "state": state.value
         },
-        success: function (id) {
+        success: function (task) {
             var li = document.createElement("li");
-            var liState = document.createElement("li");
             var a = document.createElement("a");
-            a.href = "/tasks/" + id;
-            a.innerHTML = name.value;
+            var text = document.createElement("em");
+            a.href = "/tasks/" + task.id;
+            a.innerHTML = task.name + " ";
             li.appendChild(a);
+            text.innerHTML = "State: " + task.state;
+            li.appendChild(text);
             ul.appendChild(li);
-            ul.appendChild(liState);
             name.value = "";
             state.value = "";
         }

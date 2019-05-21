@@ -11,11 +11,14 @@ import ru.itis.models.Task;
 import ru.itis.models.TaskState;
 import ru.itis.repositories.CommentRepository;
 import ru.itis.repositories.TasksRepository;
+import ru.itis.transfer.TaskDto;
 import ru.itis.utils.FileDownloader;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static ru.itis.transfer.TaskDto.from;
 
 @Service
 public class TaskServiceImpl implements TaskService {
@@ -42,8 +45,9 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Task addTask(Task task) {
-        return tasksRepository.save(task);
+    public TaskDto addTask(Task task) {
+        TaskDto newTask = from(tasksRepository.save(task));
+        return newTask;
     }
 
     @Override

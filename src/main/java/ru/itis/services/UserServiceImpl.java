@@ -6,6 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.itis.forms.UserEditForm;
 import ru.itis.forms.UserForm;
+import ru.itis.models.Desk;
 import ru.itis.models.User;
 import ru.itis.repositories.UsersRepository;
 import ru.itis.security.details.UserDetailsImpl;
@@ -123,5 +124,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User save(User user) {
         return usersRepository.save(user);
+    }
+
+    @Override
+    public void removeFromDesk(User user, Desk desk) {
+        usersRepository.remove(user.getId(), desk.getId());
     }
 }

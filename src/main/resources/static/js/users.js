@@ -72,7 +72,6 @@ function addUsersToDesk() {
 
                     var buttonAdd = document.createElement("button");
                     buttonAdd.innerText = "Add";
-                    // buttonAdd.name = "Add";
                     buttonAdd.onclick = function add() {
                         buttonAdd.innerHTML = "Added";
                         var userName = userCandidates[user].name;
@@ -109,4 +108,22 @@ function addUsersToDesk() {
     } else {
         result.innerHTML = "";
     }
+}
+
+// TODO: fix illegal invocation error
+function deleteUser(event) {
+    var id = event.target.id;
+    console.log(id);
+    var deskId = document.getElementById("desk-id");
+    $.ajax({
+        url: "/ajax/deleteuser",
+        type: "post",
+        data: {
+            "id": id,
+            "desk-id": deskId
+        },
+        success: function () {
+            console.log("success")
+        }
+    })
 }

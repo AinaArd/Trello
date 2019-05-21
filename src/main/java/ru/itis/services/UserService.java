@@ -3,6 +3,7 @@ package ru.itis.services;
 import org.springframework.security.core.Authentication;
 import ru.itis.forms.UserEditForm;
 import ru.itis.forms.UserForm;
+import ru.itis.models.Desk;
 import ru.itis.models.User;
 import ru.itis.transfer.UserDto;
 
@@ -33,4 +34,6 @@ public interface UserService {
     Optional<User> addMembersToDesk(Long userId, Long deskId);
 
     User save(User user);
+
+    void removeFromDesk(User user, Desk desk);
 }
