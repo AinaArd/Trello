@@ -38,22 +38,25 @@ function commentTask(event) {
     var id = event.target.id;
     var comment = document.getElementById("comment");
     var ul = document.getElementById("ul-id" + id);
-    $.ajax({
-        url: "/ajax/addcomment",
-        type: "post",
-        data: {
-            "id": id,
-            "comment": comment.value
-        },
-        success: function (name) {
-            var li = document.createElement("li");
-            var text = document.createTextNode(comment.value);
-            li.innerHTML = name + ": ";
-            li.appendChild(text);
-            ul.appendChild(li);
-            comment.value = "";
-        }
-    })
+    if(comment.value.length > 0) {
+        $.ajax({
+            url: "/ajax/addcomment",
+            type: "post",
+            data: {
+                "id": id,
+                "comment": comment.value
+            },
+            success: function (name) {
+                var li = document.createElement("li");
+                var text = document.createTextNode(comment.value);
+                li.innerHTML = name + ": ";
+                li.appendChild(text);
+                ul.appendChild(li);
+                comment.value = "";
+            }
+        })
+    } else
+        alert("Comment can't be empty! Write something in the form")
 }
 
 function returnTask(event) {
@@ -70,12 +73,12 @@ function returnTask(event) {
     })
 }
 
-function checkForEmptiness() {
-    var text = document.getElementById("comment");
-    var button = document.getElementsByName("comment-btn");
-    if (text.value > 0) {
-        button.prop('disabled', false);
-    } else {
-        alert("Comment can't be empty!");
-    }
-}
+// function checkForEmptiness() {
+//     var text = document.getElementById("comment");
+//     var button = document.getElementsByName("comment-btn");
+//     if (text.value > 0) {
+//         button.prop('disabled', false);
+//     } else {
+//         alert("Comment can't be empty!");
+//     }
+// }

@@ -55,10 +55,9 @@
 
         <div id="commentTask" class="form-group purple-border">
             <label for="comment">Comment
-                <textarea class="form-control" id="comment" name="comment" rows="3" <#--oninput="checkForEmptiness()"-->></textarea>
-                <#--TODO: fix empty comment-->
+                <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
             </label>
-            <button class="button-add" onclick="commentTask(event)" id="${task.id}" name="comment-btn" disabled>Comment</button>
+            <button class="button-add" onclick="commentTask(event)" id="${task.id}" name="comment-btn">Comment</button>
         </div>
         <br>
 
