@@ -10,22 +10,22 @@
 <#include "header.ftl">
 <div class="form-style-2">
     <div id="task-id" data-id="${task.id}" class="form-style-2-heading">
-    ${task.name}
+        ${task.name}
     </div>
     <div> Members:
-<#--        <#if task.users??>-->
-            <#list task.users as member>
-                <a href="/profile/${member.id}">${member.name}</a>
-                <div id="member"></div>
-            </#list>
-<#--        </#if>-->
+        <#--        <#if task.users??>-->
+        <#list task.users as member>
+            <a href="/profile/${member.id}">${member.name}</a>
+            <div id="member"></div>
+        </#list>
+        <#--        </#if>-->
     </div>
     <br>
     State: ${task.state}
     <br>
     <#if noPic??>
-    <img src="/static/images/default.png"
-        <#else ><img src="${task.getPicturePath()}" height="130px" width="130px">
+        <img src="/static/images/default.png"
+    <#else ><img src="${task.getPicturePath()}" height="130px" width="130px">
     </#if>
     <br>
     <br>
@@ -38,32 +38,35 @@
         </form>
     <#else>
         Description: ${task.text}
-    <br>
-    <br>
-    Comments:
         <br>
         <br>
-         <ul id="ul-id${task.id}">
+        Term: ${task.term}
+        <br>
+        <br>
+        Comments:
+        <br>
+        <br>
+        <ul id="ul-id${task.id}">
             <#list task.comments as comment>
-                <li>${comment.author.name}:  ${comment.content}</li>
+                <li>${comment.author.name}: ${comment.content}</li>
             </#list>
-         </ul>
-     <br>
+        </ul>
+        <br>
 
-    <div id="commentTask">
-        <label for="comment">Comment
-            <input class="textarea-field" id="comment" name="comment" required="required">
-            <#--TODO: fix empty comment-->
-        </label>
-        <button class="button-add" onclick="commentTask(event)" id="${task.id}">Comment</button>
-    </div>
-    <br>
+        <div id="commentTask" class="form-group purple-border">
+            <label for="comment">Comment
+                <textarea class="form-control" id="comment" name="comment" rows="3" <#--oninput="checkForEmptiness()"-->></textarea>
+                <#--TODO: fix empty comment-->
+            </label>
+            <button class="button-add" onclick="commentTask(event)" id="${task.id}" name="comment-btn" disabled>Comment</button>
+        </div>
+        <br>
 
-    <input type="submit" value="Edit task" onclick="show(document.getElementById('edit'))""/>
-    <br>
-    <br>
+        <input type="submit" value="Edit task" onclick="show(document.getElementById('edit'))""/>
+        <br>
+        <br>
 
-        <form method="post" id="edit" style="display: none;"  enctype="multipart/form-data">
+        <form method="post" id="edit" style="display: none;" enctype="multipart/form-data">
             <div class="edit">Edit task</div>
             <label for="name">Name
                 <input class="input-field" type="text" id="name" name="name" value="${task.name}" required="required">

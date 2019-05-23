@@ -3,6 +3,7 @@ function addTask(event) {
     var card = document.getElementById("card" + id);
     var name = document.getElementById("input" + id);
     var state = document.getElementById("state" + id);
+    var date = document.getElementById("date" + id);
     var ul = document.getElementById("ul-id" + id);
     $.ajax({
         url: "/ajax/addtask",
@@ -10,7 +11,8 @@ function addTask(event) {
         data: {
             "id": id,
             "name": name.value,
-            "state": state.value
+            "state": state.value,
+            "date": date.value
         },
         success: function (task) {
             var li = document.createElement("li");
@@ -66,4 +68,14 @@ function returnTask(event) {
             console.log(id)
         }
     })
+}
+
+function checkForEmptiness() {
+    var text = document.getElementById("comment");
+    var button = document.getElementsByName("comment-btn");
+    if (text.value > 0) {
+        button.prop('disabled', false);
+    } else {
+        alert("Comment can't be empty!");
+    }
 }

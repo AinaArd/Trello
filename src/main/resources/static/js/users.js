@@ -113,17 +113,31 @@ function addUsersToDesk() {
 // TODO: fix illegal invocation error
 function deleteUser(event) {
     var id = event.target.id;
-    console.log(id);
     var deskId = document.getElementById("desk-id");
-    $.ajax({
-        url: "/ajax/deleteuser",
-        type: "post",
-        data: {
-            "id": id,
-            "desk-id": deskId
-        },
-        success: function () {
-            console.log("success")
-        }
-    })
+    // $.ajax({
+    //     url: "/ajax/deleteuser",
+    //     type: "post",
+    //     data: {
+    //         "id": id,
+    //         "desk-id": deskId
+    //     },
+    //     success: function () {
+    //         console.log("success")
+    //     }
+    // })
+
+    postRequest('/ajax/deleteuser', {'id': id, 'desk-id': deskId})
+        .catch(error => console.error(error));
+
+    function postRequest(url, data) {
+        return fetch(url, {
+            credentials: 'same-origin', // 'include', default: 'omit'
+            method: 'POST', // 'GET', 'PUT', 'DELETE', etc.
+            body: JSON.stringify(data), // Coordinate the body type with 'Content-Type'
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+        })
+            .then(response => response.json())
+    }
 }

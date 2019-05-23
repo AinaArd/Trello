@@ -1,16 +1,12 @@
 package ru.itis.controllers;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 import ru.itis.forms.TaskForm;
 import ru.itis.models.*;
 import ru.itis.security.details.UserDetailsImpl;
@@ -20,9 +16,9 @@ import ru.itis.services.TaskService;
 import ru.itis.services.UserServiceImpl;
 import ru.itis.transfer.TaskDto;
 import ru.itis.transfer.UserDto;
-import ru.itis.utils.FileDownloader;
 
-import java.util.HashMap;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -44,10 +40,14 @@ public class AjaxController {
     public ResponseEntity<Object> addTask(@RequestParam(name = "id") Long cardId, TaskForm taskForm) {
         Card card = cardService.findById(cardId).orElseThrow(IllegalArgumentException::new);
         Desk desk = deskService.findDeskByCard(card.getId()).orElseThrow(IllegalArgumentException::new);
+        System.out.println(taskForm.getDate());
+        LocalDate term = LocalDate.parse(taskForm.getDate());
+        System.out.println(term);
         Task task = Task.builder()
                 .name(taskForm.getName())
                 .card(card)
                 .desk(desk)
+                .term(term)
                 .state(TaskState.valueOf(taskForm.getState()))
                 .flag(false)
                 .build();
@@ -110,9 +110,10 @@ public class AjaxController {
     }
 
     @PostMapping("/ajax/deleteuser")
-    public ResponseEntity<Object> deleteUserFromDesk(@RequestParam(name = "userName") String name, @RequestParam(name = "desk-id") Long deskId){
-        User user = userService.findByName(name).orElseThrow(IllegalArgumentException::new);
+    public ResponseEntity<Object> deleteUserFromDesk(@RequestParam(name = "id") Long userId, @RequestParam(name = "desk-id") Long deskId) {
+        User user = userService.findById(userId).orElseThrow(IllegalArgumentException::new);
         Desk desk = deskService.findOneDesk(deskId).orElseThrow(IllegalArgumentException::new);
+        System.out.println("ajax caught the data");
         userService.removeFromDesk(user, desk);
         desk.getUsers().remove(user);
         user.getDesks().remove(desk);

@@ -5,9 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.itis.forms.UserForm;
+import ru.itis.forms.RegisterForm;
 import ru.itis.services.RegisterService;
-import ru.itis.services.UserService;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping
@@ -17,8 +18,8 @@ public class RegisterController {
     private RegisterService service;
 
     @PostMapping("/register")
-    public String register(UserForm userForm) {
-        service.register(userForm);
+    public String register(@Valid RegisterForm registerForm) {
+        service.register(registerForm);
         return "redirect:login";
     }
 

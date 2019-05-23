@@ -4,8 +4,11 @@ import lombok.*;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -22,6 +25,9 @@ public class Task {
     private String name;
     private String text;
     private String picturePath;
+
+//    @Temporal(TemporalType.DATE)
+    private LocalDate term;
 
     @Column(name = "flag")
     private boolean flag;
@@ -47,8 +53,12 @@ public class Task {
     @JoinColumn(name = "deskId")
     private Desk desk;
 
+    @Transient
+    @Value("${my.files-url}")
+    private String path;
+
     public String getPicturePath() {
-        return "C:\\AinaArd\\images\\" + picturePath;
+        return path + picturePath;
     }
 
     public boolean getFlag() {

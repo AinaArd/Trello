@@ -5,15 +5,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.itis.forms.UserEditForm;
-import ru.itis.forms.UserForm;
+import ru.itis.forms.RegisterForm;
 import ru.itis.models.Desk;
 import ru.itis.models.User;
 import ru.itis.repositories.UsersRepository;
 import ru.itis.security.details.UserDetailsImpl;
 import ru.itis.transfer.UserDto;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -55,8 +53,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> findByLoginAndPassword(UserForm userForm) {
-        return usersRepository.findByLoginAndHashPassword(userForm.getLogin(), userForm.getPassword());
+    public Optional<User> findByLoginAndPassword(RegisterForm registerForm) {
+        return usersRepository.findByLoginAndHashPassword(registerForm.getLogin(), registerForm.getPassword());
     }
 
     @Override
@@ -129,5 +127,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void removeFromDesk(User user, Desk desk) {
         usersRepository.remove(user.getId(), desk.getId());
+    }
+
+    @Override
+    public boolean checkForUniqueness(String login) {
+        return !usersRepository.findByLogin(login).isPresent();
     }
 }

@@ -53,17 +53,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                .antMatchers("/profile/**").authenticated()
                 .antMatchers("/register/**").permitAll()
                 .antMatchers("/login").permitAll()
+                .antMatchers("/profile/**").authenticated()
                 .antMatchers("/desks/**").authenticated()
                 .antMatchers("/cards/**").authenticated()
+                .antMatchers("/tasks/**").authenticated()
                 .and()
 
                 .formLogin()
                 .loginPage("/login")
-//                    .successHandler(authSuccessHandler)
-////                    .failureHandler(authFailureHandler)
                 .defaultSuccessUrl("/profile")
                 .usernameParameter("login")
                 .and()
