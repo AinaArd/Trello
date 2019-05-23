@@ -38,7 +38,7 @@ function commentTask(event) {
     var id = event.target.id;
     var comment = document.getElementById("comment");
     var ul = document.getElementById("ul-id" + id);
-    if(comment.value.length > 0) {
+    if (comment.value.length > 0) {
         $.ajax({
             url: "/ajax/addcomment",
             type: "post",
@@ -46,10 +46,17 @@ function commentTask(event) {
                 "id": id,
                 "comment": comment.value
             },
-            success: function (name) {
+            success: function (data) {
                 var li = document.createElement("li");
-                var text = document.createTextNode(comment.value);
-                li.innerHTML = name + ": ";
+                li.innerHTML = data.author + ": ";
+                if (data.mentioned.length > 0) {
+                    var a = document.createElement("a");
+                    a.href = "/profile/" + data.id;
+                    a.innerHTML = data.mentioned + " ";
+                    console.log(data.mentioned);
+                    li.appendChild(a);
+                }
+                var text = document.createTextNode(data.commentText);
                 li.appendChild(text);
                 ul.appendChild(li);
                 comment.value = "";

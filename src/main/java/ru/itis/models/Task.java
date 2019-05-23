@@ -4,7 +4,6 @@ import lombok.*;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -26,7 +25,6 @@ public class Task {
     private String text;
     private String picturePath;
 
-//    @Temporal(TemporalType.DATE)
     private LocalDate term;
 
     @Column(name = "flag")

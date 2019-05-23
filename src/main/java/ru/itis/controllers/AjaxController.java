@@ -1,6 +1,5 @@
 package ru.itis.controllers;
 
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -14,12 +13,15 @@ import ru.itis.services.CardService;
 import ru.itis.services.DeskService;
 import ru.itis.services.TaskService;
 import ru.itis.services.UserServiceImpl;
+import ru.itis.transfer.MentionedUserDto;
 import ru.itis.transfer.TaskDto;
 import ru.itis.transfer.UserDto;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
+
+import static ru.itis.transfer.MentionedUserDto.from;
 
 @RestController
 public class AjaxController {
@@ -40,9 +42,8 @@ public class AjaxController {
     public ResponseEntity<Object> addTask(@RequestParam(name = "id") Long cardId, TaskForm taskForm) {
         Card card = cardService.findById(cardId).orElseThrow(IllegalArgumentException::new);
         Desk desk = deskService.findDeskByCard(card.getId()).orElseThrow(IllegalArgumentException::new);
-        System.out.println(taskForm.getDate());
         LocalDate term = LocalDate.parse(taskForm.getDate());
-        System.out.println(term);
+
         Task task = Task.builder()
                 .name(taskForm.getName())
                 .card(card)
@@ -80,11 +81,27 @@ public class AjaxController {
                                              Authentication authentication) {
         Task task = taskService.findTaskById(taskId).orElseThrow(IllegalArgumentException::new);
         User currentUser = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
+
+        String[] words = text.split(" ");
+        String message = extractMessage(words);
         Comment comment = Comment.builder()
                 .task(task)
-                .content(text)
+                .content(message)
                 .author(currentUser)
                 .build();
+        String userLogin = takeName(words);
+
+        System.out.println(userLogin);
+
+        if (userLogin != null) {
+            User mentionedUser = userService.findByLogin(userLogin).orElseThrow(IllegalArgumentException::new);
+            MentionedUserDto dto = from(mentionedUser, comment, message);
+
+            System.out.println(mentionedUser.getName());
+
+            taskService.addComment(comment);
+            return ResponseEntity.ok(dto);
+        }
         Comment newComment = taskService.addComment(comment);
         return ResponseEntity.ok(newComment.getAuthor().getName());
     }
@@ -113,11 +130,26 @@ public class AjaxController {
     public ResponseEntity<Object> deleteUserFromDesk(@RequestParam(name = "id") Long userId, @RequestParam(name = "desk-id") Long deskId) {
         User user = userService.findById(userId).orElseThrow(IllegalArgumentException::new);
         Desk desk = deskService.findOneDesk(deskId).orElseThrow(IllegalArgumentException::new);
-        System.out.println("ajax caught the data");
         userService.removeFromDesk(user, desk);
         desk.getUsers().remove(user);
         user.getDesks().remove(desk);
         return ResponseEntity.ok().build();
+    }
 
+    private String takeName(String[] message) {
+        for (String word : message) {
+            if (word.contains("@")) {
+                return word;
+            }
+        }
+        return null;
+    }
+
+    private String extractMessage(String[] comment) {
+        List<String> message = Arrays.asList(comment);
+        String userName = takeName(comment);
+//        message.remove(userName);
+//        TODO: parse list to simple string
+        return message.toString();
     }
 }

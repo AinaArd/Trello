@@ -12,12 +12,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.resource.PathResourceResolver;
-import ru.itis.security.utils.AuthFailureHandler;
-import ru.itis.security.utils.AuthSuccessHandler;
 
 import javax.sql.DataSource;
 
@@ -28,12 +22,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public PasswordEncoder passwordEncoder;
 
-    @Autowired
-    public AuthSuccessHandler authSuccessHandler;
-
-    @Autowired
-    public AuthFailureHandler authFailureHandler;
-
     @Qualifier("userDetailsServiceImpl")
     @Autowired
     public UserDetailsService service;
@@ -42,11 +30,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private DataSource dataSource;
 
     @Autowired
-    public SecurityConfig(AuthSuccessHandler successHandler, AuthFailureHandler failureHandler, PasswordEncoder passwordEncoder, @Qualifier("userDetailsServiceImpl") UserDetailsService service) {
+    public SecurityConfig(PasswordEncoder passwordEncoder, @Qualifier("userDetailsServiceImpl") UserDetailsService service) {
         this.passwordEncoder = passwordEncoder;
         this.service = service;
-        this.authSuccessHandler = successHandler;
-        this.authFailureHandler = failureHandler;
     }
 
     @Override
