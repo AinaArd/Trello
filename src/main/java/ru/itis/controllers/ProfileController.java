@@ -30,7 +30,13 @@ public class ProfileController {
         }
         UserDetailsImpl details = (UserDetailsImpl) authentication.getPrincipal();
         UserDto user = from(details.getUser());
+        int desksNumber = details.getUser().desksNumber();
+        int tasksNumber = details.getUser().tasksNumber();
+        int commentsNumber = details.getUser().commentsNumber();
         model.addAttribute("user", user);
+        model.addAttribute("desksNumber", desksNumber);
+        model.addAttribute("tasksNumber", tasksNumber);
+        model.addAttribute("commentsNumber", commentsNumber);
         return "profile";
     }
 

@@ -6,7 +6,7 @@ function addTask(event) {
     var date = document.getElementById("date" + id);
     var ul = document.getElementById("ul-id" + id);
     $.ajax({
-        url: "/ajax/addtask",
+        url: "/ajax/addTask",
         type: "post",
         data: {
             "id": id,
@@ -35,30 +35,31 @@ function addTask(event) {
 }
 
 function commentTask(event) {
-    var id = event.target.id;
+    var taskId = event.target.id;
     var comment = document.getElementById("comment");
-    var ul = document.getElementById("ul-id" + id);
+    var ul = document.getElementById("ul-id$" + taskId);
     if (comment.value.length > 0) {
         $.ajax({
-            url: "/ajax/addcomment",
+            url: "/ajax/addComment",
             type: "post",
             data: {
-                "id": id,
-                "comment": comment.value
+                "id": taskId,
+                "comment": comment.value,
             },
             success: function (data) {
-                var li = document.createElement("li");
-                li.innerHTML = data.author + ": ";
-                if (data.mentioned.length > 0) {
-                    var a = document.createElement("a");
-                    a.href = "/profile/" + data.id;
-                    a.innerHTML = data.mentioned + " ";
-                    console.log(data.mentioned);
-                    li.appendChild(a);
-                }
-                var text = document.createTextNode(data.commentText);
-                li.appendChild(text);
-                ul.appendChild(li);
+                console.log(data);
+                var divElement = document.createElement("li");
+                var a = document.createElement("a");
+                var text = document.createElement("b");
+
+                a.href = "/profile/" + data.id;
+                a.innerHTML = data.author + ": ";
+                divElement.appendChild(a);
+
+                text.innerHTML = checkForLogin(data.commentText);
+
+                divElement.appendChild(text);
+                ul.appendChild(divElement);
                 comment.value = "";
             }
         })
@@ -69,7 +70,7 @@ function commentTask(event) {
 function returnTask(event) {
     var id = event.target.id;
     $.ajax({
-        url: "/ajax/returntask",
+        url: "/ajax/returnTask",
         type: "post",
         data: {
             "id": id
@@ -80,12 +81,27 @@ function returnTask(event) {
     })
 }
 
-// function checkForEmptiness() {
-//     var text = document.getElementById("comment");
-//     var button = document.getElementsByName("comment-btn");
-//     if (text.value > 0) {
-//         button.prop('disabled', false);
-//     } else {
-//         alert("Comment can't be empty!");
-//     }
-// }
+// TODO: find out why function is not working
+function checkForLogin(str) {
+    var regexp = new RegExp("^([a-z0-9_-]+\\.)*[a-z0-9_-]+@[a-z0-9_-]+(\\.[a-z0-9_-]+)*\\.[a-z]{2,6}$", "m");
+    var userCandidates = str.match(regexp);
+    for (var i = 0; i < userCandidates; i++) {
+        $.ajax({
+            url: "/ajax/checkUser",
+            method: "get",
+            data: {
+                "name": userCandidates[i].slice(1)
+            },
+            success: function (user) {
+                if (user !== null) {
+                    str = str.replace(user.login,
+                        "<a href='/profile/" + user.id + "'>" + user.login + "</a>");
+                }
+            },
+            error(msg) {
+                alert(msg);
+            }
+        });
+    }
+    return str;
+}

@@ -48,7 +48,12 @@
         <br>
         <ul id="ul-id${task.id}">
             <#list task.comments as comment>
-                <li>${comment.author.name}: ${comment.content}</li>
+                <li>
+                    <div id="${comment.id}">
+                        ${comment.author.name}:
+                        <b data-contain-user-tags>${comment.content}</b>
+                    </div>
+                </li>
             </#list>
         </ul>
         <br>
@@ -118,6 +123,7 @@
             div.style.display = "none"
     }
 </script>
+<script type="application/javascript" src="/js/users-mentions.js"></script>
 <script type="application/javascript" src="/js/users.js"></script>
 <script type="application/javascript" src="/js/tasks.js"></script>
 </body>

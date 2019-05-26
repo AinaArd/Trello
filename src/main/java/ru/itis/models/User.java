@@ -37,20 +37,32 @@ public class User {
     private List<Desk> desks;
 
     @JsonIgnore
-    @LazyCollection(LazyCollectionOption.TRUE)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "author")
     private List<Comment> comments;
 
     @JsonIgnore
-    @LazyCollection(LazyCollectionOption.TRUE)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "userId")
     private List<Task> tasks;
 
     @JsonIgnore
-    @LazyCollection(LazyCollectionOption.TRUE)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "owner")
     @OrderBy()
     private List<Desk> ownDesks;
+
+    public int desksNumber(){
+      return ownDesks.size();
+    }
+
+    public int tasksNumber(){
+        return tasks.size();
+    }
+
+    public int commentsNumber(){
+        return comments.size();
+    }
 
 }

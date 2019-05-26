@@ -5,7 +5,7 @@ function addUsersToTask() {
     var taskId = task.dataset.id;
     if (search.value.length > 0) {
         $.ajax({
-            url: "/ajax/inviteuserstotask",
+            url: "/ajax/inviteUsersToTask",
             type: "post",
             data: {
                 "search": search.value
@@ -20,7 +20,7 @@ function addUsersToTask() {
                         buttonAdd.innerHTML = "Added";
                         var userName = userCandidates[user].name;
                         $.ajax({
-                                url: "/ajax/addusertotask",
+                                url: "/ajax/addUserToTask",
                                 type: "post",
                                 data: {
                                     "userName": userName,
@@ -60,7 +60,7 @@ function addUsersToDesk() {
 
     if (search.value.length > 0) {
         $.ajax({
-            url: "/ajax/inviteuserstodesk",
+            url: "/ajax/inviteUsersToDesk",
             type: "post",
             data: {
                 "search": search.value
@@ -77,7 +77,7 @@ function addUsersToDesk() {
                         var userName = userCandidates[user].name;
                         var deskId = desk.dataset.id;
                         $.ajax({
-                                url: "/ajax/addusertodesk",
+                                url: "/ajax/addUserToDesk",
                                 type: "post",
                                 data: {
                                     "userName": userName,
@@ -126,7 +126,7 @@ function deleteUser(event) {
     //     }
     // })
 
-    postRequest('/ajax/deleteuser', {'id': id, 'desk-id': deskId})
+    postRequest('/ajax/deleteUser', {'id': id, 'desk-id': deskId})
         .catch(error => console.error(error));
 
     function postRequest(url, data) {

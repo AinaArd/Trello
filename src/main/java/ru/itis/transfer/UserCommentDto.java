@@ -11,18 +11,16 @@ import ru.itis.models.User;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MentionedUserDto {
+public class UserCommentDto {
     private Long id;
-    private String mentioned;
     private String author;
     private String commentText;
 
-    public static MentionedUserDto from(User user, Comment comment, String content) {
-        return MentionedUserDto.builder()
+    public static UserCommentDto from(User user, Comment comment) {
+        return UserCommentDto.builder()
                 .id(user.getId())
-                .mentioned(user.getName())
-                .author(comment.getAuthor().getName())
-                .commentText(content)
+                .author(user.getName())
+                .commentText(comment.getContent())
                 .build();
     }
 }

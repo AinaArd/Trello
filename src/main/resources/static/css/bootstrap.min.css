@@ -3498,7 +3498,6 @@ a.btn.disabled, fieldset[disabled] a.btn {
 
 .btn-primary.active.focus, .btn-primary.active:focus, .btn-primary.active:hover, .btn-primary:active.focus, .btn-primary:active:focus, .btn-primary:active:hover, .open > .dropdown-toggle.btn-primary.focus, .open > .dropdown-toggle.btn-primary:focus, .open > .dropdown-toggle.btn-primary:hover {
     color: #fff;
-    background-color: #204d74;
     border-color: #122b40
 }
 

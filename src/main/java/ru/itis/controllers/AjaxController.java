@@ -3,6 +3,7 @@ package ru.itis.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,15 +14,14 @@ import ru.itis.services.CardService;
 import ru.itis.services.DeskService;
 import ru.itis.services.TaskService;
 import ru.itis.services.UserServiceImpl;
-import ru.itis.transfer.MentionedUserDto;
+import ru.itis.transfer.UserCommentDto;
 import ru.itis.transfer.TaskDto;
 import ru.itis.transfer.UserDto;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
 
-import static ru.itis.transfer.MentionedUserDto.from;
+import static ru.itis.transfer.UserCommentDto.from;
 
 @RestController
 public class AjaxController {
@@ -38,7 +38,7 @@ public class AjaxController {
     @Autowired
     private UserServiceImpl userService;
 
-    @PostMapping("/ajax/addtask")
+    @PostMapping("/ajax/addTask")
     public ResponseEntity<Object> addTask(@RequestParam(name = "id") Long cardId, TaskForm taskForm) {
         Card card = cardService.findById(cardId).orElseThrow(IllegalArgumentException::new);
         Desk desk = deskService.findDeskByCard(card.getId()).orElseThrow(IllegalArgumentException::new);
@@ -56,7 +56,7 @@ public class AjaxController {
         return ResponseEntity.ok(newTask);
     }
 
-    @PostMapping("/ajax/addusertodesk")
+    @PostMapping("/ajax/addUserToDesk")
     public ResponseEntity<Object> addUserToDesk(@RequestParam(name = "userName") String userName, @RequestParam(name = "deskId") Long deskId) {
         User user = userService.findByName(userName).orElseThrow(IllegalArgumentException::new);
         Desk desk = deskService.findOneDesk(deskId).orElseThrow(IllegalArgumentException::new);
@@ -66,7 +66,7 @@ public class AjaxController {
         return ResponseEntity.ok(newUser);
     }
 
-    @PostMapping("/ajax/addusertotask")
+    @PostMapping("/ajax/addUserToTask")
     public ResponseEntity<Object> addUserToTask(@RequestParam(name = "userName") String userName, @RequestParam(name = "taskId") Long taskId) {
         User user = userService.findByName(userName).orElseThrow(IllegalArgumentException::new);
         Task task = taskService.findTaskById(taskId).orElseThrow(IllegalArgumentException::new);
@@ -76,57 +76,42 @@ public class AjaxController {
         return ResponseEntity.ok(newUser);
     }
 
-    @PostMapping("/ajax/addcomment")
-    public ResponseEntity<Object> addComment(@RequestParam(name = "id") Long taskId, @RequestParam(name = "comment") String text,
+    @PostMapping("/ajax/addComment")
+    public ResponseEntity<Object> addComment(@RequestParam(name = "id") Long taskId, @RequestParam(name = "comment") String message,
                                              Authentication authentication) {
         Task task = taskService.findTaskById(taskId).orElseThrow(IllegalArgumentException::new);
         User currentUser = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
-
-        String[] words = text.split(" ");
-        String message = extractMessage(words);
         Comment comment = Comment.builder()
                 .task(task)
                 .content(message)
                 .author(currentUser)
                 .build();
-        String userLogin = takeName(words);
-
-        System.out.println(userLogin);
-
-        if (userLogin != null) {
-            User mentionedUser = userService.findByLogin(userLogin).orElseThrow(IllegalArgumentException::new);
-            MentionedUserDto dto = from(mentionedUser, comment, message);
-
-            System.out.println(mentionedUser.getName());
-
-            taskService.addComment(comment);
-            return ResponseEntity.ok(dto);
-        }
         Comment newComment = taskService.addComment(comment);
-        return ResponseEntity.ok(newComment.getAuthor().getName());
+        UserCommentDto dto = from(currentUser, newComment);
+        return ResponseEntity.ok(dto);
     }
 
-    @PostMapping("/ajax/returntask")
+    @PostMapping("/ajax/returnTask")
     public ResponseEntity<Object> returnTask(@RequestParam(name = "id") Long taskId) {
         Task task = taskService.findTaskById(taskId).orElseThrow(IllegalArgumentException::new);
         taskService.changeFlag(task);
         return ResponseEntity.ok(task.getId());
     }
 
-    @PostMapping("/ajax/inviteuserstodesk")
+    @PostMapping("/ajax/inviteUsersToDesk")
     public ResponseEntity<Object> inviteUsers(@RequestParam(name = "search") String search, Authentication authentication) {
         User currentUser = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
         List<UserDto> userCandidates = userService.findByNameOrLogin(search, currentUser);
         return ResponseEntity.ok(userCandidates);
     }
 
-    @PostMapping("/ajax/inviteuserstotask")
+    @PostMapping("/ajax/inviteTsersToTask")
     public ResponseEntity<Object> inviteUsers(@RequestParam(name = "search") String search) {
         List<UserDto> userCandidates = userService.findByNameOrLogin(search);
         return ResponseEntity.ok(userCandidates);
     }
 
-    @PostMapping("/ajax/deleteuser")
+    @PostMapping("/ajax/deleteUser")
     public ResponseEntity<Object> deleteUserFromDesk(@RequestParam(name = "id") Long userId, @RequestParam(name = "desk-id") Long deskId) {
         User user = userService.findById(userId).orElseThrow(IllegalArgumentException::new);
         Desk desk = deskService.findOneDesk(deskId).orElseThrow(IllegalArgumentException::new);
@@ -136,20 +121,33 @@ public class AjaxController {
         return ResponseEntity.ok().build();
     }
 
-    private String takeName(String[] message) {
-        for (String word : message) {
-            if (word.contains("@")) {
-                return word;
-            }
+    @GetMapping("/ajax/checkUser")
+    public ResponseEntity<Object> mentionUser(@RequestParam(name = "name") String userName) {
+        System.out.println(userName);
+        if (!userService.findByName(userName).isPresent()) {
+            System.out.println(userService.findByLogin(userName).get().getName());
+            User foundUser = userService.findByLogin(userName).orElseThrow(IllegalArgumentException::new);
+            return ResponseEntity.ok(foundUser);
         }
-        return null;
+        return ResponseEntity.ok("invalid name");
     }
 
-    private String extractMessage(String[] comment) {
-        List<String> message = Arrays.asList(comment);
-        String userName = takeName(comment);
-//        message.remove(userName);
-//        TODO: parse list to simple string
-        return message.toString();
-    }
+//    private String takeName(String[] message) {
+//        for (String word : message) {
+//            if (word.contains("@")) {
+//                return word;
+//            }
+//        }
+//        return null;
+//    }
+
+//    private String extractMessage(String[] comment) {
+//        List<String> message = Arrays.asList(comment);
+//        String userName = takeName(comment);
+////        message.remove(userName);
+////        TODO: parse list to simple string
+//        return message.toString();
+//    }
+
+
 }

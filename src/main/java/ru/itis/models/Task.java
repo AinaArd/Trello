@@ -43,6 +43,7 @@ public class Task {
     private List<User> users;
 
     @LazyCollection(LazyCollectionOption.TRUE)
+    @OrderBy("id")
     @OneToMany(mappedBy = "task")
     private List<Comment> comments;
 
