@@ -10,21 +10,21 @@
     </div>
     <form method="post">
         <label for="name">Name
-            <input class="input-field" type="text" id="name" name="name" value="${user.name}">
+            <input class="input-field" type="text" id="name" name="name" required="required">
         </label>
         <br>
         <label for="oldLogin">Old login
-            <input class="input-field" type="text" id="oldLogin" name="oldLogin" value="${user.login}">
+            <input class="input-field" type="text" id="oldLogin" name="oldLogin" required="required">
         </label>
         <label for="newLogin">New login
-            <input class="input-field" type="text" id="newLogin" name="newLogin">
+            <input class="input-field" type="text" id="newLogin" name="newLogin" required="required">
         </label>
         <br>
         <label for="OldPassword">Old password
-            <input class="input-field" type="password" id="OldPassword" name="OldPassword">
+            <input class="input-field" type="password" id="OldPassword" name="OldPassword" required="required">
         </label>
         <label for="NewPassword">New password
-            <input class="input-field" type="password" id="NewPassword" name="NewPassword">
+            <input class="input-field" type="password" id="NewPassword" name="NewPassword" required="required">
         </label>
 
         <br>

@@ -5,6 +5,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import ru.itis.forms.UserEditForm;
 import ru.itis.models.Card;
 import ru.itis.models.Task;
 import ru.itis.models.User;
@@ -47,7 +48,7 @@ public class ProfileController {
         if (userService.findById(userId).isPresent()) {
             User otherUser = userService.findById(userId).get();
 
-            if(!otherUser.getId().equals(currentUser.getId())){
+            if (!otherUser.getId().equals(currentUser.getId())) {
                 model.addAttribute("user", otherUser);
                 return "anotherUserProfile";
             }

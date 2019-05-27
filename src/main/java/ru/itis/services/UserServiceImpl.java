@@ -92,10 +92,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean checkLoginAndPassword(UserEditForm userEditForm) {
-        if (userEditForm.getOldLogin().equals(userEditForm.getNewLogin())) {
+        if (userEditForm.getNewLogin().equals("") || userEditForm.getNewPassword().equals("")
+                || userEditForm.getName().equals("") || userEditForm.getOldLogin().equals("")
+                || userEditForm.getOldPassword().equals("")) {
             return false;
         }
-        return !userEditForm.getOldPassword().equals(userEditForm.getNewPassword());
+        return true;
     }
 
     @Override
@@ -111,8 +113,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> addMembersToDesk(Long userId, Long deskId) {
         if (usersRepository.findAllByDeskIdOrUserId(userId, deskId).isEmpty()) {
-             usersRepository.addMembersToDesk(userId, deskId);
-             return usersRepository.findMemberById(userId);
+            usersRepository.addMembersToDesk(userId, deskId);
+            return usersRepository.findMemberById(userId);
         } else {
             System.out.println("duplicate");
         }
