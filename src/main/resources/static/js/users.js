@@ -57,7 +57,6 @@ function addUsersToDesk() {
     var search = document.getElementById("input");
     var result = document.getElementById("result");
     var desk = document.getElementById("desk-id");
-
     if (search.value.length > 0) {
         $.ajax({
             url: "/ajax/inviteUsersToDesk",
@@ -108,36 +107,40 @@ function addUsersToDesk() {
     } else {
         result.innerHTML = "";
     }
-}
+};
 
 // TODO: fix illegal invocation error
 function deleteUser(event) {
     var id = event.target.id;
-    var deskId = document.getElementById("desk-id");
-    // $.ajax({
-    //     url: "/ajax/deleteuser",
-    //     type: "post",
-    //     data: {
-    //         "id": id,
-    //         "desk-id": deskId
-    //     },
-    //     success: function () {
-    //         console.log("success")
-    //     }
-    // })
+    console.log(id);
+    var desk = document.getElementById("desk-id");
+    var deskId = desk.dataset.id;
+    console.log(deskId);
+    $.ajax({
+        url: "/ajax/deleteUser",
+        type: "post",
+        method: "post",
+        data: {
+            "id": id,
+            "desk-id": deskId
+        },
+        success: function () {
+            console.log("success")
+        }
+    });
 
-    postRequest('/ajax/deleteUser', {'id': id, 'desk-id': deskId})
-        .catch(error => console.error(error));
-
-    function postRequest(url, data) {
-        return fetch(url, {
-            credentials: 'same-origin', // 'include', default: 'omit'
-            method: 'POST', // 'GET', 'PUT', 'DELETE', etc.
-            body: JSON.stringify(data), // Coordinate the body type with 'Content-Type'
-            headers: new Headers({
-                'Content-Type': 'application/json'
-            }),
-        })
-            .then(response => response.json())
-    }
-}
+    // postRequest('/ajax/deleteUser', {'id': id, 'desk-id': deskId})
+    //     .catch(error => console.error(error));
+    //
+    // function postRequest(url, data) {
+    //     return fetch(url, {
+    //         credentials: 'same-origin', // 'include', default: 'omit'
+    //         method: 'POST', // 'GET', 'PUT', 'DELETE', etc.
+    //         body: JSON.stringify(data), // Coordinate the body type with 'Content-Type'
+    //         headers: new Headers({
+    //             'Content-Type': 'application/json'
+    //         }),
+    //     })
+    //         .then(response => response.json())
+    // }
+};

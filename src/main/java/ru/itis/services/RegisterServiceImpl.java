@@ -11,11 +11,15 @@ import ru.itis.repositories.UsersRepository;
 @Service
 public class RegisterServiceImpl implements RegisterService {
 
-    @Autowired
     private UsersRepository usersRepository;
 
-    @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public RegisterServiceImpl(UsersRepository usersRepository, PasswordEncoder passwordEncoder) {
+        this.usersRepository = usersRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public void register(RegisterForm registerForm) {

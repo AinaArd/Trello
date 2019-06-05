@@ -56,9 +56,11 @@ function commentTask(event) {
                 a.innerHTML = data.author + ": ";
                 divElement.appendChild(a);
 
-                text.innerHTML = checkForLogin(data.commentText);
+                // text.innerHTML = checkForLogin(data.commentText);
 
+                text.innerHTML = data.commentText;
                 divElement.appendChild(text);
+                console.log(divElement.value);
                 ul.appendChild(divElement);
                 comment.value = "";
             }
@@ -83,7 +85,7 @@ function returnTask(event) {
 
 // TODO: find out why function is not working
 function checkForLogin(str) {
-    var regexp = new RegExp("^([a-z0-9_-]+\\.)*[a-z0-9_-]+@[a-z0-9_-]+(\\.[a-z0-9_-]+)*\\.[a-z]{2,6}$", "m");
+    var regexp = new RegExp("", "m");
     var userCandidates = str.match(regexp);
     for (var i = 0; i < userCandidates; i++) {
         $.ajax({
@@ -94,8 +96,8 @@ function checkForLogin(str) {
             },
             success: function (user) {
                 if (user !== null) {
-                    str = str.replace(user.login,
-                        "<a href='/profile/" + user.id + "'>" + user.login + "</a>");
+                    str = str.replace("@" + login,
+                        "<a href='/profile/" + login + "'>@" + login + "</a>");
                 }
             },
             error(msg) {

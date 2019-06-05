@@ -53,11 +53,11 @@ public class Task {
     private Desk desk;
 
     @Transient
-    @Value("${my.files-url}")
+    @Value("${my.files.url}")
     private String path;
 
     public String getPicturePath() {
-        return path + picturePath;
+        return "C:\\AinaArd\\images\\" + picturePath;
     }
 
     public boolean getFlag() {

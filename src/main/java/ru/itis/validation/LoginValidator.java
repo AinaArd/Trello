@@ -12,6 +12,9 @@ public class LoginValidator implements ConstraintValidator<Login, String> {
 
     private UserService userService;
 
+    public LoginValidator() {
+    }
+
     @Autowired
     public LoginValidator(UserService userService) {
         this.userService = userService;
@@ -31,7 +34,7 @@ public class LoginValidator implements ConstraintValidator<Login, String> {
         if(!userService.checkForUniqueness(login)) {
             constraintValidatorContext.disableDefaultConstraintViolation();
             constraintValidatorContext
-                    .buildConstraintViolationWithTemplate("Login is already in use")
+                    .buildConstraintViolationWithTemplate("{Login.isUnique.message}")
                     .addConstraintViolation();
             return false;
         }
@@ -39,13 +42,13 @@ public class LoginValidator implements ConstraintValidator<Login, String> {
     }
 
     private boolean correct(String login, ConstraintValidatorContext constraintValidatorContext) {
-        String pattern = "^([a-z0-9_\\.-]+)@([a-z0-9_\\.-]+)\\.([a-z\\.]{2,6})$";
+        String pattern = "^[a-zA-Z0-9]{5,30}$";
         Pattern p = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
         Matcher m = p.matcher(login);
         if (!m.matches()) {
             constraintValidatorContext.disableDefaultConstraintViolation();
             constraintValidatorContext
-                    .buildConstraintViolationWithTemplate("Incorrect login")
+                    .buildConstraintViolationWithTemplate("{Login.matchesPattern.message}")
                     .addConstraintViolation();
             return false;
         }

@@ -21,7 +21,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
                         "classpath:/static/images/");
     }
 
-    @Value("${my.files-url}")
+    @Value("${my.files.url}")
     public void setUploadFolder(String uploadFolder) {
         UPLOAD_FOLDER = uploadFolder;
     }

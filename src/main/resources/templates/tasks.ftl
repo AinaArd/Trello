@@ -13,19 +13,19 @@
         ${task.name}
     </div>
     <div> Members:
-        <#--        <#if task.users??>-->
-        <#list task.users as member>
-            <a href="/profile/${member.id}">${member.name}</a>
-            <div id="member"></div>
-        </#list>
-        <#--        </#if>-->
+        <#if task.users??>
+            <#list task.users as member>
+                <a href="/profile/${member.id}">${member.name}</a>
+                <div id="member"></div>
+            </#list>
+        </#if>
     </div>
     <br>
     State: ${task.state}
     <br>
     <#if noPic??>
-        <img src="/static/images/default.png"
-    <#else ><img src="${task.getPicturePath()}" height="130px" width="130px">
+        <img src="/static/images/default.png" alt="Default picture">
+        <#else><img src="/static/images/about.jpg" height="130px" width="130px" alt="Task picture">
     </#if>
     <br>
     <br>

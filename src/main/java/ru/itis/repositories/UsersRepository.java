@@ -1,6 +1,7 @@
 package ru.itis.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 import ru.itis.models.User;
@@ -36,8 +37,9 @@ public interface UsersRepository extends JpaRepository<User, Long> {
     @Query(nativeQuery = true, value = "select * from user_desks ud inner join \"user\" u on ud.users_id = u.id where users_id = ?")
     Optional<User> findMemberById(Long userId);
 
+    @Modifying
     @Transactional
-    @Query(nativeQuery = true, value = "delete from user_desks where users_id = ? and desks_id = ?")
+    @Query(nativeQuery = true, value = "delete from user_desks where users_id = ?1 and desks_id = ?2")
     void remove(Long userId, Long deskId);
 
 }

@@ -17,6 +17,11 @@
 <div class="main">
     <!-- Sign up form -->
     <section class="signup">
+        <#if errors??>
+            <#list errors as error>
+                <div>${error}</div>
+            </#list>
+        </#if>
         <div class="container">
             <div class="signup-content">
                 <div class="signup-form">

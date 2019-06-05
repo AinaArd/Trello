@@ -25,14 +25,17 @@ public class TaskServiceImpl implements TaskService {
 
     private static String UPLOADED_FOLDER;
 
-    @Autowired
     private FileDownloader fileDownloader;
 
-    @Autowired
     private TasksRepository tasksRepository;
 
-    @Autowired
     private CommentRepository commentsRepository;
+
+    public TaskServiceImpl(FileDownloader fileDownloader, TasksRepository tasksRepository, CommentRepository commentsRepository) {
+        this.fileDownloader = fileDownloader;
+        this.tasksRepository = tasksRepository;
+        this.commentsRepository = commentsRepository;
+    }
 
     @Override
     public List<Task> findCardTasks(Card card) {
@@ -63,6 +66,8 @@ public class TaskServiceImpl implements TaskService {
     public void edit(String name, String text, String state,
                      MultipartFile file, Task task) {
         String photoPath = fileDownloader.upload(file, name).orElseThrow(IllegalArgumentException::new);
+        System.out.println(photoPath);
+        System.out.println(task.getPicturePath());
         if (!text.equals("") || !name.equals("")) {
             task.setName(name);
             task.setText(text);

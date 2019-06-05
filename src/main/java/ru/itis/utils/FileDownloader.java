@@ -35,7 +35,7 @@ public class FileDownloader {
         }
     }
 
-    @Value("${my.files-url}")
+    @Value("${my.files.url}")
     public void setUploadedFolder(String uploadedFolder) {
         FileDownloader.uploadedFolder = uploadedFolder;
     }

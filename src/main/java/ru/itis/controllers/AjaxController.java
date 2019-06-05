@@ -105,7 +105,7 @@ public class AjaxController {
         return ResponseEntity.ok(userCandidates);
     }
 
-    @PostMapping("/ajax/inviteTsersToTask")
+    @PostMapping("/ajax/inviteUsersToTask")
     public ResponseEntity<Object> inviteUsers(@RequestParam(name = "search") String search) {
         List<UserDto> userCandidates = userService.findByNameOrLogin(search);
         return ResponseEntity.ok(userCandidates);
@@ -115,16 +115,16 @@ public class AjaxController {
     public ResponseEntity<Object> deleteUserFromDesk(@RequestParam(name = "id") Long userId, @RequestParam(name = "desk-id") Long deskId) {
         User user = userService.findById(userId).orElseThrow(IllegalArgumentException::new);
         Desk desk = deskService.findOneDesk(deskId).orElseThrow(IllegalArgumentException::new);
-        userService.removeFromDesk(user, desk);
         desk.getUsers().remove(user);
         user.getDesks().remove(desk);
+        userService.removeFromDesk(user, desk);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/ajax/checkUser")
     public ResponseEntity<Object> mentionUser(@RequestParam(name = "name") String userName) {
         System.out.println(userName);
-        if (!userService.findByName(userName).isPresent()) {
+        if (!userService.findByLogin(userName).isPresent()) {
             System.out.println(userService.findByLogin(userName).get().getName());
             User foundUser = userService.findByLogin(userName).orElseThrow(IllegalArgumentException::new);
             return ResponseEntity.ok(foundUser);
