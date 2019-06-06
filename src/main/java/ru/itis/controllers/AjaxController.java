@@ -123,34 +123,10 @@ public class AjaxController {
 
     @GetMapping("/ajax/checkUser")
     public ResponseEntity<Object> mentionUser(@RequestParam(name = "name") String userName) {
-
-        System.out.println(userName);
-
         if (userService.findByLogin(userName).isPresent()) {
-
-            System.out.println(userService.findByLogin(userName).get().getName());
-
             User foundUser = userService.findByLogin(userName).orElseThrow(IllegalArgumentException::new);
             return ResponseEntity.ok(foundUser);
         }
         return ResponseEntity.ok("invalid name");
     }
-
-//    private String takeName(String[] message) {
-//        for (String word : message) {
-//            if (word.contains("@")) {
-//                return word;
-//            }
-//        }
-//        return null;
-//    }
-
-//    private String extractMessage(String[] comment) {
-//        List<String> message = Arrays.asList(comment);
-//        String userName = takeName(comment);
-////        message.remove(userName);
-//        return message.toString();
-//    }
-
-
 }

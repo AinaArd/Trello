@@ -19,6 +19,9 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
                         "classpath:/static/js/",
                         "classpath:/static/fonts/",
                         "classpath:/static/images/");
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("/webjars/")
+                .resourceChain(false);
     }
 
     @Value("${my.files.url}")
