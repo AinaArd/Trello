@@ -16,9 +16,11 @@
             <div> Members:
                 <#if selectedDesk.users??>
                     <#list selectedDesk.users as member>
-                        <a href="/profile/${member.id}">${member.name}</a>
-                        <button class="button-add" id="${member.id}" onclick="deleteUser(event)">Delete</button>
-                        <div id="member"></div>
+                        <div id="${member.id}">
+                            <a href="/profile/${member.id}">${member.name}</a>
+                            <button class="button-add" id="${member.id}" onclick="deleteUser(event)">Delete</button>
+                            <div id="member"></div>
+                        </div>
                     </#list>
                 </#if>
             </div>

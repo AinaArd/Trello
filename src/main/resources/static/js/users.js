@@ -85,9 +85,34 @@ function addUsersToDesk() {
                                 success: function (user) {
                                     var members = document.getElementById("member");
                                     var a = document.createElement("a");
+                                    var buttonDelete = document.createElement("button");
+
                                     a.href = "../profile/" + user.id;
                                     a.innerHTML = user.name + " ";
+
+                                    buttonDelete.innerText = "Delete";
+                                    buttonDelete.onclick = function deleteUser() {
+                                        var id = user.id;
+                                        console.log(id);
+                                        var desk = document.getElementById("desk-id");
+                                        var deskId = desk.dataset.id;
+                                        console.log(deskId);
+                                        $.ajax({
+                                            url: "/ajax/deleteUser",
+                                            type: "post",
+                                            method: "post",
+                                            data: {
+                                                "id": id,
+                                                "desk-id": deskId
+                                            },
+                                            success: function () {
+                                                console.log("success");
+                                                members.remove();
+                                            }
+                                        });
+                                    };
                                     members.appendChild(a);
+                                    members.appendChild(buttonDelete);
                                 }
                             }
                         )
@@ -107,8 +132,7 @@ function addUsersToDesk() {
     } else {
         result.innerHTML = "";
     }
-};
-
+}
 // TODO: fix illegal invocation error
 function deleteUser(event) {
     var id = event.target.id;
@@ -125,9 +149,14 @@ function deleteUser(event) {
             "desk-id": deskId
         },
         success: function () {
-            console.log("success")
+            console.log("success");
+            var divUser = document.getElementById(id);
+            console.log(divUser);
+            divUser.remove();
+
         }
     });
+}
 
     // postRequest('/ajax/deleteUser', {'id': id, 'desk-id': deskId})
     //     .catch(error => console.error(error));
@@ -143,4 +172,4 @@ function deleteUser(event) {
     //     })
     //         .then(response => response.json())
     // }
-};
+
