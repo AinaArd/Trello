@@ -74,6 +74,7 @@
                 <br>
                 <ul class="dropdown-menu">
                     <li><a href="#" onclick="show(document.getElementById('addTaskTo${card.id}'))">Add task</a></li>
+<#--                    TODO: add edit card-->
                     <li><a href="#" onclick="">Edit name</a></li>
                 </ul>
             </div>
@@ -84,6 +85,7 @@
                             <div id="task${task.id}" data-cardId="${card.id}">
                                 <a href="/tasks/${task.id}">${task.name}</a>
                                 State: ${task.state}
+                                Term: ${task.term}
                             </div>
                             <br>
                         </li>

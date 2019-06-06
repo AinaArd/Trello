@@ -24,7 +24,4 @@ public class RegisterForm {
 
     @Size(min = 3, max = 30)
     private String name;
-
-//    TODO: add profile picture
-//    private String picturePath;
 }

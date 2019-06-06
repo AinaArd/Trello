@@ -25,7 +25,7 @@
     <br>
     <#if noPic??>
         <img src="/static/images/default.png" alt="Default picture">
-        <#else><img src="/static/images/about.jpg" height="130px" width="130px" alt="Task picture">
+        <#else><img src="${task.picturePath}" height="130px" width="130px" alt="Task picture">
     </#if>
     <br>
     <br>
@@ -50,7 +50,7 @@
             <#list task.comments as comment>
                 <li>
                     <div id="${comment.id}">
-                        ${comment.author.name}:
+                        <a href="/profile/${comment.author.id}">${comment.author.name}: </a>
                         <b data-contain-user-tags>${comment.content}</b>
                     </div>
                 </li>

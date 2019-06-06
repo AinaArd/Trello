@@ -22,12 +22,14 @@ public class TasksController {
 
     @GetMapping("/tasks/{task-id}")
     public String getSingleTask(ModelMap model, @PathVariable(name = "task-id") Long taskId) {
+        Task task = taskService.findTaskById(taskId).orElseThrow(IllegalArgumentException::new);
+        System.out.println(task.getPicturePath());
         if (taskService.findTaskById(taskId).isPresent()) {
-            Task task = taskService.findTaskById(taskId).get();
+//            Task task = taskService.findTaskById(taskId).get();
             if (task.getText() == null) {
                 model.addAttribute("noText", true);
             }
-            if(task.getPicturePath() == null){
+            if(task.getPicturePath().contains("null")){
                 model.addAttribute("noPic", true);
             }
             model.addAttribute("task", task);

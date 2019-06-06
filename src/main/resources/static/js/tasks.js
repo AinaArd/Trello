@@ -18,12 +18,16 @@ function addTask(event) {
             var li = document.createElement("li");
             var a = document.createElement("a");
             var text = document.createElement("em");
+
             a.href = "/tasks/" + task.id;
             a.innerHTML = task.name + " ";
-            li.appendChild(a);
+
             text.innerHTML = "State: " + task.state;
+
+            li.appendChild(a);
             li.appendChild(text);
             ul.appendChild(li);
+
             name.value = "";
             state.value = "";
         }
@@ -37,7 +41,8 @@ function addTask(event) {
 function commentTask(event) {
     var taskId = event.target.id;
     var comment = document.getElementById("comment");
-    var ul = document.getElementById("ul-id$" + taskId);
+    var ul = document.getElementById("ul-id" + taskId);
+
     if (comment.value.length > 0) {
         $.ajax({
             url: "/ajax/addComment",
@@ -47,21 +52,20 @@ function commentTask(event) {
                 "comment": comment.value,
             },
             success: function (data) {
-                console.log(data);
-                var divElement = document.createElement("li");
+                var element = document.createElement("li");
                 var a = document.createElement("a");
                 var text = document.createElement("b");
 
-                a.href = "/profile/" + data.id;
+                a.href = "/profile";
                 a.innerHTML = data.author + ": ";
-                divElement.appendChild(a);
 
-                // text.innerHTML = checkForLogin(data.commentText);
+                var str = data.commentText;
+                text.innerHTML = checkForLogin(str);
 
-                text.innerHTML = data.commentText;
-                divElement.appendChild(text);
-                console.log(divElement.value);
-                ul.appendChild(divElement);
+                element.appendChild(a);
+                element.appendChild(text);
+                ul.appendChild(element);
+
                 comment.value = "";
             }
         })
@@ -78,26 +82,29 @@ function returnTask(event) {
             "id": id
         },
         success: function (id) {
-            console.log(id)
         }
     })
 }
 
-// TODO: find out why function is not working
 function checkForLogin(str) {
-    var regexp = new RegExp("", "m");
+    var regexp = /@[A-Za-z-]+/g;
     var userCandidates = str.match(regexp);
-    for (var i = 0; i < userCandidates; i++) {
+
+    console.log(userCandidates);
+    for (var i = 0; i < userCandidates && userCandidates != null; i++) {
         $.ajax({
+            async: false,
             url: "/ajax/checkUser",
             method: "get",
             data: {
                 "name": userCandidates[i].slice(1)
             },
             success: function (user) {
+                console.log(user);
                 if (user !== null) {
-                    str = str.replace("@" + login,
-                        "<a href='/profile/" + login + "'>@" + login + "</a>");
+                    str = str.replace("@" + user.login,
+                        "<a href='/profile/" + user.login + "'>@" + user.login + "</a>");
+                    // console.log(str);
                 }
             },
             error(msg) {

@@ -73,6 +73,7 @@ public class TaskServiceImpl implements TaskService {
             task.setText(text);
             task.setState(TaskState.valueOf(state));
             task.setPicturePath(photoPath);
+            System.out.println(photoPath);
             tasksRepository.saveAndFlush(task);
         }
     }

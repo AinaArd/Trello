@@ -123,9 +123,13 @@ public class AjaxController {
 
     @GetMapping("/ajax/checkUser")
     public ResponseEntity<Object> mentionUser(@RequestParam(name = "name") String userName) {
+
         System.out.println(userName);
+
         if (!userService.findByLogin(userName).isPresent()) {
+
             System.out.println(userService.findByLogin(userName).get().getName());
+
             User foundUser = userService.findByLogin(userName).orElseThrow(IllegalArgumentException::new);
             return ResponseEntity.ok(foundUser);
         }
@@ -145,7 +149,6 @@ public class AjaxController {
 //        List<String> message = Arrays.asList(comment);
 //        String userName = takeName(comment);
 ////        message.remove(userName);
-////        TODO: parse list to simple string
 //        return message.toString();
 //    }
 
