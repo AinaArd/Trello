@@ -123,7 +123,7 @@
             div.style.display = "none"
     }
 </script>
-<script type="application/javascript" src="/js/users-mentions.js"></script>
+<#--<script type="application/javascript" src="/js/users-mentions.js"></script>-->
 <script type="application/javascript" src="/js/users.js"></script>
 <script type="application/javascript" src="/js/tasks.js"></script>
 </body>

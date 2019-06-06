@@ -1,3 +1,10 @@
+document.addEventListener("DOMContentLoaded", function (ev) {
+    var a = document.body.querySelectorAll("[data-contain-user-tags]");
+    for (var i = 0; i < a.length; i++) {
+        a[i].innerHTML = checkForLogin(a[i].innerHTML);
+    }
+});
+
 function addTask(event) {
     var id = event.target.id;
     var card = document.getElementById("card" + id);
@@ -90,8 +97,8 @@ function checkForLogin(str) {
     var regexp = /@[A-Za-z-]+/g;
     var userCandidates = str.match(regexp);
 
-    console.log(userCandidates);
-    for (var i = 0; i < userCandidates && userCandidates != null; i++) {
+    for (var i = 0; userCandidates != null && i < userCandidates.length; i++) {
+
         $.ajax({
             async: false,
             url: "/ajax/checkUser",
@@ -100,12 +107,9 @@ function checkForLogin(str) {
                 "name": userCandidates[i].slice(1)
             },
             success: function (user) {
-                console.log(user);
-                if (user !== null) {
-                    str = str.replace("@" + user.login,
-                        "<a href='/profile/" + user.login + "'>@" + user.login + "</a>");
-                    // console.log(str);
-                }
+                str = str.replace("@" + user.login,
+                    "<a href='/profile/" + user.login + "'>@" + user.login + "</a>");
+
             },
             error(msg) {
                 alert(msg);

@@ -126,7 +126,7 @@ public class AjaxController {
 
         System.out.println(userName);
 
-        if (!userService.findByLogin(userName).isPresent()) {
+        if (userService.findByLogin(userName).isPresent()) {
 
             System.out.println(userService.findByLogin(userName).get().getName());
 
