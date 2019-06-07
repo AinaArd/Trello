@@ -4,6 +4,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/styles.css" rel="stylesheet" type="text/css">
+    <link href="/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 </head>
 <body>
 <h1>Сhat</h1>
@@ -22,14 +25,11 @@
             <input id="message_input_value" class="message_input" placeholder="Type your message here..."/>
         </div>
         <div class="send_message">
-            <div class="icon">
-            </div>
-
+            <button onclick="sendMessage()" class="button-add">Send</button>
         </div>
-
-        <button onclick="connect()">Connect to chat</button>
-        <button onclick="sendMessage()" class="text">Send</button>
-        <button onclick="disconnect()">Disconnect from chat</button>
+        <br>
+        <button onclick="connect()" class="button-add">Connect to chat</button>
+        <button onclick="disconnect()" class="button-add">Disconnect from chat</button>
     </div>
 </div>
 <div id="message_template" class="message_template">
@@ -40,9 +40,6 @@
         </div>
     </li>
 </div>
-<#--<script type="application/javascript" src="/js/jquery.min.js"></script>-->
-<#--<script type="application/javascript" src="/webjars/sockjs-client/sockjs.min.js"></script>-->
-<#--<script type="application/javascript" src="/webjars/stomp-websocket/stomp.min.js"></script>-->
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 <script src="http://cdn.bootcss.com/stomp.js/2.3.3/stomp.js"></script>
 <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>

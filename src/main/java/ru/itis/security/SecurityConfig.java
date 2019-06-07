@@ -45,6 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/desks/**").authenticated()
                 .antMatchers("/cards/**").authenticated()
                 .antMatchers("/tasks/**").authenticated()
+                .antMatchers("/chat/**").authenticated()
                 .and()
 
                 .formLogin()

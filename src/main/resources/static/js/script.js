@@ -10,6 +10,8 @@ function connect() {
     });
 }
 
+//TODO: add authors of message
+
 function draw(side, text) {
     console.log("drawing...");
     var $message;
