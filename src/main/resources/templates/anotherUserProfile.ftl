@@ -7,10 +7,8 @@
 
 <div class="form-style-2">
     <div class="form-style-2-heading">
-        User profile
+        ${user.name}
     </div>
-
-${user.name}
 
     <br>
 
@@ -19,11 +17,11 @@ ${user.name}
         Tasks:
     </div>
 
-        <#list user.tasks as task>
-            <ul>
-                <li>${task.name}&nbsp;&nbsp;${task.state}</li>
-            </ul>
-        </#list>
+    <#list user.tasks as task>
+        <ul>
+            <li>${task.name}&nbsp;&nbsp;${task.state}</li>
+        </ul>
+    </#list>
 
 </div>
 </body>

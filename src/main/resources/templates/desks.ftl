@@ -30,6 +30,11 @@
             </label>
             <br>
             <div id="result"></div>
+
+            <form action="/chat">
+                <input type="submit" value="Chat">
+            </form>
+
         <#else>User desks
         </#if>
     </div>
@@ -151,18 +156,6 @@
         }
     </script>
 
-    <#-- <div id="window">
-         <input type="text" name="login" placeholder="Login"/><br>
-         <button class="btn btn-primary btn-block btn-large">Search</button>
-     </div>
-
-     <script>
-         //Функция показа
-         function show(state) {
-             document.getElementById('window').style.display = state;
-             document.getElementById('gray').style.display = state;
-         }
-     </script>-->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
             integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
             crossorigin="anonymous"></script>
