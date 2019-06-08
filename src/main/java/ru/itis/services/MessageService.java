@@ -6,7 +6,6 @@ import ru.itis.models.User;
 
 import java.util.List;
 
-@Service
 public interface MessageService {
     List<Message> getUserChats(User user);
     Message addMessage(Message message);

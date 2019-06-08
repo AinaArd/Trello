@@ -135,4 +135,9 @@ public class UserServiceImpl implements UserService {
     public boolean checkForUniqueness(String login) {
         return !usersRepository.findByLogin(login).isPresent();
     }
+
+    @Override
+    public User getCurrentUser(Authentication authentication) {
+        return ((UserDetailsImpl) authentication.getPrincipal()).getUser();
+    }
 }

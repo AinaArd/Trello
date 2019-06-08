@@ -38,4 +38,6 @@ public interface UserService {
     void removeFromDesk(User user, Desk desk);
 
     boolean checkForUniqueness(String login);
+
+    User getCurrentUser(Authentication authentication);
 }
