@@ -36,10 +36,9 @@ public class ChatController {
 
     @MessageMapping("/chat.sendMessage")
     @SendTo("/topic/public")
-    public MessageForm sendMessage(@Payload MessageForm message) {
-        System.out.println(message);
-        messageService.addMessage(message);
-        return message;
+    public MessageForm sendMessage(@Payload MessageForm messageForm) {
+        messageService.addMessage(messageForm);
+        return messageForm;
     }
 
     @MessageMapping("/chat.addUser")
@@ -55,6 +54,10 @@ public class ChatController {
         Desk desk = deskService.findOneDesk(deskId).orElseThrow(IllegalArgumentException::new);
         User currentUser = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
         List<Message> messages = messageService.getDeskMessages(desk);
+
+        System.out.println(messages.get(0).getContent());
+
+        model.addAttribute("messages", messages);
         model.addAttribute("currentUser", currentUser);
         model.addAttribute("desk", desk);
         return "chat";

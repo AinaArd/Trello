@@ -30,6 +30,16 @@
             Connecting...
         </div>
         <ul id="messageArea">
+            <#if messages??>
+                <#list messages as message>
+                   <div>
+                       ${message.sender}: ${message.content}
+                   </div>
+                </#list>
+            </#if>
+
+
+
         </ul>
         <form id="messageForm" name="messageForm" data-id = "${desk.id}">
             <div class="form-group">
