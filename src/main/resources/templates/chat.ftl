@@ -24,14 +24,14 @@
 <div id="chat-page" class="hidden">
     <div class="chat-container">
         <div class="chat-header">
-            <h2>Spring WebSocket Chat Demo</h2>
+            <h2>${desk.name} chat</h2>
         </div>
         <div class="connecting">
             Connecting...
         </div>
         <ul id="messageArea">
         </ul>
-        <form id="messageForm" name="messageForm">
+        <form id="messageForm" name="messageForm" data-id = "${desk.id}">
             <div class="form-group">
                 <div class="input-group clearfix">
                     <input type="text" id="message" name="message" placeholder="Type a message..." autocomplete="off" class="form-control"/>

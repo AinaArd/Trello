@@ -14,8 +14,11 @@ import java.util.Optional;
 @Component
 public class DeskServiceImpl implements DeskService {
 
-    @Autowired
     private DesksRepository desksRepository;
+
+    public DeskServiceImpl(DesksRepository desksRepository) {
+        this.desksRepository = desksRepository;
+    }
 
     @Override
     public List<Desk> findAllUserDesks(Long id) {

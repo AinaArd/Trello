@@ -30,7 +30,7 @@ function onConnected() {
     stompClient.send("/app/chat.addUser",
         {},
         JSON.stringify({sender: username, type: 'JOIN'})
-    )
+    );
     connectingElement.classList.add('hidden');
 }
 function onError(error) {
@@ -39,9 +39,13 @@ function onError(error) {
 }
 function sendMessage(event) {
     var messageContent = messageInput.value.trim();
+    var desk = document.getElementById("messageForm");
+    var deskId = +desk.dataset.id;
     if(messageContent && stompClient) {
         var chatMessage = {
             sender: username,
+            //TODO: fix deskId. If .value -> can't see. without -> can't convert
+            desk: deskId,
             content: messageInput.value,
             type: 'CHAT'
         };

@@ -17,15 +17,17 @@ import ru.itis.services.TaskService;
 @Controller
 public class TasksController {
 
-    @Autowired
     private TaskService taskService;
+
+    public TasksController(TaskService taskService) {
+        this.taskService = taskService;
+    }
 
     @GetMapping("/tasks/{task-id}")
     public String getSingleTask(ModelMap model, @PathVariable(name = "task-id") Long taskId) {
         Task task = taskService.findTaskById(taskId).orElseThrow(IllegalArgumentException::new);
         System.out.println(task.getPicturePath());
         if (taskService.findTaskById(taskId).isPresent()) {
-//            Task task = taskService.findTaskById(taskId).get();
             if (task.getText() == null) {
                 model.addAttribute("noText", true);
             }

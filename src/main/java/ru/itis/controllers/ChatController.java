@@ -1,53 +1,44 @@
 package ru.itis.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
-import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import ru.itis.forms.MessageForm;
+import ru.itis.models.Desk;
 import ru.itis.models.Message;
 import ru.itis.models.User;
 import ru.itis.security.details.UserDetailsImpl;
+import ru.itis.services.DeskService;
 import ru.itis.services.MessageService;
-import ru.itis.services.UserService;
-import ru.itis.transfer.MessageDto;
 
-import static ru.itis.transfer.MessageDto.from;
+import java.util.List;
 
 
 @Controller
 public class ChatController {
 
     private MessageService messageService;
-
-    private UserService userService;
-
-    private SimpMessageSendingOperations messagingTemplate;
+    private DeskService deskService;
 
     @Autowired
-    public ChatController(SimpMessageSendingOperations messagingTemplate, MessageService messageService) {
-        this.messagingTemplate = messagingTemplate;
+    public ChatController(MessageService messageService, DeskService deskService) {
         this.messageService = messageService;
+        this.deskService = deskService;
     }
-
 
     @MessageMapping("/chat.sendMessage")
     @SendTo("/topic/public")
-    public Message sendMessage(@Payload Message message) {
-        MessageDto messageDto = from(message);
+    public MessageForm sendMessage(@Payload MessageForm message) {
         System.out.println(message);
-
-//        messagingTemplate.convertAndSend("/topic/public", messageDto);
-
         messageService.addMessage(message);
-
         return message;
     }
 
@@ -59,10 +50,13 @@ public class ChatController {
         return message;
     }
 
-    @GetMapping("/chat")
-    public String getChatPage(Authentication authentication, ModelMap model) {
+    @GetMapping("/chat/{desk-id}")
+    public String getChatPage(Authentication authentication, ModelMap model, @PathVariable(name = "desk-id") Long deskId) {
+        Desk desk = deskService.findOneDesk(deskId).orElseThrow(IllegalArgumentException::new);
         User currentUser = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
+        List<Message> messages = messageService.getDeskMessages(desk);
         model.addAttribute("currentUser", currentUser);
+        model.addAttribute("desk", desk);
         return "chat";
     }
 }

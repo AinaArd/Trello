@@ -1,5 +1,7 @@
 package ru.itis.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -36,5 +38,7 @@ public class Desk {
     @JoinColumn(name = "owner")
     private User owner;
 
+    @OneToMany(mappedBy = "desk")
+    private List<Message> messages;
 
 }

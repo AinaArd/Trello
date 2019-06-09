@@ -9,5 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class MessageForm {
     private String sender;
-    private String message;
+    private String content;
+    private Integer desk;
+    private String type;
 }

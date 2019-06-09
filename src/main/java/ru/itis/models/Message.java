@@ -23,6 +23,10 @@ public class Message {
 
     private String content;
 
+    @ManyToOne
+    @JoinColumn(name = "deskId")
+    private Desk desk;
+
 //    @ManyToOne
 //    @JoinColumn(name = "sender")
 //    private User sender;
