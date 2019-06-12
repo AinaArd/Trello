@@ -29,4 +29,8 @@ public interface DesksRepository extends JpaRepository<Desk, Long> {
 
     @Query(nativeQuery = true, value = "select * from desk inner join card c2 on desk.id = c2.desk_id where c2.id = ?")
     Optional<Desk> findDeskByCard_id(Long cardId);
+
+    @Query(nativeQuery = true, value = "select desk.name from desk inner join \"user\" u on desk.owner = u.id where " +
+            "u.name = ?")
+    List<String> findAllByOwner_Name(String owner_name);
 }

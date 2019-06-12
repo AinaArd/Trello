@@ -46,4 +46,11 @@ public class DeskServiceImpl implements DeskService {
         return desksRepository.findDeskByCard_id(id);
     }
 
+    @Override
+    public List<String> findAllUserDesksByName(String name) {
+        System.out.println(1);
+        System.out.println(desksRepository.findAllByOwner_Name(name));
+        return desksRepository.findAllByOwner_Name(name);
+    }
+
 }
