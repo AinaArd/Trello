@@ -1,12 +1,8 @@
 package ru.itis.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.itis.models.Desk;
-import ru.itis.models.Role;
-import ru.itis.models.User;
 import ru.itis.repositories.DesksRepository;
-import ru.itis.transfer.UserDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -47,9 +43,7 @@ public class DeskServiceImpl implements DeskService {
     }
 
     @Override
-    public List<String> findAllUserDesksByName(String name) {
-        System.out.println(1);
-        System.out.println(desksRepository.findAllByOwner_Name(name));
+    public List<Desk> findAllUserDesksByName(String name) {
         return desksRepository.findAllByOwner_Name(name);
     }
 
