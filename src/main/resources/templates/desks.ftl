@@ -3,8 +3,8 @@
     <link href="/css/styles.css" rel="stylesheet" type="text/css">
     <link href="/css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<#--    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
-<#--    <link rel="stylesheet" href="/css/chat.css"/>-->
+    <#--    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+    <#--    <link rel="stylesheet" href="/css/chat.css"/>-->
 </head>
 <body>
 <#include "header.ftl">
@@ -14,14 +14,17 @@
             <div style="font-size: xx-large" data-id="${selectedDesk.id}" id="desk-id">
                 ${selectedDesk.name}&nbsp;&nbsp;
             </div>
+            <br>
             Creator: ${selectedDesk.owner.name}
             <div> Members:
+                <br>
                 <#if selectedDesk.users??>
                     <#list selectedDesk.users as member>
                         <div id="${member.id}">
                             <a href="/profile/${member.id}">${member.name}</a>
                             <button class="button-add" id="${member.id}" onclick="deleteUser(event)">Delete</button>
                             <div id="member"></div>
+                            <br>
                         </div>
                     </#list>
                 </#if>
@@ -37,44 +40,44 @@
                 <input type="submit" value="Chat">
             </form>
 
-<#--            <noscript>-->
-<#--                <h2>Sorry! Your browser doesn't support Javascript</h2>-->
-<#--            </noscript>-->
-<#--            <div id="username-page">-->
-<#--                <div class="username-page-container">-->
-<#--                    <h1 class="title">Type your username</h1>-->
-<#--                    <form id="usernameForm" name="usernameForm">-->
-<#--                        <div class="form-group">-->
-<#--                            <input type="text" id="name" name="sender" placeholder="Username" autocomplete="off"-->
-<#--                                   class="form-control"/>-->
-<#--                        </div>-->
-<#--                        <div class="form-group">-->
-<#--                            <button type="submit" class="accent username-submit">Start Chatting</button>-->
-<#--                        </div>-->
-<#--                    </form>-->
-<#--                </div>-->
-<#--            </div>-->
-<#--            <div id="chat-page" class="hidden">-->
-<#--                <div class="chat-container">-->
-<#--                    <div class="chat-header">-->
-<#--                        <h2>Spring WebSocket Chat Demo</h2>-->
-<#--                    </div>-->
-<#--                    <div class="connecting">-->
-<#--                        Connecting...-->
-<#--                    </div>-->
-<#--                    <ul id="messageArea">-->
-<#--                    </ul>-->
-<#--                    <form id="messageForm" name="messageForm">-->
-<#--                        <div class="form-group">-->
-<#--                            <div class="input-group clearfix">-->
-<#--                                <input type="text" id="message" name="message" placeholder="Type a message..."-->
-<#--                                       autocomplete="off" class="form-control"/>-->
-<#--                                <button type="submit" class="primary">Send</button>-->
-<#--                            </div>-->
-<#--                        </div>-->
-<#--                    </form>-->
-<#--                </div>-->
-<#--            </div>-->
+        <#--            <noscript>-->
+        <#--                <h2>Sorry! Your browser doesn't support Javascript</h2>-->
+        <#--            </noscript>-->
+        <#--            <div id="username-page">-->
+        <#--                <div class="username-page-container">-->
+        <#--                    <h1 class="title">Type your username</h1>-->
+        <#--                    <form id="usernameForm" name="usernameForm">-->
+        <#--                        <div class="form-group">-->
+        <#--                            <input type="text" id="name" name="sender" placeholder="Username" autocomplete="off"-->
+        <#--                                   class="form-control"/>-->
+        <#--                        </div>-->
+        <#--                        <div class="form-group">-->
+        <#--                            <button type="submit" class="accent username-submit">Start Chatting</button>-->
+        <#--                        </div>-->
+        <#--                    </form>-->
+        <#--                </div>-->
+        <#--            </div>-->
+        <#--            <div id="chat-page" class="hidden">-->
+        <#--                <div class="chat-container">-->
+        <#--                    <div class="chat-header">-->
+        <#--                        <h2>Spring WebSocket Chat Demo</h2>-->
+        <#--                    </div>-->
+        <#--                    <div class="connecting">-->
+        <#--                        Connecting...-->
+        <#--                    </div>-->
+        <#--                    <ul id="messageArea">-->
+        <#--                    </ul>-->
+        <#--                    <form id="messageForm" name="messageForm">-->
+        <#--                        <div class="form-group">-->
+        <#--                            <div class="input-group clearfix">-->
+        <#--                                <input type="text" id="message" name="message" placeholder="Type a message..."-->
+        <#--                                       autocomplete="off" class="form-control"/>-->
+        <#--                                <button type="submit" class="primary">Send</button>-->
+        <#--                            </div>-->
+        <#--                        </div>-->
+        <#--                    </form>-->
+        <#--                </div>-->
+        <#--            </div>-->
 
         <#else>User desks
         </#if>
@@ -110,70 +113,72 @@
     </#if>
 
     <#if cards??>
-        <#list cards as card>
-            <div class="dropdown" id=card${card.id}>
-            <span class="card-name">Card: ${card.name}
-            </span>
-                &nbsp;&nbsp;
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Actions<span class="caret"></span></a>
-                <br>
-                <br>
-                <ul class="dropdown-menu">
-                    <li><a href="#" onclick="show(document.getElementById('addTaskTo${card.id}'))">Add task</a></li>
-                    <#--                    TODO: add edit card-->
-                    <li><a href="#" onclick="">Edit name</a></li>
+        <ul id="cards">
+            <#list cards as card>
+            <li>
+                <div class="dropdown" id=card${card.id}>
+                    <span id="name${card.id}" class="card-name">Card: ${card.name}
+                    </span>
+                    &nbsp;&nbsp;
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Actions<span class="caret"></span></a>
+                    <br>
+                    <br>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" onclick="show(document.getElementById('addTaskTo${card.id}'))">Add task</a></li>
+                        <li><a href="#" id="${card.id}" onclick="changeType(event)">Edit name</a></li>
+                    </ul>
+                </div>
+                <ul id="ul-id${card.id}">
+                    <#list card.cardTasks as task>
+                        <#if task.flag == false>
+                            <li>
+                                <div id="task${task.id}" data-cardId="${card.id}">
+                                    <a href="/tasks/${task.id}">${task.name}</a>
+                                    State: ${task.state}
+                                    Term: ${task.term}
+                                </div>
+                                <br>
+                            </li>
+                        <#elseif task.flag == true>
+                            <li>
+                                Task is archived
+                                <br>
+                                <form method="post">
+                                    <input type="hidden" value="${task.id}" name="task-id">
+                                    <input type="submit" class="button-add" <#--onclick="returnTask(event)"-->
+                                           name="return"
+                                           value="Return"/>
+                                </form>
+                            </li>
+                        </#if>
+                    </#list>
                 </ul>
-            </div>
-            <ul id="ul-id${card.id}">
-                <#list card.cardTasks as task>
-                    <#if task.flag == false>
-                        <li>
-                            <div id="task${task.id}" data-cardId="${card.id}">
-                                <a href="/tasks/${task.id}">${task.name}</a>
-                                State: ${task.state}
-                                Term: ${task.term}
-                            </div>
-                            <br>
-                        </li>
-                    <#elseif task.flag == true>
-                        <li>
-                            Task is archived
-                            <br>
-                            <form method="post">
-                                <input type="hidden" value="${task.id}" name="task-id">
-                                <input type="submit" class="button-add" <#--onclick="returnTask(event)"--> name="return"
-                                       value="Return"/>
-                            </form>
-                        </li>
-                    </#if>
-
-                </#list>
-            </ul>
-            <div id="addTaskTo${card.id}" style="display: none;">
-                Enter task name
-                <input class="input-field" type="text" name="name" id="input${card.id}" required="required">
+                <div id="addTaskTo${card.id}" style="display: none;">
+                    Enter task name
+                    <input class="input-field" type="text" name="name" id="input${card.id}" required="required">
+                    <br>
+                    <br>
+                    <label for="taskState">State
+                        <select id="state${card.id}" name="state" class="mdb-select md-form">
+                            <option value="" disabled selected>Choose task state</option>
+                            <option value="TODO">TODO</option>
+                            <option value="IN_PROCESS">IN_PROCESS</option>
+                            <option value="DONE">DONE</option>
+                            <option value="FOR_CHECK">FOR_CHECK</option>
+                        </select>
+                    </label>
+                    <br>
+                    <label for="date">Term: </label>
+                    <input type="date" id="date${card.id}" name="date"/>
+                    <br>
+                    <br>
+                    <button class="button-add" onclick="addTask(event)" id="${card.id}">Add task</button>
+                </div>
                 <br>
                 <br>
-                <label for="taskState">State
-                    <select id="state${card.id}" name="state" class="mdb-select md-form">
-                        <option value="" disabled selected>Choose task state</option>
-                        <option value="TODO">TODO</option>
-                        <option value="IN_PROCESS">IN_PROCESS</option>
-                        <option value="DONE">DONE</option>
-                        <option value="FOR_CHECK">FOR_CHECK</option>
-                    </select>
-                </label>
-                <br>
-                <label for="date">Term: </label>
-                <input type="date" id="date${card.id}" name="date"/>
-                <br>
-                <br>
-                <button class="button-add" onclick="addTask(event)" id="${card.id}">Add task</button>
-            </div>
-            <br>
-            <br>
-        </#list>
-
+                </li>
+            </#list>
+        </ul>
         <#if addCard??>
             <div class="form-style-2-heading">
                 If you want to add new card, enter the name
@@ -214,10 +219,10 @@
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <script type="application/javascript" src="/js/jquery-1.9.1.js"></script>
-<#--    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>-->
-<#--    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>-->
+    <#--    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>-->
+    <#--    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>-->
     <script type="application/javascript" src="/js/users.js"></script>
     <script type="application/javascript" src="/js/tasks.js"></script>
-<#--    <script src="/js/chat.js"></script>-->
+    <script type="application/javascript" src="/js/cards.js"></script>
 </body>
 </html>

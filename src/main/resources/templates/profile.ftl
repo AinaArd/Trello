@@ -290,10 +290,6 @@
                                     <br>
                                     <br>
 
-                                    <form action="/chat">
-                                        <p><input type="submit" value="Chats"
-                                                  class="btn btn-primary btn-learn"/></p>
-                                    </form>
                                 </div>
                             </div>
                         </div>

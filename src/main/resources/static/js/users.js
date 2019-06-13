@@ -11,6 +11,7 @@ function addUsersToTask() {
                 "search": search.value
             },
             success: function (userCandidates) {
+                result.innerText = "";
                 for (var user in userCandidates) {
                     var textNode = document.createElement("p");
 

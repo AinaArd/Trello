@@ -26,17 +26,21 @@ import static ru.itis.transfer.UserCommentDto.from;
 @RestController
 public class AjaxController {
 
-    @Autowired
     private TaskService taskService;
 
-    @Autowired
     private CardService cardService;
 
-    @Autowired
     private DeskService deskService;
 
-    @Autowired
     private UserServiceImpl userService;
+
+    @Autowired
+    public AjaxController(TaskService taskService, CardService cardService, DeskService deskService, UserServiceImpl userService) {
+        this.taskService = taskService;
+        this.cardService = cardService;
+        this.deskService = deskService;
+        this.userService = userService;
+    }
 
     @PostMapping("/ajax/addTask")
     public ResponseEntity<Object> addTask(@RequestParam(name = "id") Long cardId, TaskForm taskForm) {

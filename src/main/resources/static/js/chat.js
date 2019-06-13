@@ -44,7 +44,6 @@ function sendMessage(event) {
     if(messageContent && stompClient) {
         var chatMessage = {
             sender: username,
-            //TODO: fix deskId. If .value -> can't see. without -> can't convert
             desk: deskId,
             content: messageInput.value,
             type: 'CHAT'
