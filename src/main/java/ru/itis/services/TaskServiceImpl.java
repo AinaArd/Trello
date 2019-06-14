@@ -66,14 +66,11 @@ public class TaskServiceImpl implements TaskService {
     public void edit(String name, String text, String state,
                      MultipartFile file, Task task) {
         String photoPath = fileDownloader.upload(file, name).orElseThrow(IllegalArgumentException::new);
-        System.out.println(photoPath);
-        System.out.println(task.getPicturePath());
         if (!text.equals("") || !name.equals("")) {
             task.setName(name);
             task.setText(text);
             task.setState(TaskState.valueOf(state));
             task.setPicturePath(photoPath);
-            System.out.println(photoPath);
             tasksRepository.saveAndFlush(task);
         }
     }

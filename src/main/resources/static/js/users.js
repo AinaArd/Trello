@@ -17,6 +17,7 @@ function addUsersToTask() {
 
                     var buttonAdd = document.createElement("button");
                     buttonAdd.innerText = "Add";
+                    buttonAdd.className = 'button-add';
                     buttonAdd.onclick = function add() {
                         buttonAdd.innerHTML = "Added";
                         var userName = userCandidates[user].name;
@@ -71,9 +72,12 @@ function addUsersToDesk() {
                     var textNode = document.createElement("p");
 
                     var buttonAdd = document.createElement("button");
+                    buttonAdd.className = 'button-add';
                     buttonAdd.innerText = "Add";
                     buttonAdd.onclick = function add() {
-                        buttonAdd.innerHTML = "Added";
+                        search.innerText = "";
+                        buttonAdd.remove();
+                        textNode.remove();
                         var userName = userCandidates[user].name;
                         var deskId = desk.dataset.id;
                         $.ajax({
@@ -88,10 +92,12 @@ function addUsersToDesk() {
                                     var a = document.createElement("a");
                                     var buttonDelete = document.createElement("button");
 
+
                                     a.href = "../profile/" + user.id;
                                     a.innerHTML = user.name + " ";
 
                                     buttonDelete.innerText = "Delete";
+                                    buttonDelete.className = 'button-add';
                                     buttonDelete.onclick = function deleteUser() {
                                         var id = user.id;
                                         console.log(id);
@@ -107,12 +113,15 @@ function addUsersToDesk() {
                                                 "desk-id": deskId
                                             },
                                             success: function () {
-                                                console.log("success");
                                                 members.remove();
                                             }
                                         });
                                     };
+                                    var br = document.createElement("br");
+
+
                                     members.appendChild(a);
+                                    members.insertBefore(br, a);
                                     members.appendChild(buttonDelete);
                                 }
                             }

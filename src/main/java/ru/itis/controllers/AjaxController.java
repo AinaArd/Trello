@@ -14,6 +14,7 @@ import ru.itis.services.CardService;
 import ru.itis.services.DeskService;
 import ru.itis.services.TaskService;
 import ru.itis.services.UserServiceImpl;
+import ru.itis.transfer.CardDto;
 import ru.itis.transfer.UserCommentDto;
 import ru.itis.transfer.TaskDto;
 import ru.itis.transfer.UserDto;
@@ -132,5 +133,13 @@ public class AjaxController {
             return ResponseEntity.ok(foundUser);
         }
         return ResponseEntity.ok("invalid name");
+    }
+
+    @PostMapping("/ajax/editCard")
+    public ResponseEntity<Object> editCardName(@RequestParam("id") Long cardId, @RequestParam("name") String newName){
+        Card card = cardService.findById(cardId).orElseThrow(IllegalArgumentException::new);
+        card.setName(newName);
+        CardDto updatedCard = cardService.edit(card);
+        return ResponseEntity.ok(updatedCard);
     }
 }
