@@ -116,13 +116,25 @@ public class AjaxController {
         return ResponseEntity.ok(userCandidates);
     }
 
-    @PostMapping("/ajax/deleteUser")
-    public ResponseEntity<Object> deleteUserFromDesk(@RequestParam(name = "id") Long userId, @RequestParam(name = "desk-id") Long deskId) {
+    @PostMapping("/ajax/deleteUserFromDesk")
+    public ResponseEntity<Object> deleteUserFromDesk(@RequestParam(name = "id") Long userId,
+                                                     @RequestParam(name = "desk-id") Long deskId) {
         User user = userService.findById(userId).orElseThrow(IllegalArgumentException::new);
         Desk desk = deskService.findOneDesk(deskId).orElseThrow(IllegalArgumentException::new);
         desk.getUsers().remove(user);
         user.getDesks().remove(desk);
         userService.removeFromDesk(user, desk);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/ajax/deleteUserFromTask")
+    public ResponseEntity<Object> deleteUserFromTask(@RequestParam(name = "id")Long userId,
+                                                     @RequestParam(name = "task-id") Long taskId){
+        User user = userService.findById(userId).orElseThrow(IllegalArgumentException::new);
+        Task task = taskService.findTaskById(taskId).orElseThrow(IllegalArgumentException::new);
+        task.getUsers().remove(user);
+        user.getTasks().remove(task);
+        userService.removeFromTask(user,task);
         return ResponseEntity.ok().build();
     }
 
@@ -136,7 +148,7 @@ public class AjaxController {
     }
 
     @PostMapping("/ajax/editCard")
-    public ResponseEntity<Object> editCardName(@RequestParam("id") Long cardId, @RequestParam("name") String newName){
+    public ResponseEntity<Object> editCardName(@RequestParam("id") Long cardId, @RequestParam("name") String newName) {
         Card card = cardService.findById(cardId).orElseThrow(IllegalArgumentException::new);
         card.setName(newName);
         CardDto updatedCard = cardService.edit(card);

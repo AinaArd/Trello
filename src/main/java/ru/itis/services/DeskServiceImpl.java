@@ -16,6 +16,7 @@ public class DeskServiceImpl implements DeskService {
 
     private DesksRepository desksRepository;
 
+    @Autowired
     public DeskServiceImpl(DesksRepository desksRepository) {
         this.desksRepository = desksRepository;
     }

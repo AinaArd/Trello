@@ -1,5 +1,6 @@
 <html>
 <head>
+    <title>Desks</title>
     <link href="/css/styles.css" rel="stylesheet" type="text/css">
     <link href="/css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -21,7 +22,7 @@
                     <#list selectedDesk.users as member>
                         <div id="${member.id}">
                             <a href="/profile/${member.id}">${member.name}</a>
-                            <button class="button-add" id="${member.id}" onclick="deleteUser(event)">Delete</button>
+                            <button class="button-add" id="${member.id}" onclick="deleteUserFromDesk(event)">Delete</button>
                             <br>
                             <div id="member"></div>
                             <br>

@@ -40,6 +40,10 @@ public interface UsersRepository extends JpaRepository<User, Long> {
     @Modifying
     @Transactional
     @Query(nativeQuery = true, value = "delete from user_desks where users_id = ?1 and desks_id = ?2")
-    void remove(Long userId, Long deskId);
+    void removeFromDesk(Long userId, Long deskId);
 
+    @Modifying
+    @Transactional
+    @Query(nativeQuery = true, value = "delete from user_tasks where users_id = ?1 and tasks_id = ?2")
+    void removeFromTask(Long userId, Long taskId);
 }

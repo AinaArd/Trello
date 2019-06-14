@@ -13,15 +13,34 @@
     <br>
 
     @${user.login}<br>
+
+    <div class="form-style-2">
+        Desks:
+    </div>
+
+    <#if user.desks??>
+        <#list user.desks as desk>
+            <ul>
+                <li>${desk.name}&nbsp;&nbsp;${desk.state}</li>
+            </ul>
+        </#list>
+        <#else>
+        User doesn't have any desk!
+    </#if>
+
     <div class="form-style-2">
         Tasks:
     </div>
 
-    <#list user.tasks as task>
-        <ul>
-            <li>${task.name}&nbsp;&nbsp;${task.state}</li>
-        </ul>
-    </#list>
+    <#if user.tasks??>
+        <#list user.tasks as task>
+            <ul>
+                <li>${task.name}&nbsp;&nbsp;${task.state}</li>
+            </ul>
+        </#list>
+        <#else>
+        User doesn't have any task!
+    </#if>
 
 </div>
 </body>

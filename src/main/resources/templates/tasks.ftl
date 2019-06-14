@@ -158,11 +158,17 @@
             <h1 id="task-id" data-id="${task.id}" class="mt-4">${task.name}</h1>
 
             <!-- Author -->
-            <div class="lead"> Members:
+            <div> Members:
+                <br>
                 <#if task.users??>
                     <#list task.users as member>
-                        <a href="/profile/${member.id}">${member.name}</a>
-                        <div id="member"></div>
+                        <div id="${member.id}">
+                            <a href="/profile/${member.id}">${member.name}</a>
+                            <button class="button-add" id="${member.id}" onclick="deleteUserFromTask(event)">Delete</button>
+                            <br>
+                            <div id="member"></div>
+                            <br>
+                        </div>
                     </#list>
                 </#if>
             </div>
@@ -179,7 +185,7 @@
             <#else>
 
                 <!-- Date/Time -->
-                <p>Created o ${task.term}</p>
+                <p>Created on ${task.term}</p>
 
                 <hr>
 
@@ -252,8 +258,7 @@
                     <li>
                         <div class="media mb-4">
                             <div class="media-body" id="${comment.id}">
-                                <h5 class="mt-0">Commenter Name:</h5><a
-                                        href="/profile/${comment.author.id}">${comment.author.name}: </a>
+                                <a href="/profile/${comment.author.id}">${comment.author.name}: </a>
                                 <b data-contain-user-tags>${comment.content}</b>
                             </div>
                         </div>

@@ -39,10 +39,8 @@ function addTask(event) {
             state.value = "";
         }
     });
-
-    // TODO: hide add block after insert
     var div = document.getElementById("addTaskTo" + id);
-    div.style.display = 'block';
+    hide(div);
 }
 
 function commentTask(event) {
@@ -118,3 +116,7 @@ function checkForLogin(str) {
     }
     return str;
 }
+
+var hide = function (elem) {
+    elem.style.display = 'none';
+};

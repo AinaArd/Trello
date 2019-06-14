@@ -4,6 +4,7 @@ import org.springframework.security.core.Authentication;
 import ru.itis.forms.UserEditForm;
 import ru.itis.forms.RegisterForm;
 import ru.itis.models.Desk;
+import ru.itis.models.Task;
 import ru.itis.models.User;
 import ru.itis.transfer.UserDto;
 
@@ -40,4 +41,6 @@ public interface UserService {
     boolean checkForUniqueness(String login);
 
     User getCurrentUser(Authentication authentication);
+
+    void removeFromTask(User user, Task task);
 }

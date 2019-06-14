@@ -21,8 +21,12 @@ import static ru.itis.transfer.UserDto.from;
 @Controller
 public class ProfileController {
 
-    @Autowired
     private UserService userService;
+
+    @Autowired
+    public ProfileController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping(path = "/profile")
     public String getUserPage(ModelMap model, Authentication authentication) {

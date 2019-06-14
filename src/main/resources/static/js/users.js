@@ -30,10 +30,37 @@ function addUsersToTask() {
                                 },
                                 success: function (user) {
                                     var members = document.getElementById("member");
+                                    var buttonDelete = document.createElement("button");
                                     var a = document.createElement("a");
+
                                     a.href = "../profile/" + user.id;
                                     a.innerHTML = user.name + " ";
+
+                                    buttonDelete.innerText = "Delete";
+                                    buttonDelete.className = 'button-add';
+                                    buttonDelete.onclick = function deleteUser() {
+                                        var id = user.id;
+                                        console.log(id);
+                                        var task = document.getElementById("task-id");
+                                        var taskId = task.dataset.id;
+                                        $.ajax({
+                                            url: "/ajax/deleteUserFromTask",
+                                            type: "post",
+                                            method: "post",
+                                            data: {
+                                                "id": id,
+                                                "task-id": taskId
+                                            },
+                                            success: function () {
+                                                members.remove();
+                                            }
+                                        });
+                                    };
+                                    var br = document.createElement("br");
+
                                     members.appendChild(a);
+                                    members.insertBefore(br, a);
+                                    members.appendChild(buttonDelete);
                                 }
                             }
                         )
@@ -105,7 +132,7 @@ function addUsersToDesk() {
                                         var deskId = desk.dataset.id;
                                         console.log(deskId);
                                         $.ajax({
-                                            url: "/ajax/deleteUser",
+                                            url: "/ajax/deleteUserFromDesk",
                                             type: "post",
                                             method: "post",
                                             data: {
@@ -118,7 +145,6 @@ function addUsersToDesk() {
                                         });
                                     };
                                     var br = document.createElement("br");
-
 
                                     members.appendChild(a);
                                     members.insertBefore(br, a);
@@ -144,14 +170,13 @@ function addUsersToDesk() {
     }
 }
 
-function deleteUser(event) {
+function deleteUserFromDesk(event) {
     var id = event.target.id;
-    console.log(id);
     var desk = document.getElementById("desk-id");
     var deskId = desk.dataset.id;
     console.log(deskId);
     $.ajax({
-        url: "/ajax/deleteUser",
+        url: "/ajax/deleteUserFromDesk",
         type: "post",
         method: "post",
         data: {
@@ -159,27 +184,28 @@ function deleteUser(event) {
             "desk-id": deskId
         },
         success: function () {
-            console.log("success");
             var divUser = document.getElementById(id);
-            console.log(divUser);
+            divUser.remove();
+        }
+    });
+}
+
+function deleteUserFromTask(event) {
+    var id = event.target.id;
+    var task = document.getElementById("task-id");
+    var taskId = task.dataset.id;
+    $.ajax({
+        url: "/ajax/deleteUserFromTask",
+        type: "post",
+        method: "post",
+        data: {
+            "id": id,
+            "task-id": taskId
+        },
+        success: function () {
+            var divUser = document.getElementById(id);
             divUser.remove();
 
         }
     });
 }
-
-    // postRequest('/ajax/deleteUser', {'id': id, 'desk-id': deskId})
-    //     .catch(error => console.error(error));
-    //
-    // function postRequest(url, data) {
-    //     return fetch(url, {
-    //         credentials: 'same-origin', // 'include', default: 'omit'
-    //         method: 'POST', // 'GET', 'PUT', 'DELETE', etc.
-    //         body: JSON.stringify(data), // Coordinate the body type with 'Content-Type'
-    //         headers: new Headers({
-    //             'Content-Type': 'application/json'
-    //         }),
-    //     })
-    //         .then(response => response.json())
-    // }
-

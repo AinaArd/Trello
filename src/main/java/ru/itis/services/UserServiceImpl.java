@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import ru.itis.forms.UserEditForm;
 import ru.itis.forms.RegisterForm;
 import ru.itis.models.Desk;
+import ru.itis.models.Task;
 import ru.itis.models.User;
 import ru.itis.repositories.UsersRepository;
 import ru.itis.security.details.UserDetailsImpl;
@@ -128,7 +129,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void removeFromDesk(User user, Desk desk) {
-        usersRepository.remove(user.getId(), desk.getId());
+        usersRepository.removeFromDesk(user.getId(), desk.getId());
     }
 
     @Override
@@ -137,7 +138,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void removeFromTask(User user, Task task) {
+        usersRepository.removeFromTask(user.getId(), task.getId());
+    }
+
+    @Override
     public User getCurrentUser(Authentication authentication) {
         return ((UserDetailsImpl) authentication.getPrincipal()).getUser();
     }
+
 }
