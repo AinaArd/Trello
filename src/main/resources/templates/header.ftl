@@ -23,35 +23,24 @@
 <#--    </div>-->
 <#--</nav>-->
 
-<#--<nav class="navbar navbar-dark bg-dark">-->
-<#--    <form class="form-inline">-->
-<#--        <a href="/profile" class="btn btn-outline-success" type="button">Profile</a>-->
-<#--        <a href="/desks" class="btn btn-outline-success" type="button">Desks</a>-->
-<#--        <form action="/logout">-->
-<#--            <p><input type="submit" value="Log out"-->
-<#--                      class="btn btn-primary btn-learn"/></p>-->
-<#--        </form>-->
-<#--    </form>-->
-<#--</nav>-->
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="#">Trello</a>
+        <span class="navbar-brand">Trello</span>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Profile
+                <li class="nav-item ">
+                    <a class="nav-link" href="/profile">Profile
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Desks</a>
+                    <a class="nav-link" href="/desks">Desks</a>
                 </li>
                 <li class="nav-item">
-                    <form action="/logout">
+                    <form action="/logout" class="form-logout">
                         <p><input type="submit" value="Log out"
                                   class="btn btn-primary btn-learn"/></p>
                     </form>

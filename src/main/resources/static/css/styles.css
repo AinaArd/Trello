@@ -73,7 +73,7 @@
 .form-style-2 input[type=button] {
     border: none;
     padding: 8px 15px 8px 15px;
-    background: #FF8500;
+    background: #B6B2FF;
     color: #fff;
     box-shadow: 1px 1px 4px #DADADA;
     -moz-box-shadow: 1px 1px 4px #DADADA;
@@ -85,7 +85,7 @@
 
 .form-style-2 input[type=submit]:hover,
 .form-style-2 input[type=button]:hover {
-    background: #EA7B00;
+    background: #a790ff;
     color: #fff;
 }
 
@@ -94,7 +94,7 @@ div#window {
     width: 50%;
     height: 50%;
     margin: 40px auto;
-    background: #EA7B00;
+    background: #B6B2FF;
     -moz-background-size: 100%; /* Firefox 3.6+ */
     -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
     -o-background-size: 100%; /* Opera 9.6+ */
@@ -126,7 +126,7 @@ div#window {
 .button-add {
     border: none;
     padding: 8px 15px 8px 15px;
-    background: #FF8500;
+    background: #B6B2FF;
     color: #fff;
     box-shadow: 1px 1px 4px #DADADA;
     -moz-box-shadow: 1px 1px 4px #DADADA;
@@ -137,7 +137,7 @@ div#window {
 }
 
 .button-add:hover {
-    background: #EA7B00;
+    background: #a790ff;
     color: #fff;
 }
 

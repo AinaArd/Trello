@@ -108,7 +108,7 @@ function checkForLogin(str) {
             },
             success: function (user) {
                 str = str.replace("@" + user.login,
-                    "<a href='/profile/" + user.login + "'>@" + user.login + "</a>");
+                    "<a href='/profile/" + user.id + "'>@" + user.login + "</a>");
 
             },
             error(msg) {

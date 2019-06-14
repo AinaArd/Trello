@@ -22,6 +22,7 @@
                         <div id="${member.id}">
                             <a href="/profile/${member.id}">${member.name}</a>
                             <button class="button-add" id="${member.id}" onclick="deleteUser(event)">Delete</button>
+                            <br>
                             <div id="member"></div>
                             <br>
                         </div>

@@ -23,3 +23,7 @@ li {
 li :hover {
     background-color: #00b3ee;
 }
+
+form {
+    background: #a790ff;
+}

@@ -9,8 +9,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
-@EnableJpaRepositories(basePackages = "ru.itis.repositories")
-@EntityScan(basePackages = "ru.itis.models")
+//@EnableJpaRepositories(basePackages = "ru.itis.repositories")
+//@EntityScan(basePackages = "ru.itis.models")
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
