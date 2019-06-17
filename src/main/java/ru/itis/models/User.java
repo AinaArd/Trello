@@ -5,7 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import ru.itis.transfer.TaskDto;
-import ru.itis.validation.Login;
+//import ru.itis.validation.Login;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Login
+//    @Login
     private String login;
     private String hashPassword;
     private String name;

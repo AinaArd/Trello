@@ -60,6 +60,8 @@ public class DesksController {
             model.addAttribute("selectedDesk", selectedDesk);
             model.addAttribute("addCard", true);
             model.addAttribute("cards", deskCards);
+
+            System.out.println(deskService.findAllUserDesksBy);
         }
         return "desks";
     }

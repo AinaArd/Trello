@@ -43,4 +43,6 @@ public interface UserService {
     User getCurrentUser(Authentication authentication);
 
     void removeFromTask(User user, Task task);
+
+    boolean register(RegisterForm registerForm);
 }
