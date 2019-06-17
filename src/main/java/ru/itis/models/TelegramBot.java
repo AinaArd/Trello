@@ -40,7 +40,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             message.setChatId(update.getMessage().getChatId());
 
             String command = update.getMessage().getText();
-            String userName = update.getMessage().getFrom().getUserName();
+            String userName = update.getMessage().getFrom().getFirstName();
 
             switch (command) {
                 case "/start":
@@ -72,17 +72,21 @@ public class TelegramBot extends TelegramLongPollingBot {
     }
 
     private void findTasks(SendMessage message, String userName) {
-        User user = userService.findByName(userName).orElseThrow(IllegalArgumentException::new);
-        System.out.println(user.getName());
-        List<String> tasks = user.getTasks().stream().map(task -> task.getText()).collect(Collectors.toList());
-        message.setText(String.valueOf(tasks));
+//        User user = userService.findByName(userName).orElseThrow(IllegalArgumentException::new);
+//        System.out.println(user.getName());
+//        List<String> tasks = user.getTasks().stream().map(task -> task.getText()).collect(Collectors.toList());
+//        message.setText(String.valueOf(tasks));
     }
 
     private void findDesks(SendMessage message, String userName) {
-        List<String> desks = deskService.findAllUserDesksByName(userName).stream().map(desk -> desk.getName())
-                .collect(Collectors.toList());
-        System.out.println(desks.get(0));
-        message.setText(String.valueOf(desks));
+        if (deskService.findAllUserDesksByName(userName) != null) {
+            List<String> desks = deskService.findAllUserDesksByName(userName).stream().map(desk -> desk.getName())
+                    .collect(Collectors.toList());
+            System.out.println(desks.get(0));
+            message.setText(String.valueOf(desks));
+        } else {
+            System.out.println("This user has no desks");
+        }
     }
 
     private synchronized void setButtons(SendMessage sendMessage) {
