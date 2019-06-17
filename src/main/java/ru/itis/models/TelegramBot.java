@@ -72,10 +72,10 @@ public class TelegramBot extends TelegramLongPollingBot {
     }
 
     private void findTasks(SendMessage message, String userName) {
-//        User user = userService.findByName(userName).orElseThrow(IllegalArgumentException::new);
-//        System.out.println(user.getName());
-//        List<String> tasks = user.getTasks().stream().map(task -> task.getText()).collect(Collectors.toList());
-//        message.setText(String.valueOf(tasks));
+        User user = userService.findByName(userName).orElseThrow(IllegalArgumentException::new);
+        System.out.println(user.getName());
+        List<String> tasks = user.getTasks().stream().map(task -> task.getText()).collect(Collectors.toList());
+        message.setText(String.valueOf(tasks));
     }
 
     private void findDesks(SendMessage message, String userName) {

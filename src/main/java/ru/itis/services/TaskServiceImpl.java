@@ -29,6 +29,7 @@ public class TaskServiceImpl implements TaskService {
 
     private CommentRepository commentsRepository;
 
+    @Autowired
     public TaskServiceImpl(FileDownloader fileDownloader, TasksRepository tasksRepository, CommentRepository commentsRepository) {
         this.fileDownloader = fileDownloader;
         this.tasksRepository = tasksRepository;

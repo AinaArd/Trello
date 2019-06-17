@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.springframework.data.repository.cdi.Eager;
 
 import javax.persistence.*;
 import java.util.List;
@@ -25,20 +26,20 @@ public class Desk {
     @Enumerated(EnumType.STRING)
     private DeskState state;
 
-    @ManyToMany(mappedBy = "desks", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "desks", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<User> users;
 
-    @OneToMany(mappedBy = "desk")
+    @OneToMany(mappedBy = "desk", fetch = FetchType.LAZY)
     private List<Card> cards;
 
-    @OneToMany(mappedBy = "desk")
+    @OneToMany(mappedBy = "desk", fetch = FetchType.LAZY)
     private List<Task> tasks;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner")
     private User owner;
 
-    @OneToMany(mappedBy = "desk")
+    @OneToMany(mappedBy = "desk", fetch = FetchType.LAZY)
     private List<Message> messages;
 
 }
