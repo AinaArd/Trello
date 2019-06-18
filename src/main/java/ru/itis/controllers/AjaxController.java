@@ -151,7 +151,7 @@ public class AjaxController {
     public ResponseEntity<Object> editCardName(@RequestParam("id") Long cardId, @RequestParam("name") String newName) {
         Card card = cardService.findById(cardId).orElseThrow(IllegalArgumentException::new);
         card.setName(newName);
-        CardDto updatedCard = cardService.edit(card);
+        CardDto updatedCard = cardService.editCardName(card);
         return ResponseEntity.ok(updatedCard);
     }
 }

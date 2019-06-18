@@ -15,7 +15,7 @@ public interface CardService {
 
     void addCard(Card newCard);
 
-    CardDto edit(Card card);
+    CardDto editCardName(Card card);
 
 
 }

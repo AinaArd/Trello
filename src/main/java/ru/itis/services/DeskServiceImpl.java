@@ -17,11 +17,6 @@ public class DeskServiceImpl implements DeskService {
     @Autowired
     private DesksRepository desksRepository;
 
-    @Autowired
-    public DeskServiceImpl(DesksRepository desksRepository) {
-        this.desksRepository = desksRepository;
-    }
-
     @Override
     public List<Desk> findAllUserDesks(Long id) {
         return desksRepository.findAllByDesk_members(id);

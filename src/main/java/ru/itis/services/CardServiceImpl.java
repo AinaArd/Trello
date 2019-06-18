@@ -14,12 +14,8 @@ import static ru.itis.transfer.CardDto.from;
 @Service
 public class CardServiceImpl implements CardService {
 
-    private CardsRepository cardsRepository;
-
     @Autowired
-    public CardServiceImpl(CardsRepository cardsRepository) {
-        this.cardsRepository = cardsRepository;
-    }
+    private CardsRepository cardsRepository;
 
     @Override
     public List<Card> findDeskCards(Long id) {
@@ -42,7 +38,7 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public CardDto edit(Card card) {
+    public CardDto editCardName(Card card) {
         CardDto dto = from(cardsRepository.saveAndFlush(card));
         return dto;
     }

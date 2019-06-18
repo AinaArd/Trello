@@ -22,7 +22,7 @@
 <#--        <br>-->
 <#--        <br>-->
 <#--        <br>-->
-<#--        <form action="/edit" method="get">-->
+<#--        <form action="/editCardName" method="get">-->
 <#--            <input type="submit" value="Edit"/>-->
 <#--        </form>-->
 

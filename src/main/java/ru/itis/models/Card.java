@@ -1,5 +1,6 @@
 package ru.itis.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -22,6 +23,7 @@ public class Card {
 
     @ManyToOne
     @JoinColumn(name = "deskId")
+    @JsonIgnore
     private Desk desk;
 
     @LazyCollection(LazyCollectionOption.TRUE)
@@ -29,5 +31,3 @@ public class Card {
     private List<Task> cardTasks;
 
 }
-
-// TODO: прикрепление файлов/фото, чеклисты

@@ -66,12 +66,12 @@
 <#--        </div>-->
 <#--        <br>-->
 
-<#--        <input type="submit" value="Edit task" onclick="show(document.getElementById('edit'))""/>-->
+<#--        <input type="submit" value="Edit task" onclick="show(document.getElementById('editCardName'))""/>-->
 <#--        <br>-->
 <#--        <br>-->
 
-<#--        <form method="post" id="edit" style="display: none;" enctype="multipart/form-data">-->
-<#--            <div class="edit">Edit task</div>-->
+<#--        <form method="post" id="editCardName" style="display: none;" enctype="multipart/form-data">-->
+<#--            <div class="editCardName">Edit task</div>-->
 <#--            <label for="name">Name-->
 <#--                <input class="input-field" type="text" id="name" name="name" value="${task.name}" required="required">-->
 <#--            </label>-->
@@ -224,7 +224,7 @@
 
                 <hr>
 
-                <input type="submit" value="Edit task" onclick="show(document.getElementById('edit'))""/>
+                <input type="submit" value="Edit task" onclick="show(document.getElementById('editCardName'))""/>
                 <br>
                 <br>
 

@@ -21,7 +21,4 @@ public class LoginAspect {
     public void logRegistration(JoinPoint joinPoint) {
         logger.info(Arrays.toString(joinPoint.getArgs()) + "registered successfully");
     }
-
-//    @Around("execution (* *..")
-//    public Object logCommentsCache(ProceedingJoinPoint pj,)
 }
