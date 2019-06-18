@@ -21,15 +21,11 @@ import static ru.itis.transfer.UserDto.from;
 @Service
 public class UserServiceImpl implements UserService {
 
+    @Autowired
     private UsersRepository usersRepository;
 
-    private PasswordEncoder passwordEncoder;
-
     @Autowired
-    public UserServiceImpl(UsersRepository usersRepository, PasswordEncoder passwordEncoder) {
-        this.usersRepository = usersRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
+    private PasswordEncoder passwordEncoder;
 
 
     @Override

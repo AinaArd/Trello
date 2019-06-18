@@ -12,7 +12,9 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.Keyboard
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.itis.services.DeskService;
+import ru.itis.services.DeskServiceImpl;
 import ru.itis.services.UserService;
+import ru.itis.services.UserServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +23,9 @@ import java.util.stream.Collectors;
 @Component
 public class TelegramBot extends TelegramLongPollingBot {
 
-    @Autowired
-    private DeskService deskService;
+    private DeskService deskService = new DeskServiceImpl();
 
-    @Autowired
-    private UserService userService;
+    private UserService userService = new UserServiceImpl();
 
 
     private void start(SendMessage message) {

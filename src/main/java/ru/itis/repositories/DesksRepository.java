@@ -3,8 +3,7 @@ package ru.itis.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import ru.itis.models.Desk;
-import ru.itis.models.User;
-import ru.itis.transfer.UserDto;
+
 
 import java.util.List;
 import java.util.Optional;
