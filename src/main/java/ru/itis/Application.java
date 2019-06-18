@@ -16,8 +16,6 @@ import ru.itis.services.DeskService;
 import ru.itis.services.UserService;
 
 @SpringBootApplication
-@EnableJpaRepositories(basePackages = "ru.itis.repositories")
-@EntityScan(basePackages = "ru.itis.models")
 public class Application {
 
     public static void main(String[] args) {

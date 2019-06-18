@@ -14,6 +14,7 @@ import java.util.Optional;
 @Component
 public class DeskServiceImpl implements DeskService {
 
+    @Autowired
     private DesksRepository desksRepository;
 
     @Autowired
@@ -29,6 +30,11 @@ public class DeskServiceImpl implements DeskService {
     @Override
     public Optional<Desk> findOneDesk(Long id) {
         return desksRepository.findById(id);
+    }
+
+    @Override
+    public List<Desk> findAllUserDesksByName(String name) {
+        return desksRepository.findAllByOwner_Name(name);
     }
 
     @Override

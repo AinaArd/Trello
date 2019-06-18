@@ -19,22 +19,27 @@ import ru.itis.services.TaskService;
 import ru.itis.services.UserService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class DesksController {
 
-    @Autowired
     private DeskService deskService;
 
-    @Autowired
     private CardService cardService;
 
-    @Autowired
     private UserService userService;
 
-    @Autowired
     private TaskService taskService;
+
+    @Autowired
+    public DesksController(DeskService deskService, CardService cardService, UserService userService, TaskService taskService) {
+        this.deskService = deskService;
+        this.cardService = cardService;
+        this.userService = userService;
+        this.taskService = taskService;
+    }
 
 
     @GetMapping(path = "/desks")
@@ -56,12 +61,16 @@ public class DesksController {
     public String getOneDesk(ModelMap model, @PathVariable(name = "desk-id") Long deskId, HttpServletRequest request) {
         if (deskService.findOneDesk(deskId).isPresent()) {
             Desk selectedDesk = deskService.findOneDesk(deskId).get();
-            List<Card> deskCards = cardService.findDeskCards(selectedDesk.getId());
+            List<Card> deskCards;
+//            if (!cache.getCards().isEmpty()) {
+//                deskCards = cache.getDeskCards();
+//            } else {
+            deskCards = cardService.findDeskCards(selectedDesk.getId());
+//            }
+
             model.addAttribute("selectedDesk", selectedDesk);
             model.addAttribute("addCard", true);
             model.addAttribute("cards", deskCards);
-
-            System.out.println(deskService.findAllUserDesksBy);
         }
         return "desks";
     }
