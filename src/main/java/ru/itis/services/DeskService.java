@@ -10,8 +10,14 @@ import java.util.Optional;
 
 public interface DeskService {
     List<Desk> findAllUserDesks(Long id);
+
     Optional<Desk> findOneDesk(Long id);
+
     void addDesk(Desk desk);
+
     Optional<Desk> findDeskByCard(Long id);
+
     List<Desk> findAllUserDesksByName(String name);
+
+    void deleteDesk(Desk desk);
 }

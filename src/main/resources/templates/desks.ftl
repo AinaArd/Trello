@@ -46,10 +46,12 @@
     <ul>
         <#if userDesks ??>
             <#list userDesks.ownDesks as desk>
-                <li>
+                <li id="${desk.id}">
                     <a href="/desks/${desk.id}">${desk.name}</a>&nbsp;&nbsp;
                     ${desk.state}
                     <br>
+                    <br>
+                    <input class="button-add" id="${desk.id}" name="delete" onclick="deleteDesk(event)" type="submit" value="Delete">
                 </li>
             </#list>
             <br>
@@ -184,5 +186,6 @@
     <script type="application/javascript" src="/js/users.js"></script>
     <script type="application/javascript" src="/js/tasks.js"></script>
     <script type="application/javascript" src="/js/cards.js"></script>
+    <script type="application/javascript" src="/js/desks.js"></script>
 </body>
 </html>

@@ -27,21 +27,17 @@ import static ru.itis.transfer.UserCommentDto.from;
 @RestController
 public class AjaxController {
 
+    @Autowired
     private TaskService taskService;
 
+    @Autowired
     private CardService cardService;
 
+    @Autowired
     private DeskService deskService;
 
-    private UserServiceImpl userService;
-
     @Autowired
-    public AjaxController(TaskService taskService, CardService cardService, DeskService deskService, UserServiceImpl userService) {
-        this.taskService = taskService;
-        this.cardService = cardService;
-        this.deskService = deskService;
-        this.userService = userService;
-    }
+    private UserServiceImpl userService;
 
     @PostMapping("/ajax/addTask")
     public ResponseEntity<Object> addTask(@RequestParam(name = "id") Long cardId, TaskForm taskForm) {
@@ -153,5 +149,14 @@ public class AjaxController {
         card.setName(newName);
         CardDto updatedCard = cardService.editCardName(card);
         return ResponseEntity.ok(updatedCard);
+    }
+
+    @PostMapping("/ajax/deleteDesk")
+    public ResponseEntity<Object> deleteDesk(@RequestParam("id") Long deskId){
+        Desk desk = deskService.findOneDesk(deskId).orElseThrow(IllegalArgumentException::new);
+        User userOwner = desk.getOwner();
+        userOwner.getOwnDesks().remove(desk);
+        deskService.deleteDesk(desk);
+        return ResponseEntity.ok().build();
     }
 }

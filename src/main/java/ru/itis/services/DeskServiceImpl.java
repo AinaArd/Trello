@@ -33,6 +33,12 @@ public class DeskServiceImpl implements DeskService {
     }
 
     @Override
+    public void deleteDesk(Desk desk) {
+        desksRepository.deleteDesk(desk.getId());
+        desksRepository.deleteDeskMembers(desk.getId());
+    }
+
+    @Override
     public void addDesk(Desk desk) {
         desksRepository.save(desk);
     }
