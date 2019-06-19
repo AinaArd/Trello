@@ -16,12 +16,12 @@
 
 <div class="main">
     <!-- Sign up form -->
-    <section class="signup">
-        <#if errors??>
-            <#list errors as error>
-                <div>${error}</div>
-            </#list>
+    <#if errors??>
+        <#list errors as error>
+            <div>${error}</div>
+        </#list>
         </#if>
+    <section class="signup">
         <div class="container">
             <div class="signup-content">
                 <div class="signup-form">
@@ -34,10 +34,11 @@
                         <div class="form-group">
                             <label for="email"><i class="zmdi zmdi-email"></i></label>
                             <input type="text" name="login" id="login" placeholder="Login" required="required"/>
-                            </div>
-                            <div class=" form-group">
+                        </div>
+                        <div class=" form-group">
                             <label for="pass"><i class="zmdi zmdi-lock"></i></label>
-                            <input type="password" name="password" id="password" placeholder="Password" required="required"/>
+                            <input type="password" name="password" id="password" placeholder="Password"
+                                   required="required"/>
                         </div>
                         <div class="form-group form-button">
                             <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
@@ -53,7 +54,7 @@
     </section>
 
     <!-- JS -->
-    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="/static/vendor/jquery/jquery.min.js"></script>
     <script src="js/main.js"></script>
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 </html>
