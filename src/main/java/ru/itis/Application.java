@@ -12,9 +12,8 @@ import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 import ru.itis.models.TelegramBot;
 
+
 @SpringBootApplication
-@EnableJpaRepositories(basePackages = "ru.itis.repositories")
-@EntityScan(basePackages = "ru.itis.models")
 public class Application {
     public static void main(String[] args) {
         ApiContextInitializer.init();

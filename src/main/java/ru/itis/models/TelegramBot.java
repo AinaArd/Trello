@@ -23,7 +23,8 @@ import java.util.stream.Collectors;
 @Component
 public class TelegramBot extends TelegramLongPollingBot {
 
-    private DeskService deskService = new DeskServiceImpl();
+    @Autowired
+    private DeskService deskService;
 
     private UserService userService = new UserServiceImpl();
 
@@ -84,6 +85,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                     .collect(Collectors.toList());
             System.out.println(desks.get(0));
             message.setText(String.valueOf(desks));
+            System.out.println(userService.findAll().get(0).getName());
         } else {
             System.out.println("This user has no desks");
         }
