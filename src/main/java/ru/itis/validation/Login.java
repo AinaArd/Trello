@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Login {
-    String message() default "{Login.default.message}";
+    String message() default "Login is invalid";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

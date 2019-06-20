@@ -32,11 +32,11 @@ public class RegisterController {
                     .map(error -> error.getField() + ": " + error.getDefaultMessage()).collect(Collectors.toList());
             System.out.println(errors);
             model.addAttribute("errors", errors);
-            return "redirect:register";
+            return "register";
         } else {
             service.register(registerForm);
         }
-        return "redirect:login";
+        return "redirect:/login";
     }
 
     @GetMapping("/register")

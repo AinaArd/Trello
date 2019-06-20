@@ -25,7 +25,7 @@ public class PasswordValidator implements ConstraintValidator<Password, String> 
             return true;
         } else {
             context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate("{Password.matchesPattern.message}")
+            context.buildConstraintViolationWithTemplate("Password should contain from 3 to 30 characters and consist of letters and numbers")
                     .addConstraintViolation();
             return false;
         }

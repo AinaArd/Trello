@@ -30,7 +30,7 @@ public class LoginValidator implements ConstraintValidator<Login, String> {
         if (!userService.checkForUniqueness(login)) {
             constraintValidatorContext.disableDefaultConstraintViolation();
             constraintValidatorContext
-                    .buildConstraintViolationWithTemplate("{Login.isUnique.message}")
+                    .buildConstraintViolationWithTemplate("Login is already in use")
                     .addConstraintViolation();
             return false;
         }
@@ -44,7 +44,7 @@ public class LoginValidator implements ConstraintValidator<Login, String> {
         if (!m.matches()) {
             constraintValidatorContext.disableDefaultConstraintViolation();
             constraintValidatorContext
-                    .buildConstraintViolationWithTemplate("{Login.matchesPattern.message}")
+                    .buildConstraintViolationWithTemplate("Login should contain from 3 to 30 characters")
                     .addConstraintViolation();
             return false;
         }
