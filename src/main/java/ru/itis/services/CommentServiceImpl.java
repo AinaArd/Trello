@@ -1,10 +1,18 @@
 package ru.itis.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import ru.itis.models.Comment;
-import ru.itis.repositories.CommentRepository;
+import org.springframework.stereotype.Service;
+import ru.itis.models.CommentMongo;
+import ru.itis.repositories.CommentMongoRepository;
 
-@Component
+@Service
 public class CommentServiceImpl implements CommentService {
+
+    @Autowired
+    private CommentMongoRepository commentMongoRepository;
+
+    @Override
+    public CommentMongo add(CommentMongo comment) {
+        return commentMongoRepository.save(comment);
+    }
 }
