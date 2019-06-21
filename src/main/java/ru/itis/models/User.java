@@ -22,7 +22,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @Login
     private String login;
     private String hashPassword;
     private String name;
@@ -36,10 +35,10 @@ public class User {
     @JoinColumn(name = "userId")
     private List<Desk> desks;
 
-    @JsonIgnore
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy = "author")
-    private List<Comment> comments;
+//    @JsonIgnore
+//    @LazyCollection(LazyCollectionOption.FALSE)
+//    @OneToMany(mappedBy = "author")
+//    private List<Comment> comments;
 
     @JsonIgnore
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -50,7 +49,7 @@ public class User {
     @JsonIgnore
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "owner")
-    @OrderBy()
+    @OrderBy(value = "id")
     private List<Desk> ownDesks;
 
     public int desksNumber(){
@@ -61,8 +60,8 @@ public class User {
         return tasks.size();
     }
 
-    public int commentsNumber(){
-        return comments.size();
-    }
+//    public int commentsNumber(){
+//        return comments.size();
+//    }
 
 }

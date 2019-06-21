@@ -53,6 +53,7 @@
                     <br>
                     <input class="button-add" id="${desk.id}" name="delete" onclick="deleteDesk(event)" type="submit" value="Delete">
                 </li>
+                <br>
             </#list>
             <br>
         </#if>

@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.persistence.Id;
+import java.math.BigInteger;
 
 @Data
 @AllArgsConstructor
@@ -15,6 +16,8 @@ import javax.persistence.Id;
 @Builder
 @Document(collection = "comment")
 public class CommentMongo {
+    @Id
+    private BigInteger id;
 
     @Field(value = "content")
     private String content;

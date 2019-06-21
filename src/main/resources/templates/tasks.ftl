@@ -164,7 +164,8 @@
                     <#list task.users as member>
                         <div id="${member.id}">
                             <a href="/profile/${member.id}">${member.name}</a>
-                            <button class="button-add" id="${member.id}" onclick="deleteUserFromTask(event)">Delete</button>
+                            <button class="button-add" id="${member.id}" onclick="deleteUserFromTask(event)">Delete
+                            </button>
                             <br>
                             <div id="member"></div>
                             <br>
@@ -254,16 +255,18 @@
 
             <!-- Single Comment -->
             <ul id="ul-id${task.id}">
-                <#list task.comments as comment>
-                    <li>
-                        <div class="media mb-4">
-                            <div class="media-body" id="${comment.id}">
-                                <a href="/profile/${comment.author.id}">${comment.author.name}: </a>
-                                <b data-contain-user-tags>${comment.content}</b>
+                <#if comments??>
+                    <#list comments as comment>
+                        <li>
+                            <div class="media mb-4">
+                                <div class="media-body" id="${comment.id}">
+<#--                                    <a href="/profile/${comment.author.id}">${comment.author.name}: </a>-->
+                                    <b data-contain-user-tags>${comment.content}</b>
+                                </div>
                             </div>
-                        </div>
-                    </li>
-                </#list>
+                        </li>
+                    </#list>
+                </#if>
             </ul>
 
             <!-- Comments Form -->

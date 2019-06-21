@@ -83,12 +83,12 @@ public class AjaxController {
         Task task = taskService.findTaskById(taskId).orElseThrow(IllegalArgumentException::new);
         User currentUser = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
 //        store in postgres
-        Comment comment = Comment.builder()
-                .task(task)
-                .content(message)
-                .author(currentUser)
-                .build();
-        taskService.addComment(comment);
+//        Comment comment = Comment.builder()
+//                .task(task)
+//                .content(message)
+//                .author(currentUser)
+//                .build();
+//        taskService.addComment(comment);
 //        store in mongoDB
         CommentMongo newCommentMongo = CommentMongo.builder()
                 .content(message)
@@ -96,7 +96,7 @@ public class AjaxController {
                 .taskId(task.getId())
                 .build();
         CommentMongo savedComment = commentService.add(newCommentMongo);
-        System.out.println(savedComment);
+        System.out.println(commentService.findAllTaskComments(task));
         UserCommentDto dto = from(currentUser, savedComment);
         return ResponseEntity.ok(dto);
     }

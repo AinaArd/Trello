@@ -42,10 +42,10 @@ public class Task {
     @ManyToMany(mappedBy = "tasks", cascade = CascadeType.ALL)
     private List<User> users;
 
-    @LazyCollection(LazyCollectionOption.TRUE)
-    @OrderBy("id")
-    @OneToMany(mappedBy = "task")
-    private List<Comment> comments;
+//    @LazyCollection(LazyCollectionOption.TRUE)
+//    @OrderBy("id")
+//    @OneToMany(mappedBy = "task")
+//    private List<Comment> comments;
 
     @LazyCollection(LazyCollectionOption.TRUE)
     @ManyToOne
