@@ -44,7 +44,6 @@ public class AjaxController {
         Card card = cardService.findById(cardId).orElseThrow(IllegalArgumentException::new);
         Desk desk = deskService.findDeskByCard(card.getId()).orElseThrow(IllegalArgumentException::new);
         LocalDate term = LocalDate.parse(taskForm.getDate());
-
         Task task = Task.builder()
                 .name(taskForm.getName())
                 .card(card)
@@ -96,7 +95,6 @@ public class AjaxController {
                 .taskId(task.getId())
                 .build();
         CommentMongo savedComment = commentService.add(newCommentMongo);
-        System.out.println(commentService.findAllTaskComments(task));
         UserCommentDto dto = from(currentUser, savedComment);
         return ResponseEntity.ok(dto);
     }

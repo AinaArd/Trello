@@ -30,7 +30,7 @@ public class User {
     private Role role;
 
     @JsonIgnore
-    @LazyCollection(LazyCollectionOption.TRUE)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany
     @JoinColumn(name = "userId")
     private List<Desk> desks;

@@ -4,13 +4,15 @@ import ru.itis.models.CommentMongo;
 import ru.itis.models.Task;
 import ru.itis.models.User;
 
+import java.math.BigInteger;
 import java.util.List;
+import java.util.Map;
 
 public interface CommentService {
 
     CommentMongo add(CommentMongo comment);
 
-    void setAuthor(User user, Task task);
+    Map<BigInteger, User> setAuthors(Task task);
 
     List<CommentMongo> findAllTaskComments(Task task);
 

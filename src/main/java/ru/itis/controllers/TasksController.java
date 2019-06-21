@@ -1,6 +1,7 @@
 package ru.itis.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,8 @@ import ru.itis.forms.TaskEditForm;
 import ru.itis.models.CommentMongo;
 import ru.itis.models.Desk;
 import ru.itis.models.Task;
+import ru.itis.models.User;
+import ru.itis.security.details.UserDetailsImpl;
 import ru.itis.services.CommentService;
 import ru.itis.services.TaskService;
 
@@ -23,27 +26,29 @@ public class TasksController {
 
     private TaskService taskService;
 
-    @Autowired
     private CommentService commentService;
 
     @Autowired
-    public TasksController(TaskService taskService) {
+    public TasksController(TaskService taskService, CommentService commentService) {
         this.taskService = taskService;
+        this.commentService = commentService;
     }
 
     @GetMapping("/tasks/{task-id}")
     public String getSingleTask(ModelMap model, @PathVariable(name = "task-id") Long taskId) {
         Task task = taskService.findTaskById(taskId).orElseThrow(IllegalArgumentException::new);
         List<CommentMongo> comments = commentService.findAllTaskComments(task);
+
         if (taskService.findTaskById(taskId).isPresent()) {
             if (task.getText() == null) {
                 model.addAttribute("noText", true);
             }
-            if(task.getPicturePath().contains("null")){
+            if (task.getPicturePath().contains("null")) {
                 model.addAttribute("noPic", true);
             }
             model.addAttribute("task", task);
             model.addAttribute("comments", comments);
+            model.addAttribute("authors", commentService.setAuthors(task));
         }
         return "tasks";
     }

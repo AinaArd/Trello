@@ -25,12 +25,15 @@ public class Desk {
     @Enumerated(EnumType.STRING)
     private DeskState state;
 
+    @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany(mappedBy = "desks", cascade = CascadeType.ALL)
     private List<User> users;
 
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "desk")
     private List<Card> cards;
 
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "desk")
     private List<Task> tasks;
 
@@ -38,6 +41,7 @@ public class Desk {
     @JoinColumn(name = "owner")
     private User owner;
 
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "desk")
     private List<Message> messages;
 

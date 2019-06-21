@@ -7,8 +7,10 @@ import ru.itis.models.Task;
 import ru.itis.models.User;
 import ru.itis.repositories.CommentMongoRepository;
 
-import java.util.ArrayList;
+import java.math.BigInteger;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -28,11 +30,14 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public void setAuthor(User user, Task task) {
+    public Map<BigInteger, User> setAuthors(Task task) {
+        Map<BigInteger, User> authors = new HashMap<>();
         List<CommentMongo> comments = commentMongoRepository.findAllByTaskId(task.getId());
         for(CommentMongo comment : comments){
-
+            User author = userService.findById(comment.getAuthor()).orElseThrow(IllegalArgumentException::new);
+            authors.put(comment.getId(), author);
         }
+        return authors;
     }
 
     @Override
