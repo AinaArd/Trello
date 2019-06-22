@@ -6,10 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.itis.models.Desk;
-import ru.itis.models.User;
-import ru.itis.transfer.UserDto;
 
-import javax.xml.ws.Action;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +34,7 @@ public interface DesksRepository extends JpaRepository<Desk, Long> {
     @Query(nativeQuery = true, value = "select * from desk inner join \"user\" u on desk.owner = u.id where " +
             "u.name = ?")
     List<Desk> findAllByOwner_Name(String owner_name);
+<<<<<<< HEAD
 
     @Modifying
     @Transactional
@@ -46,4 +45,6 @@ public interface DesksRepository extends JpaRepository<Desk, Long> {
     @Transactional
     @Query(nativeQuery = true, value = "delete from user_desks where desks_id = ?")
     void deleteDeskMembers(Long deskId);
+=======
+>>>>>>> telegramBot
 }

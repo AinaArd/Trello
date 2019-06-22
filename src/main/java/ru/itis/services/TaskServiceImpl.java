@@ -23,14 +23,13 @@ import static ru.itis.transfer.TaskDto.from;
 @Service
 public class TaskServiceImpl implements TaskService {
 
-    private static String UPLOADED_FOLDER;
-
     private FileDownloader fileDownloader;
 
     private TasksRepository tasksRepository;
 
     private CommentRepository commentsRepository;
 
+    @Autowired
     public TaskServiceImpl(FileDownloader fileDownloader, TasksRepository tasksRepository, CommentRepository commentsRepository) {
         this.fileDownloader = fileDownloader;
         this.tasksRepository = tasksRepository;
@@ -96,11 +95,6 @@ public class TaskServiceImpl implements TaskService {
     public void changeFlag(Task task) {
         task.setFlag(false);
         tasksRepository.save(task);
-    }
-
-    @Value("${my.files-url}")
-    public static void setUploadedFolder(String uploadedFolder) {
-        UPLOADED_FOLDER = uploadedFolder;
     }
 
 //    private static String getFileName(final Part part) {

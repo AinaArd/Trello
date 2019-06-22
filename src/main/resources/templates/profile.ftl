@@ -207,7 +207,7 @@
                             <div class="colorlib-feature colorlib-feature-sm animate-box"
                                  data-animate-effect="fadeInLeft">
                                 <div class="colorlib-icon">
-                                    <i class="icon-globe-outline"></i>
+                                    <i class="icon-user"></i>
                                 </div>
                                 <div class="colorlib-text">
                                     <p>Edit private info</p>
@@ -227,12 +227,23 @@
                             <div class="colorlib-feature colorlib-feature-sm animate-box"
                                  data-animate-effect="fadeInLeft">
                                 <div class="colorlib-icon">
-                                    <i class="icon-phone"></i>
+                                    <i class="icon-cancel"></i>
                                 </div>
                                 <div class="colorlib-text">
                                     <p>Log out from the system</p>
                                 </div>
                             </div>
+
+                            <div class="colorlib-feature colorlib-feature-sm animate-box"
+                                 data-animate-effect="fadeInLeft">
+                                <div class="colorlib-icon">
+                                    <i class="icon-link"></i>
+                                </div>
+                                <div class="colorlib-text">
+                                    <p>Check telegram bot</p>
+                                </div>
+                            </div>
+
                         </div>
                         <div class="col-md-7 col-md-push-1">
                             <div class="row">
@@ -289,7 +300,10 @@
 
                                     <br>
                                     <br>
-
+                                    <form action="http://t.me/aina_trello_bot">
+                                        <p><input type="submit" value="Telegram Bot"
+                                                  class="btn btn-primary btn-learn"/></p>
+                                    </form>
                                 </div>
                             </div>
                         </div>

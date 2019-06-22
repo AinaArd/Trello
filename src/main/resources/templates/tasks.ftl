@@ -299,7 +299,7 @@
 <script type="application/javascript" src="/js/bootstrap.min.js"></script>
 <script type="application/javascript" src="/js/users.js"></script>
 <script type="application/javascript" src="/js/tasks.js"></script>
-
+<script src="https://code.jquery.com/jquery-migrate-1.4.1.min.js"></script>
 </body>
 
 </html>
