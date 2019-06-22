@@ -38,7 +38,7 @@ public class LoginValidator implements ConstraintValidator<Login, String> {
     }
 
     private boolean correct(String login, ConstraintValidatorContext constraintValidatorContext) {
-        String pattern = "^[a-zA-Z0-9]$";
+        String pattern = "^[a-z0-9_-]{3,30}$";
         Pattern p = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
         Matcher m = p.matcher(login);
         if (!m.matches()) {

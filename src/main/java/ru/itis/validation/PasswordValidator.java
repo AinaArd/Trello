@@ -18,7 +18,7 @@ public class PasswordValidator implements ConstraintValidator<Password, String> 
     }
 
     private boolean correct(String password, ConstraintValidatorContext context) {
-        String pattern = "^[a-zA-Z0-9]{5,30}$";
+        String pattern = "^[a-z0-9_-]{3,30}$";
         Pattern p = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
         Matcher m = p.matcher(password);
         if (m.matches()) {

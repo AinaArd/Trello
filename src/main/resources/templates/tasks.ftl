@@ -257,17 +257,16 @@
             <ul id="ul-id${task.id}">
                 <#if comments??>
                     <#list comments as comment>
-                        <#list authors?keys as key>
                             <li>
                                 <div class="media mb-4">
                                     <div class="media-body" id="${comment.id}">
-                                    <#if ><a href="/profile/${user.id}">${user.name}: </a></#if>
+
+                                         <a href="/profile/${user.id}">${user.name}: </a>
 
                                         <b data-contain-user-tags>${comment.content}</b>
                                     </div>
                                 </div>
                             </li>
-                        </#list>
                     </#list>
                 </#if>
             </ul>

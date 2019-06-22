@@ -2,6 +2,7 @@ function addUsersToTask() {
     var search = document.getElementById("search");
     var result = document.getElementById("user-candidates");
     var task = document.getElementById("task-id");
+    var members = document.getElementById("member");
     var taskId = task.dataset.id;
     if (search.value.length > 0) {
         $.ajax({
@@ -29,7 +30,8 @@ function addUsersToTask() {
                                     "taskId": taskId
                                 },
                                 success: function (user) {
-                                    var members = document.getElementById("member");
+
+                                    console.log(members);
                                     var buttonDelete = document.createElement("button");
                                     var a = document.createElement("a");
 
@@ -40,7 +42,6 @@ function addUsersToTask() {
                                     buttonDelete.className = 'button-add';
                                     buttonDelete.onclick = function deleteUser() {
                                         var id = user.id;
-                                        console.log(id);
                                         var task = document.getElementById("task-id");
                                         var taskId = task.dataset.id;
                                         $.ajax({
@@ -116,6 +117,9 @@ function addUsersToDesk() {
                                 },
                                 success: function (user) {
                                     var members = document.getElementById("member");
+                                    console.log(members);
+
+
                                     var a = document.createElement("a");
                                     var buttonDelete = document.createElement("button");
 
