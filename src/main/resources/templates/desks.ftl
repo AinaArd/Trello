@@ -25,6 +25,7 @@
                             <button class="button-add" id="${member.id}" onclick="deleteUserFromDesk(event)">Delete</button>
                             <br>
                             <div id="member"></div>
+                            <div id="div"></div>
                             <br>
                         </div>
                     </#list>

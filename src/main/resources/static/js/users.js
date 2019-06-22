@@ -74,8 +74,10 @@ function addUsersToTask() {
                     textNode.appendChild(a);
                     result.appendChild(textNode);
                 }
+            },
+            error: function (msg) {
+                alert(msg);
             }
-
         })
     } else {
         result.innerHTML = "";
@@ -103,8 +105,8 @@ function addUsersToDesk() {
                     buttonAdd.innerText = "Add";
                     buttonAdd.onclick = function add() {
                         search.innerText = "";
-                        buttonAdd.remove();
-                        textNode.remove();
+                        // buttonAdd.remove();
+                        // textNode.remove();
                         var userName = userCandidates[user].name;
                         var deskId = desk.dataset.id;
                         $.ajax({

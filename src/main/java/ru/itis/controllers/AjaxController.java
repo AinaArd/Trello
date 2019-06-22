@@ -71,10 +71,14 @@ public class AjaxController {
     public ResponseEntity<Object> addUserToTask(@RequestParam(name = "userName") String userName, @RequestParam(name = "taskId") Long taskId) {
         User user = userService.findByName(userName).orElseThrow(IllegalArgumentException::new);
         Task task = taskService.findTaskById(taskId).orElseThrow(IllegalArgumentException::new);
-        task.getUsers().add(user);
-        user.getTasks().add(task);
-        User newUser = userService.save(user);
-        return ResponseEntity.ok(newUser);
+        if(!task.getUsers().contains(user)){
+            task.getUsers().add(user);
+            user.getTasks().add(task);
+            User newUser = userService.save(user);
+            return ResponseEntity.ok(newUser);
+        } else {
+            return ResponseEntity.ok("User already in the list");
+        }
     }
 
     @PostMapping("/ajax/addComment")
