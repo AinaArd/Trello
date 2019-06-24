@@ -1,10 +1,9 @@
 <html>
 <head>
-    <title>Desks</title>
     <link href="/css/styles.css" rel="stylesheet" type="text/css">
     <link href="/css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 </head>
 <body>
 <#include "header.ftl">
@@ -22,10 +21,10 @@
                     <#list selectedDesk.users as member>
                         <div id="${member.id}">
                             <a href="/profile/${member.id}">${member.name}</a>
-                            <button class="button-add" id="${member.id}" onclick="deleteUserFromDesk(event)">Delete</button>
+                            <button class="button-add" id="${member.id}" onclick="deleteUserFromDesk(event)">Delete
+                            </button>
                             <br>
                             <div id="member"></div>
-                            <div id="div"></div>
                             <br>
                         </div>
                     </#list>
@@ -52,7 +51,8 @@
                     ${desk.state}
                     <br>
                     <br>
-                    <input class="button-add" id="${desk.id}" name="delete" onclick="deleteDesk(event)" type="submit" value="Delete">
+                    <input class="button-add" id="${desk.id}" name="delete" onclick="deleteDesk(event)" type="submit"
+                           value="Delete">
                 </li>
             </#list>
             <br>
@@ -167,7 +167,6 @@
                 div.style.display = "none"
         }
     </script>
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
             integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

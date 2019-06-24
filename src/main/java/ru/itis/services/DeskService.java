@@ -14,12 +14,9 @@ public interface DeskService {
     void addDesk(Desk desk);
 
     Optional<Desk> findDeskByCard(Long id);
-<<<<<<< HEAD
-
-    List<Desk> findAllUserDesksByName(String name);
 
     void deleteDesk(Desk desk);
-=======
+
     List<Desk> findAllUserDesksByName(String name);
->>>>>>> telegramBot
+
 }

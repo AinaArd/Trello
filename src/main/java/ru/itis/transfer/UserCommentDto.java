@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.itis.models.Comment;
+import ru.itis.models.CommentMongo;
 import ru.itis.models.User;
 
 @Data
@@ -16,7 +17,7 @@ public class UserCommentDto {
     private String author;
     private String commentText;
 
-    public static UserCommentDto from(User user, Comment comment) {
+    public static UserCommentDto from(User user, CommentMongo comment) {
         return UserCommentDto.builder()
                 .id(user.getId())
                 .author(user.getName())

@@ -10,10 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.itis.forms.TaskForm;
 import ru.itis.models.*;
 import ru.itis.security.details.UserDetailsImpl;
-import ru.itis.services.CardService;
-import ru.itis.services.DeskService;
-import ru.itis.services.TaskService;
-import ru.itis.services.UserServiceImpl;
+import ru.itis.services.*;
 import ru.itis.transfer.CardDto;
 import ru.itis.transfer.UserCommentDto;
 import ru.itis.transfer.TaskDto;
@@ -27,28 +24,26 @@ import static ru.itis.transfer.UserCommentDto.from;
 @RestController
 public class AjaxController {
 
+    @Autowired
     private TaskService taskService;
 
+    @Autowired
     private CardService cardService;
 
+    @Autowired
     private DeskService deskService;
 
+    @Autowired
     private UserServiceImpl userService;
 
     @Autowired
-    public AjaxController(TaskService taskService, CardService cardService, DeskService deskService, UserServiceImpl userService) {
-        this.taskService = taskService;
-        this.cardService = cardService;
-        this.deskService = deskService;
-        this.userService = userService;
-    }
+    private CommentService commentService;
 
     @PostMapping("/ajax/addTask")
     public ResponseEntity<Object> addTask(@RequestParam(name = "id") Long cardId, TaskForm taskForm) {
         Card card = cardService.findById(cardId).orElseThrow(IllegalArgumentException::new);
         Desk desk = deskService.findDeskByCard(card.getId()).orElseThrow(IllegalArgumentException::new);
         LocalDate term = LocalDate.parse(taskForm.getDate());
-
         Task task = Task.builder()
                 .name(taskForm.getName())
                 .card(card)
@@ -71,19 +66,14 @@ public class AjaxController {
         return ResponseEntity.ok(newUser);
     }
 
-//    TODO: fix users
     @PostMapping("/ajax/addUserToTask")
     public ResponseEntity<Object> addUserToTask(@RequestParam(name = "userName") String userName, @RequestParam(name = "taskId") Long taskId) {
         User user = userService.findByName(userName).orElseThrow(IllegalArgumentException::new);
         Task task = taskService.findTaskById(taskId).orElseThrow(IllegalArgumentException::new);
-        if(!task.getUsers().contains(user)){
-            task.getUsers().add(user);
-            user.getTasks().add(task);
-            User newUser = userService.save(user);
-            return ResponseEntity.ok(newUser);
-        } else {
-            return ResponseEntity.ok("User already in the list");
-        }
+        task.getUsers().add(user);
+        user.getTasks().add(task);
+        User newUser = userService.save(user);
+        return ResponseEntity.ok(newUser);
     }
 
     @PostMapping("/ajax/addComment")
@@ -91,13 +81,21 @@ public class AjaxController {
                                              Authentication authentication) {
         Task task = taskService.findTaskById(taskId).orElseThrow(IllegalArgumentException::new);
         User currentUser = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
-        Comment comment = Comment.builder()
-                .task(task)
+//        store in postgres
+//        Comment comment = Comment.builder()
+//                .task(task)
+//                .content(message)
+//                .author(currentUser)
+//                .build();
+//        taskService.addComment(comment);
+//        store in mongoDB
+        CommentMongo newCommentMongo = CommentMongo.builder()
                 .content(message)
-                .author(currentUser)
+                .author(currentUser.getId())
+                .taskId(task.getId())
                 .build();
-        Comment newComment = taskService.addComment(comment);
-        UserCommentDto dto = from(currentUser, newComment);
+        CommentMongo savedComment = commentService.add(newCommentMongo);
+        UserCommentDto dto = from(currentUser, savedComment);
         return ResponseEntity.ok(dto);
     }
 
@@ -133,13 +131,13 @@ public class AjaxController {
     }
 
     @PostMapping("/ajax/deleteUserFromTask")
-    public ResponseEntity<Object> deleteUserFromTask(@RequestParam(name = "id")Long userId,
-                                                     @RequestParam(name = "task-id") Long taskId){
+    public ResponseEntity<Object> deleteUserFromTask(@RequestParam(name = "id") Long userId,
+                                                     @RequestParam(name = "task-id") Long taskId) {
         User user = userService.findById(userId).orElseThrow(IllegalArgumentException::new);
         Task task = taskService.findTaskById(taskId).orElseThrow(IllegalArgumentException::new);
         task.getUsers().remove(user);
         user.getTasks().remove(task);
-        userService.removeFromTask(user,task);
+        userService.removeFromTask(user, task);
         return ResponseEntity.ok().build();
     }
 
@@ -161,7 +159,7 @@ public class AjaxController {
     }
 
     @PostMapping("/ajax/deleteDesk")
-    public ResponseEntity<Object> deleteDesk(@RequestParam("id") Long deskId){
+    public ResponseEntity<Object> deleteDesk(@RequestParam("id") Long deskId) {
         Desk desk = deskService.findOneDesk(deskId).orElseThrow(IllegalArgumentException::new);
         User userOwner = desk.getOwner();
         userOwner.getOwnDesks().remove(desk);

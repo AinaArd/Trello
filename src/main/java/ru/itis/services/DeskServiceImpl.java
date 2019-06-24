@@ -25,11 +25,6 @@ public class DeskServiceImpl implements DeskService {
     }
 
     @Override
-    public List<Desk> findAllUserDesksByName(String name) {
-        return desksRepository.findAllByOwner_Name(name);
-    }
-
-    @Override
     public void deleteDesk(Desk desk) {
         desksRepository.deleteDesk(desk.getId());
         desksRepository.deleteDeskMembers(desk.getId());

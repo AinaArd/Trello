@@ -1,5 +1,6 @@
 package ru.itis.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -16,6 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "task", schema = "public")
+@ToString(exclude = {"card", "desk"})
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,6 +35,7 @@ public class Task {
     @Enumerated(EnumType.STRING)
     private TaskState state;
 
+    @JsonIgnore
     @LazyCollection(LazyCollectionOption.TRUE)
     @ManyToOne
     @JoinColumn(name = "cardId")
@@ -47,6 +50,7 @@ public class Task {
     @OneToMany(mappedBy = "task")
     private List<Comment> comments;
 
+    @JsonIgnore
     @LazyCollection(LazyCollectionOption.TRUE)
     @ManyToOne
     @JoinColumn(name = "deskId")

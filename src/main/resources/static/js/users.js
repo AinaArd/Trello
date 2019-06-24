@@ -148,6 +148,8 @@ function addUsersToDesk() {
                                     };
                                     var br = document.createElement("br");
 
+                                    console.log(a);
+                                    console.log(members);
                                     members.appendChild(a);
                                     members.insertBefore(br, a);
                                     members.appendChild(buttonDelete);

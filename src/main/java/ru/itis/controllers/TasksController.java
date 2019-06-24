@@ -10,14 +10,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import ru.itis.forms.TaskEditForm;
+import ru.itis.models.CommentMongo;
 import ru.itis.models.Desk;
 import ru.itis.models.Task;
+import ru.itis.services.CommentService;
 import ru.itis.services.TaskService;
+
+import java.util.List;
 
 @Controller
 public class TasksController {
 
     private TaskService taskService;
+    @Autowired
+    private CommentService commentService;
 
     @Autowired
     public TasksController(TaskService taskService) {
@@ -27,7 +33,9 @@ public class TasksController {
     @GetMapping("/tasks/{task-id}")
     public String getSingleTask(ModelMap model, @PathVariable(name = "task-id") Long taskId) {
         Task task = taskService.findTaskById(taskId).orElseThrow(IllegalArgumentException::new);
-        System.out.println(task.getPicturePath());
+
+        List<CommentMongo> comments = commentService.findAllTaskComments(task);
+
         if (taskService.findTaskById(taskId).isPresent()) {
             if (task.getText() == null) {
                 model.addAttribute("noText", true);
@@ -36,6 +44,7 @@ public class TasksController {
                 model.addAttribute("noPic", true);
             }
             model.addAttribute("task", task);
+            model.addAttribute("comments", comments);
         }
         return "tasks";
     }

@@ -5,13 +5,10 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
-<<<<<<< HEAD
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
-=======
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
->>>>>>> telegramBot
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -27,13 +24,9 @@ import java.util.stream.Collectors;
 @Component
 public class TelegramBot extends TelegramLongPollingBot {
 
-<<<<<<< HEAD
     private DeskService deskService = new DeskServiceImpl();
-=======
-    @Autowired
-    private DeskService deskService;
 
->>>>>>> telegramBot
+
     private UserService userService = new UserServiceImpl();
 
 
@@ -88,19 +81,13 @@ public class TelegramBot extends TelegramLongPollingBot {
     }
 
     private void findDesks(SendMessage message, String userName) {
-<<<<<<< HEAD
-        System.out.println(userName);
-=======
->>>>>>> telegramBot
+
         if (deskService.findAllUserDesksByName(userName) != null) {
             List<String> desks = deskService.findAllUserDesksByName(userName).stream().map(desk -> desk.getName())
                     .collect(Collectors.toList());
             System.out.println(desks.get(0));
             message.setText(String.valueOf(desks));
-<<<<<<< HEAD
-=======
-            System.out.println(userService.findAll().get(0).getName());
->>>>>>> telegramBot
+
         } else {
             System.out.println("This user has no desks");
         }

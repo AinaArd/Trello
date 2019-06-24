@@ -141,7 +141,9 @@
     <!-- Bootstrap core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/styles.css" rel="stylesheet" type="text/css">
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -164,7 +166,8 @@
                     <#list task.users as member>
                         <div id="${member.id}">
                             <a href="/profile/${member.id}">${member.name}</a>
-                            <button class="button-add" id="${member.id}" onclick="deleteUserFromTask(event)">Delete</button>
+                            <button class="button-add" id="${member.id}" onclick="deleteUserFromTask(event)">Delete
+                            </button>
                             <br>
                             <div id="member"></div>
                             <br>
@@ -254,16 +257,20 @@
 
             <!-- Single Comment -->
             <ul id="ul-id${task.id}">
-                <#list task.comments as comment>
-                    <li>
-                        <div class="media mb-4">
-                            <div class="media-body" id="${comment.id}">
-                                <a href="/profile/${comment.author.id}">${comment.author.name}: </a>
-                                <b data-contain-user-tags>${comment.content}</b>
-                            </div>
-                        </div>
-                    </li>
-                </#list>
+                <#if comments??>
+                    <#list comments as comment>
+                            <li>
+                                <div class="media mb-4">
+                                    <div class="media-body" id="${comment.id}">
+
+                                         <a href="/profile/${comment.author.id}">${comment.author.name}: </a>
+
+                                        <b data-contain-user-tags>${comment.content}</b>
+                                    </div>
+                                </div>
+                            </li>
+                    </#list>
+                </#if>
             </ul>
 
             <!-- Comments Form -->
@@ -301,5 +308,4 @@
 <script type="application/javascript" src="/js/tasks.js"></script>
 <script src="https://code.jquery.com/jquery-migrate-1.4.1.min.js"></script>
 </body>
-
 </html>

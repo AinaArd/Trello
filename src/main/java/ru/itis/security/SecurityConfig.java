@@ -19,20 +19,17 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
     public PasswordEncoder passwordEncoder;
 
-    @Qualifier("userDetailsServiceImpl")
-    @Autowired
     public UserDetailsService service;
 
-    @Autowired
     private DataSource dataSource;
 
     @Autowired
-    public SecurityConfig(PasswordEncoder passwordEncoder, @Qualifier("userDetailsServiceImpl") UserDetailsService service) {
+    public SecurityConfig(PasswordEncoder passwordEncoder, @Qualifier("userDetailsServiceImpl") UserDetailsService service, DataSource dataSource) {
         this.passwordEncoder = passwordEncoder;
         this.service = service;
+        this.dataSource = dataSource;
     }
 
     @Override

@@ -22,7 +22,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @Login
     private String login;
     private String hashPassword;
     private String name;
@@ -31,7 +30,7 @@ public class User {
     private Role role;
 
     @JsonIgnore
-    @LazyCollection(LazyCollectionOption.TRUE)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany
     @JoinColumn(name = "userId")
     private List<Desk> desks;

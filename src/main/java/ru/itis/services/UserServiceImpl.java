@@ -28,11 +28,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-<<<<<<< HEAD
-=======
-
->>>>>>> telegramBot
-
     @Override
     public List<User> findAll() {
          return usersRepository.findAll();
