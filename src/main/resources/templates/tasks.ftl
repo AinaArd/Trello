@@ -227,7 +227,7 @@
 
                 <hr>
 
-                <input type="submit" value="Edit task" onclick="show(document.getElementById('editCardName'))""/>
+                <input type="submit" value="Edit task" onclick="show(document.getElementById('edit'))""/>
                 <br>
                 <br>
 
@@ -259,16 +259,16 @@
             <ul id="ul-id${task.id}">
                 <#if comments??>
                     <#list comments as comment>
-                            <li>
-                                <div class="media mb-4">
-                                    <div class="media-body" id="${comment.id}">
+                        <li>
+                            <div class="media mb-4">
+                                <div class="media-body" id="${comment.id}">
 
-                                         <a href="/profile/${comment.author.id}">${comment.author.name}: </a>
+                                    <a href="/profile/${comment.author.id}">${comment.author.name}: </a>
 
-                                        <b data-contain-user-tags>${comment.content}</b>
-                                    </div>
+                                    <b data-contain-user-tags>${comment.content}</b>
                                 </div>
-                            </li>
+                            </div>
+                        </li>
                     </#list>
                 </#if>
             </ul>
