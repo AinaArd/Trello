@@ -99,6 +99,11 @@ public class TaskServiceImpl implements TaskService {
         tasksRepository.save(task);
     }
 
+    @Override
+    public void deleteTask(Task task) {
+        tasksRepository.delete(task);
+    }
+
     @Value("${my.files-url}")
     public static void setUploadedFolder(String uploadedFolder) {
         UPLOADED_FOLDER = uploadedFolder;

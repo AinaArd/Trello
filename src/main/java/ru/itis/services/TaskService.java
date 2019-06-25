@@ -13,13 +13,23 @@ import java.util.Optional;
 
 public interface TaskService {
     List<Task> findCardTasks(Card card);
+
     Optional<Task> findTaskById(Long id);
+
     TaskDto addTask(Task task);
+
     List<List<Task>> findAllTasksInAllCards(List<Card> cards);
-    void edit( String name,String text,  String state,
-             MultipartFile file, Task task);
+
+    void edit(String name, String text, String state,
+              MultipartFile file, Task task);
+
     void addText(TaskEditForm taskEditForm, Task task);
+
     void archive(Task task);
+
     Comment addComment(Comment comment);
+
     void changeFlag(Task task);
+
+    void deleteTask(Task task);
 }

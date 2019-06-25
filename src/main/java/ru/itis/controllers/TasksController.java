@@ -1,21 +1,14 @@
 package ru.itis.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import ru.itis.forms.TaskEditForm;
 import ru.itis.models.CommentMongo;
-import ru.itis.models.Desk;
 import ru.itis.models.Task;
-import ru.itis.models.User;
-import ru.itis.security.details.UserDetailsImpl;
 import ru.itis.services.CommentService;
 import ru.itis.services.TaskService;
 
@@ -49,7 +42,7 @@ public class TasksController {
             model.addAttribute("task", task);
             model.addAttribute("comments", comments);
         }
-        return "tasks";
+        return "task";
     }
 
     @PostMapping("/tasks/{task-id}")
@@ -69,6 +62,14 @@ public class TasksController {
         Task task = taskService.findTaskById(taskId).orElseThrow(IllegalAccessError::new);
         Long deskId = task.getDesk().getId();
         taskService.archive(task);
+        return "redirect:/desks/" + deskId;
+    }
+
+    @PostMapping(value = "/tasks/{task-id}", params = "delete")
+    public String deleteTask(@PathVariable(name = "task-id") Long taskId) {
+        Task task = taskService.findTaskById(taskId).orElseThrow(IllegalAccessError::new);
+        Long deskId = task.getDesk().getId();
+        taskService.deleteTask(task);
         return "redirect:/desks/" + deskId;
     }
 }

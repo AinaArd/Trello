@@ -206,6 +206,12 @@
 
                 <hr>
 
+                <form method="post">
+                    <input type="submit" name="delete" value="Delete"/>
+                </form>
+
+                <hr>
+
                 <label for="user-name">
                     <input type="submit" id="user-name" name="user-name" value="Add users to task"
                            onclick="show(document.getElementById('findUser'))"/>
@@ -279,7 +285,7 @@
                         <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
                     </div>
                     <button type="submit" onclick="commentTask(event)" id="${task.id}" name="comment-btn"
-                            class="btn btn-primary">Submit
+                            class="btn btn-primary">Comment
                     </button>
                 </div>
             </div>
