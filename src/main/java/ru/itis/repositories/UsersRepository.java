@@ -54,4 +54,7 @@ public interface UsersRepository extends JpaRepository<User, Long> {
     @Transactional
     @Query(nativeQuery = true, value = "delete from user_tasks where users_id = ?1 and tasks_id = ?2")
     void removeFromTask(Long userId, Long taskId);
+
+    @Query(nativeQuery = true, value = "select count(1) from \"user\" inner join comment c on \"user\".id = c.author where \"user\".id = ?")
+    int countComments(Long userId);
 }

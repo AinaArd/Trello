@@ -45,4 +45,6 @@ public interface UserService {
     void removeFromTask(User user, Task task);
 
     boolean register(RegisterForm registerForm);
+
+    int countCommentsAmount(UserDto user);
 }

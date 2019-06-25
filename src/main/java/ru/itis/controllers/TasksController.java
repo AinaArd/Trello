@@ -30,8 +30,8 @@ public class TasksController {
     @GetMapping("/tasks/{task-id}")
     public String getSingleTask(ModelMap model, @PathVariable(name = "task-id") Long taskId) {
         Task task = taskService.findTaskById(taskId).orElseThrow(IllegalArgumentException::new);
-        List<CommentMongo> comments = commentService.findAllTaskComments(task);
-        System.out.println(comments);
+//        List<CommentMongo> comments = commentService.findAllTaskComments(task);
+//        System.out.println(comments);
         if (taskService.findTaskById(taskId).isPresent()) {
             if (task.getText() == null) {
                 model.addAttribute("noText", true);
@@ -40,7 +40,7 @@ public class TasksController {
                 model.addAttribute("noPic", true);
             }
             model.addAttribute("task", task);
-            model.addAttribute("comments", comments);
+//            model.addAttribute("comments", comments);
         }
         return "task";
     }

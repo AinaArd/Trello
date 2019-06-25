@@ -231,7 +231,7 @@
 
                 <hr>
 
-                <input type="submit" value="Edit task" onclick="show(document.getElementById('editCardName'))""/>
+                <input type="submit" value="Edit task" onclick="show(document.getElementById('edit'))""/>
                 <br>
                 <br>
 
@@ -261,13 +261,13 @@
 
             <!-- Single Comment -->
             <ul id="ul-id${task.id}">
-                <#if comments??>
-                    <#list comments as comment>
+                <#if task.comments??>
+                    <#list task.comments as comment>
                             <li>
                                 <div class="media mb-4">
                                     <div class="media-body" id="${comment.id}">
 
-                                         <a href="/profile/${user.id}">${user.name}: </a>
+                                         <a href="/profile/${comment.author.id}">${comment.author.name}: </a>
 
                                         <b data-contain-user-tags>${comment.content}</b>
                                     </div>
@@ -285,7 +285,7 @@
                         <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
                     </div>
                     <button type="submit" onclick="commentTask(event)" id="${task.id}" name="comment-btn"
-                            class="btn btn-primary">Comment
+                            class="button-add">Comment
                     </button>
                 </div>
             </div>

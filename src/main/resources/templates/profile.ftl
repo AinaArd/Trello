@@ -176,17 +176,11 @@
                                               data-refresh-interval="5"></span>
                             <span class="colorlib-counter-label">Tasks</span>
                         </div>
-<#--                        <div class="col-md-3 text-center animate-box">-->
-<#--                                        <span class="colorlib-counter js-counter" data-from="0"-->
-<#--                                              data-to=${commentsNumber} data-speed="2500"-->
-<#--                                              data-refresh-interval="5"></span>-->
-<#--                            <span class="colorlib-counter-label">Comments</span>-->
-<#--                        </div>-->
                         <div class="col-md-3 text-center animate-box">
-                                        <span class="colorlib-counter js-counter" data-from="0" data-to="10"
-                                              data-speed="2500"
+                                        <span class="colorlib-counter js-counter" data-from="0"
+                                              data-to=${commentsNumber} data-speed="2500"
                                               data-refresh-interval="5"></span>
-                            <span class="colorlib-counter-label">Partners</span>
+                            <span class="colorlib-counter-label">Comments</span>
                         </div>
                     </div>
                 </div>

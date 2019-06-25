@@ -156,4 +156,9 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 
+    @Override
+    public int countCommentsAmount(UserDto user) {
+        return usersRepository.countComments(user.getId());
+    }
+
 }

@@ -67,9 +67,15 @@
             <label for="name">Name
                 <input class="input-field" type="text" id="name" name="name" required="required">
             </label>
+
             <label for="state">State
-                <input class="input-field" type="text" id="state" name="state" required="required">
+                <select id="state" name="state" class="mdb-select md-form" required="required">
+                    <option value="" disabled selected>Choose desk state</option>
+                    <option value="PUBLIC">PUBLIC</option>
+                    <option value="PRIVATE">PRIVATE</option>
+                </select>
             </label>
+
             <br>
             <input type="submit" name="saveDesc" value="Save">
         </form>
