@@ -60,8 +60,4 @@ public class User {
         return tasks.size();
     }
 
-//    public int commentsNumber(){
-//        return comments.size();
-//    }
-
 }

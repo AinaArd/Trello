@@ -2,12 +2,14 @@
 <head>
     <title>Desks</title>
     <link href="/css/styles.css" rel="stylesheet" type="text/css">
+    <link href="/css/deskStyles.css" rel="stylesheet" type="text/css">
     <link href="/css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
 <#include "header.ftl">
+<div class="background-style container" style="margin:0 auto; width: fit-content">
 <div class="form-style-2">
     <div class="form-style-2-heading">
         <#if selectedDesk??>
@@ -16,30 +18,35 @@
             </div>
             <br>
             Creator: ${selectedDesk.owner.name}
-            <div> Members:
+            <#if public??>
+                <div> Members:
+                    <br>
+                    <#if selectedDesk.users??>
+                        <#list selectedDesk.users as member>
+                            <div id="${member.id}">
+                                <a href="/profile/${member.id}">${member.name}</a>
+                                <button class="button-add" id="${member.id}" onclick="deleteUserFromDesk(event)">Delete
+                                </button>
+                                <br>
+                                <div id="member"></div>
+                                <br>
+                            </div>
+                        </#list>
+                    </#if>
+                </div>
                 <br>
-                <#if selectedDesk.users??>
-                    <#list selectedDesk.users as member>
-                        <div id="${member.id}">
-                            <a href="/profile/${member.id}">${member.name}</a>
-                            <button class="button-add" id="${member.id}" onclick="deleteUserFromDesk(event)">Delete</button>
-                            <br>
-                            <div id="member"></div>
-                            <br>
-                        </div>
-                    </#list>
-                </#if>
-            </div>
-            <br>
-            <label class="label-infol" for="input">Invite
-                <input class="input-field" type="text" id="input" name="users" oninput="addUsersToDesk()">
-            </label>
-            <br>
-            <div id="result"></div>
 
-            <form action="/chat/${selectedDesk.id}">
-                <input type="submit" value="Chat">
-            </form>
+                <label class="label-infol" for="input">Invite
+                    <input class="input-field" type="text" id="input" name="users" oninput="addUsersToDesk()">
+                </label>
+
+                <br>
+                <div id="result"></div>
+
+                <form action="/chat/${selectedDesk.id}">
+                    <input type="submit" value="Chat">
+                </form>
+            </#if>
         <#else>User desks
         </#if>
     </div>
@@ -51,7 +58,8 @@
                     ${desk.state}
                     <br>
                     <br>
-                    <input class="button-add" id="${desk.id}" name="delete" onclick="deleteDesk(event)" type="submit" value="Delete">
+                    <input class="button-add" id="${desk.id}" name="delete" onclick="deleteDesk(event)" type="submit"
+                           value="Delete">
                 </li>
                 <br>
             </#list>
@@ -164,6 +172,7 @@
             <br>
         </#if>
     </#if>
+</div>
 
     <script>
         function show(div) {

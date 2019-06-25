@@ -141,13 +141,15 @@
     <!-- Bootstrap core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/styles.css" rel="stylesheet" type="text/css">
+    <link href="/css/taskStyles.css" rel="stylesheet" type="text/css">
+
 
 </head>
 
 <body>
 <#include "header.ftl">
 <!-- Page Content -->
-<div class="container form-style-2">
+<div class="container form-style-2 background-style">
 
     <div class="row">
 
@@ -174,8 +176,6 @@
                 </#if>
             </div>
 
-            <hr>
-
             <#if noText??>
                 <form method="post">
                     <label for="text">Add text to the task
@@ -188,29 +188,24 @@
                 <!-- Date/Time -->
                 <p>Created on ${task.term}</p>
 
-                <hr>
 
                 <!-- Preview Image -->
                 <img class="img-fluid rounded" src="${task.picturePath}" alt="">
 
-                <hr>
 
                 <!-- Post Content -->
                 <p class="lead">${task.text}</p>
 
-                <hr>
 
                 <form method="post">
                     <input type="submit" name="archive" value="Archive"/>
                 </form>
 
-                <hr>
 
                 <form method="post">
                     <input type="submit" name="delete" value="Delete"/>
                 </form>
 
-                <hr>
 
                 <label for="user-name">
                     <input type="submit" id="user-name" name="user-name" value="Add users to task"
@@ -229,7 +224,6 @@
                     </div>
                 </div>
 
-                <hr>
 
                 <input type="submit" value="Edit task" onclick="show(document.getElementById('edit'))""/>
                 <br>

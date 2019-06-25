@@ -52,7 +52,6 @@ public class ProfileController {
 
         if (userService.findById(userId).isPresent()) {
             User otherUser = userService.findById(userId).get();
-
             if (!otherUser.getId().equals(currentUser.getId())) {
                 model.addAttribute("user", otherUser);
                 return "anotherUserProfile";

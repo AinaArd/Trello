@@ -3,8 +3,8 @@
     <link href="/css/styles.css" rel="stylesheet" type="text/css">
     <link href="/css/bootstrap.min.css" rel="stylesheet"/>
 </head>
-<body>
-
+<body style="background: ">
+<#include "header.ftl">
 <div class="form-style-2">
     <div class="form-style-2-heading">
         ${user.name}
@@ -15,9 +15,18 @@
     @${user.login}<br>
 
     <div class="form-style-2">
-        Desks:
+        Own desks:
     </div>
+    <#if user.ownDesks??>
+        <#list user.ownDesks as desk>
+            <ul>
+                <li>
+                    <a href="/desks/${desk.id}"  id="${desk.id}">${desk.name}&nbsp;&nbsp;</a> ${desk.state}</li>
+            </ul>
+        </#list>
+    </#if>
 
+    Member desks:
     <#if user.desks??>
         <#list user.desks as desk>
             <ul>
@@ -27,6 +36,7 @@
         </#list>
     <#else>
         User doesn't have any desk!
+
     </#if>
 
     <div class="form-style-2">

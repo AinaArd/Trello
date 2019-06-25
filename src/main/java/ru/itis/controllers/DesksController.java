@@ -58,16 +58,13 @@ public class DesksController {
     }
 
     @GetMapping(path = "/desks/{desk-id}")
-    public String getOneDesk(ModelMap model, @PathVariable(name = "desk-id") Long deskId, HttpServletRequest request) {
+    public String getOneDesk(ModelMap model, @PathVariable(name = "desk-id") Long deskId) {
         if (deskService.findOneDesk(deskId).isPresent()) {
             Desk selectedDesk = deskService.findOneDesk(deskId).get();
-            List<Card> deskCards;
-//            if (!cache.getCards().isEmpty()) {
-//                deskCards = cache.getDeskCards();
-//            } else {
-            deskCards = cardService.findDeskCards(selectedDesk.getId());
-//            }
-
+            List<Card> deskCards = cardService.findDeskCards(selectedDesk.getId());
+            if (selectedDesk.getState().equals(DeskState.PUBLIC)) {
+                model.addAttribute("public", true);
+            }
             model.addAttribute("selectedDesk", selectedDesk);
             model.addAttribute("addCard", true);
             model.addAttribute("cards", deskCards);

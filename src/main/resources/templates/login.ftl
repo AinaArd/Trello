@@ -26,7 +26,7 @@
                 </div>
 
                 <div class="signin-form">
-                    <h2 class="form-title">Sign up</h2>
+                    <h2 class="form-title">Sign in</h2>
                     <form method="post" class="register-form" id="login-form">
                         <div class="form-group">
                             <label for="login"><i class="zmdi zmdi-account material-icons-name"></i></label>
