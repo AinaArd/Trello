@@ -66,12 +66,12 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public void edit(String name, String text, String state,
                      MultipartFile file, Task task) {
-        String photoPath = fileDownloader.upload(file, name).orElseThrow(IllegalArgumentException::new);
+//        String photoPath = fileDownloader.upload(file, name).orElseThrow(IllegalArgumentException::new);
         if (!text.equals("") || !name.equals("")) {
             task.setName(name);
             task.setText(text);
             task.setState(TaskState.valueOf(state));
-            task.setPicturePath(photoPath);
+//            task.setPicturePath(photoPath);
             tasksRepository.saveAndFlush(task);
         }
     }
@@ -102,6 +102,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public void deleteTask(Task task) {
         tasksRepository.delete(task);
+        tasksRepository.deleteTask(task.getId());
     }
 
     @Value("${my.files-url}")

@@ -169,11 +169,11 @@
                             <button class="button-add" id="${member.id}" onclick="deleteUserFromTask(event)">Delete
                             </button>
                             <br>
-                            <div id="member"></div>
                             <br>
                         </div>
                     </#list>
                 </#if>
+                <div id="member"></div>
             </div>
 
             <#if noText??>
@@ -257,16 +257,16 @@
             <ul id="ul-id${task.id}">
                 <#if task.comments??>
                     <#list task.comments as comment>
-                            <li>
-                                <div class="media mb-4">
-                                    <div class="media-body" id="${comment.id}">
+                        <li>
+                            <div class="media mb-4">
+                                <div class="media-body" id="${comment.id}">
 
-                                         <a href="/profile/${comment.author.id}">${comment.author.name}: </a>
+                                    <a href="/profile/${comment.author.id}">${comment.author.name}: </a>
 
-                                        <b data-contain-user-tags>${comment.content}</b>
-                                    </div>
+                                    <b data-contain-user-tags>${comment.content}</b>
                                 </div>
-                            </li>
+                            </div>
+                        </li>
                     </#list>
                 </#if>
             </ul>
