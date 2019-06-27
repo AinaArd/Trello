@@ -1,6 +1,7 @@
 package ru.itis.utils;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,7 +12,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 
-@Service
+@Component
 public class FileDownloader {
 
     private static String uploadedFolder;
@@ -40,4 +41,7 @@ public class FileDownloader {
         FileDownloader.uploadedFolder = uploadedFolder;
     }
 
+    public static String getUploadedFolder() {
+        return uploadedFolder;
+    }
 }

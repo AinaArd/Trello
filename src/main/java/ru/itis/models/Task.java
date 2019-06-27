@@ -52,9 +52,9 @@ public class Task {
     @JoinColumn(name = "deskId")
     private Desk desk;
 
-    @Transient
-    @Value("${my.files.url}")
-    private String path;
+//    @Transient
+//    @Value("${my.files.url}")
+//    private String path;
 
     public String getPicturePath() {
         return "C:\\AinaArd\\images\\" + picturePath;

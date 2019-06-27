@@ -8,7 +8,7 @@
     <div class="form-style-2-heading">
         Edit user info
     </div>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         <label for="name">Name
             <input class="input-field" type="text" id="name" name="name" required="required">
         </label>
@@ -27,6 +27,8 @@
             <input class="input-field" type="password" id="NewPassword" name="NewPassword" required="required">
         </label>
 
+        <input type="file" name="file" id="file">
+        <br>
         <br>
         <input type="submit" value="Save">
     </form>

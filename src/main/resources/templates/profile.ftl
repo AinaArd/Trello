@@ -95,7 +95,7 @@
            aria-expanded="false" aria-controls="navbar"><i></i></a>
         <aside id="colorlib-aside" role="complementary" class="border js-fullheight">
             <div class="text-center">
-                <div class="author-img" style="background-image: url(images/about.jpg);"></div>
+                <div class="author-img" style="background-image: url(images/blog-1.jpg);"></div>
                 <h1 id="colorlib-logo"><a href="/profile">${user.name}</a></h1>
             </div>
             <nav id="colorlib-main-menu" role="navigation" class="navbar">

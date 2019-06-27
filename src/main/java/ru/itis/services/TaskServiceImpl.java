@@ -66,12 +66,12 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public void edit(String name, String text, String state,
                      MultipartFile file, Task task) {
-//        String photoPath = fileDownloader.upload(file, name).orElseThrow(IllegalArgumentException::new);
+        String photoPath = fileDownloader.upload(file, name).orElseThrow(IllegalArgumentException::new);
         if (!text.equals("") || !name.equals("")) {
             task.setName(name);
             task.setText(text);
             task.setState(TaskState.valueOf(state));
-//            task.setPicturePath(photoPath);
+            task.setPicturePath(photoPath);
             tasksRepository.saveAndFlush(task);
         }
     }
@@ -110,41 +110,4 @@ public class TaskServiceImpl implements TaskService {
         UPLOADED_FOLDER = uploadedFolder;
     }
 
-//    private static String getFileName(final Part part) {
-//        System.out.println(part.getHeader("content-disposition"));
-//        for (String content : part.getHeader("content-disposition").split(";")) {
-//            if (content.trim().startsWith("filename")) {
-//                return content.substring(
-//                        content.indexOf('=') + 1).trim().replace("\"", "");
-//            }
-//        }
-//        return null;
-//    }
-//
-//    private void addFile(HttpServletRequest request) {
-//        Part filePart;
-//        try {
-//            filePart = request.getPart("file");
-//            String fileName = getFileName(filePart);
-//
-//            OutputStream out;
-//            InputStream filecontent;
-//
-//            try {
-//                out = new FileOutputStream(new File(path + File.separator + fileName));
-//                filecontent = filePart.getInputStream();
-//
-//                int read = 0;
-//                final byte[] bytes = new byte[512];
-//
-//                while ((read = filecontent.read(bytes)) != -1) {
-//                    out.write(bytes, 0, read);
-//                }
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        } catch (IOException | ServletException e) {
-//            e.printStackTrace();
-//        }
-//    }
 }
