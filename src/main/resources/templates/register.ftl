@@ -16,15 +16,17 @@
 
 <div class="main">
     <!-- Sign up form -->
-    <#if errors??>
-        <#list errors as error>
-            <div>${error}</div>
-        </#list>
-        </#if>
     <section class="signup">
         <div class="container">
             <div class="signup-content">
                 <div class="signup-form">
+                    <div>
+                        <#if errors??>
+                            <#list errors as error>
+                                <div>${error}</div>
+                            </#list>
+                        </#if>
+                    </div>
                     <h2 class="form-title">Sign up</h2>
                     <form method="post" class="register-form" id="register-form">
                         <div class="form-group">

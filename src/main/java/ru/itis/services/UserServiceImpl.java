@@ -88,9 +88,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean checkLoginAndPassword(UserEditForm userEditForm) {
-        if (userEditForm.getNewLogin().equals("") || userEditForm.getNewPassword().equals("")
-                || userEditForm.getName().equals("") || userEditForm.getOldLogin().equals("")
-                || userEditForm.getOldPassword().equals("")) {
+        if (userEditForm.getNewLogin().equals(userEditForm.getOldLogin()) || userEditForm.getNewPassword().equals(userEditForm
+                .getOldPassword())) {
             return false;
         }
         return true;
@@ -153,6 +152,11 @@ public class UserServiceImpl implements UserService {
                 .build();
         usersRepository.save(user);
         return true;
+    }
+
+    @Override
+    public int countCommentsAmount(UserDto user) {
+        return usersRepository.countComments(user.getId());
     }
 
 }

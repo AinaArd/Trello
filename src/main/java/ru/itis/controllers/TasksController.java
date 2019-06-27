@@ -6,12 +6,12 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import ru.itis.forms.TaskEditForm;
 import ru.itis.models.CommentMongo;
+<<<<<<< HEAD
 import ru.itis.models.Desk;
+=======
+>>>>>>> mongoDB
 import ru.itis.models.Task;
 import ru.itis.services.CommentService;
 import ru.itis.services.TaskService;
@@ -25,28 +25,25 @@ public class TasksController {
     @Autowired
     private CommentService commentService;
 
+    private CommentService commentService;
+
     @Autowired
-    public TasksController(TaskService taskService) {
+    public TasksController(TaskService taskService, CommentService commentService) {
         this.taskService = taskService;
+        this.commentService = commentService;
     }
 
     @GetMapping("/tasks/{task-id}")
     public String getSingleTask(ModelMap model, @PathVariable(name = "task-id") Long taskId) {
         Task task = taskService.findTaskById(taskId).orElseThrow(IllegalArgumentException::new);
-
-        List<CommentMongo> comments = commentService.findAllTaskComments(task);
-
         if (taskService.findTaskById(taskId).isPresent()) {
             if (task.getText() == null) {
                 model.addAttribute("noText", true);
             }
-            if(task.getPicturePath().contains("null")){
-                model.addAttribute("noPic", true);
-            }
+            System.out.println(task.getPicturePath());
             model.addAttribute("task", task);
-            model.addAttribute("comments", comments);
         }
-        return "tasks";
+        return "task";
     }
 
     @PostMapping("/tasks/{task-id}")
@@ -66,6 +63,14 @@ public class TasksController {
         Task task = taskService.findTaskById(taskId).orElseThrow(IllegalAccessError::new);
         Long deskId = task.getDesk().getId();
         taskService.archive(task);
+        return "redirect:/desks/" + deskId;
+    }
+
+    @PostMapping(value = "/tasks/{task-id}", params = "delete")
+    public String deleteTask(@PathVariable(name = "task-id") Long taskId) {
+        Task task = taskService.findTaskById(taskId).orElseThrow(IllegalAccessError::new);
+        Long deskId = task.getDesk().getId();
+        taskService.deleteTask(task);
         return "redirect:/desks/" + deskId;
     }
 }

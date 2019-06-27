@@ -42,7 +42,6 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Profile</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content=""/>
     <meta name="keywords" content=""/>
@@ -96,7 +95,7 @@
            aria-expanded="false" aria-controls="navbar"><i></i></a>
         <aside id="colorlib-aside" role="complementary" class="border js-fullheight">
             <div class="text-center">
-                <div class="author-img" style="background-image: url(images/about.jpg);"></div>
+                <div class="author-img" style="background-image: url(images/blog-1.jpg);"></div>
                 <h1 id="colorlib-logo"><a href="/profile">${user.name}</a></h1>
             </div>
             <nav id="colorlib-main-menu" role="navigation" class="navbar">
@@ -181,12 +180,6 @@
                                               data-to=${commentsNumber} data-speed="2500"
                                               data-refresh-interval="5"></span>
                             <span class="colorlib-counter-label">Comments</span>
-                        </div>
-                        <div class="col-md-3 text-center animate-box">
-                                        <span class="colorlib-counter js-counter" data-from="0" data-to="10"
-                                              data-speed="2500"
-                                              data-refresh-interval="5"></span>
-                            <span class="colorlib-counter-label">Partners</span>
                         </div>
                     </div>
                 </div>

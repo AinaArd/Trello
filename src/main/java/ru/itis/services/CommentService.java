@@ -12,7 +12,7 @@ public interface CommentService {
 
     CommentMongo add(CommentMongo comment);
 
-//    Map<BigInteger, User> setAuthors(Task task);
+    Map<BigInteger, User> setAuthors(Task task);
 
     List<CommentMongo> findAllTaskComments(Task task);
 

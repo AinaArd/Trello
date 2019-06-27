@@ -14,8 +14,12 @@ import static ru.itis.transfer.CardDto.from;
 @Service
 public class CardServiceImpl implements CardService {
 
-    @Autowired
     private CardsRepository cardsRepository;
+
+    @Autowired
+    public CardServiceImpl(CardsRepository cardsRepository) {
+        this.cardsRepository = cardsRepository;
+    }
 
     @Override
     public List<Card> findDeskCards(Long id) {

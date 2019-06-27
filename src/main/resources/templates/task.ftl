@@ -141,15 +141,21 @@
     <!-- Bootstrap core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/styles.css" rel="stylesheet" type="text/css">
+<<<<<<< HEAD:src/main/resources/templates/tasks.ftl
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+=======
+    <link href="/css/taskStyles.css" rel="stylesheet" type="text/css">
+
+
+>>>>>>> mongoDB:src/main/resources/templates/task.ftl
 </head>
 
 <body>
 <#include "header.ftl">
 <!-- Page Content -->
-<div class="container form-style-2">
+<div class="container form-style-2 background-style">
 
     <div class="row">
 
@@ -169,14 +175,12 @@
                             <button class="button-add" id="${member.id}" onclick="deleteUserFromTask(event)">Delete
                             </button>
                             <br>
-                            <div id="member"></div>
                             <br>
                         </div>
                     </#list>
                 </#if>
+                <div id="member"></div>
             </div>
-
-            <hr>
 
             <#if noText??>
                 <form method="post">
@@ -190,23 +194,24 @@
                 <!-- Date/Time -->
                 <p>Created on ${task.term}</p>
 
-                <hr>
 
                 <!-- Preview Image -->
                 <img class="img-fluid rounded" src="${task.picturePath}" alt="">
 
-                <hr>
 
                 <!-- Post Content -->
                 <p class="lead">${task.text}</p>
 
-                <hr>
 
                 <form method="post">
                     <input type="submit" name="archive" value="Archive"/>
                 </form>
 
-                <hr>
+
+                <form method="post">
+                    <input type="submit" name="delete" value="Delete"/>
+                </form>
+
 
                 <label for="user-name">
                     <input type="submit" id="user-name" name="user-name" value="Add users to task"
@@ -225,7 +230,6 @@
                     </div>
                 </div>
 
-                <hr>
 
                 <input type="submit" value="Edit task" onclick="show(document.getElementById('edit'))""/>
                 <br>
@@ -257,8 +261,13 @@
 
             <!-- Single Comment -->
             <ul id="ul-id${task.id}">
+<<<<<<< HEAD:src/main/resources/templates/tasks.ftl
                 <#if comments??>
                     <#list comments as comment>
+=======
+                <#if task.comments??>
+                    <#list task.comments as comment>
+>>>>>>> mongoDB:src/main/resources/templates/task.ftl
                         <li>
                             <div class="media mb-4">
                                 <div class="media-body" id="${comment.id}">
@@ -281,7 +290,7 @@
                         <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
                     </div>
                     <button type="submit" onclick="commentTask(event)" id="${task.id}" name="comment-btn"
-                            class="btn btn-primary">Submit
+                            class="button-add">Comment
                     </button>
                 </div>
             </div>

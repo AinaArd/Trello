@@ -27,3 +27,12 @@ li :hover {
 form {
     background: #a790ff;
 }
+
+.form-back{
+    background: rgba(255,255,255,.5);
+    font-size: 14px;
+    margin: 0 0 22px;
+    overflow: auto;
+    padding: 20px;
+    text-align:center;
+}

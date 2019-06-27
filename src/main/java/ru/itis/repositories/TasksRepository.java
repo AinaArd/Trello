@@ -1,7 +1,9 @@
 package ru.itis.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 import ru.itis.models.Card;
 import ru.itis.models.Task;
 import ru.itis.models.User;
@@ -13,4 +15,9 @@ public interface TasksRepository extends JpaRepository<Task, Long> {
 
     @Override
     <S extends Task> S save(S s);
+
+    @Modifying
+    @Transactional
+    @Query(nativeQuery = true, value = "delete from user_tasks where tasks_id = ?")
+    void deleteTask(Long taskId);
 }

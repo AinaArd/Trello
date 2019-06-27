@@ -54,6 +54,7 @@ public class ChatController {
         Desk desk = deskService.findOneDesk(deskId).orElseThrow(IllegalArgumentException::new);
         User currentUser = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
         List<Message> messages = messageService.getDeskMessages(desk);
+
         model.addAttribute("messages", messages);
         model.addAttribute("currentUser", currentUser);
         model.addAttribute("desk", desk);

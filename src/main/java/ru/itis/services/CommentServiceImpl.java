@@ -29,16 +29,16 @@ public class CommentServiceImpl implements CommentService {
         return commentMongoRepository.save(comment);
     }
 
-//    @Override
-//    public Map<BigInteger, User> setAuthors(Task task) {
-//        Map<BigInteger, User> authors = new HashMap<>();
-//        List<CommentMongo> comments = commentMongoRepository.findAllByTaskId(task.getId());
-//        for(CommentMongo comment : comments){
-//            User author = userService.findById(comment.getAuthor()).orElseThrow(IllegalArgumentException::new);
-//            authors.put(comment.getId(), author);
-//        }
-//        return authors;
-//    }
+    @Override
+    public Map<BigInteger, User> setAuthors(Task task) {
+        Map<BigInteger, User> authors = new HashMap<>();
+        List<CommentMongo> comments = commentMongoRepository.findAllByTaskId(task.getId());
+        for(CommentMongo comment : comments){
+            User author = userService.findById(comment.getAuthor()).orElseThrow(IllegalArgumentException::new);
+            authors.put(comment.getId(), author);
+        }
+        return authors;
+    }
 
     @Override
     public List<CommentMongo> findAllTaskComments(Task task) {

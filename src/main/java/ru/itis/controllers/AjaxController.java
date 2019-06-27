@@ -3,10 +3,7 @@ package ru.itis.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.itis.forms.TaskForm;
 import ru.itis.models.*;
 import ru.itis.security.details.UserDetailsImpl;
@@ -16,6 +13,8 @@ import ru.itis.transfer.UserCommentDto;
 import ru.itis.transfer.TaskDto;
 import ru.itis.transfer.UserDto;
 
+import javax.ws.rs.Path;
+import javax.xml.ws.Response;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -82,20 +81,22 @@ public class AjaxController {
         Task task = taskService.findTaskById(taskId).orElseThrow(IllegalArgumentException::new);
         User currentUser = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
 //        store in postgres
-//        Comment comment = Comment.builder()
-//                .task(task)
-//                .content(message)
-//                .author(currentUser)
-//                .build();
-//        taskService.addComment(comment);
-//        store in mongoDB
-        CommentMongo newCommentMongo = CommentMongo.builder()
+        Comment comment = Comment.builder()
+                .task(task)
                 .content(message)
-                .author(currentUser.getId())
-                .taskId(task.getId())
+                .author(currentUser)
                 .build();
-        CommentMongo savedComment = commentService.add(newCommentMongo);
+        Comment savedComment = taskService.addComment(comment);
+//        store in mongoDB
+//        CommentMongo newCommentMongo = CommentMongo.builder()
+//                .content(message)
+//                .author(currentUser.getId())
+//                .taskId(task.getId())
+//                .build();
+//        CommentMongo savedComment = commentService.add(newCommentMongo);
+
         UserCommentDto dto = from(currentUser, savedComment);
+        System.out.println(dto);
         return ResponseEntity.ok(dto);
     }
 

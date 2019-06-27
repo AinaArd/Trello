@@ -9,7 +9,6 @@ import ru.itis.forms.UserEditForm;
 import ru.itis.models.Card;
 import ru.itis.models.Task;
 import ru.itis.models.User;
-import ru.itis.services.DeskService;
 import ru.itis.services.TaskService;
 import ru.itis.services.UserService;
 import ru.itis.transfer.UserDto;
@@ -39,7 +38,7 @@ public class ProfileController {
         UserDto user = from(details.getUser());
         int desksNumber = details.getUser().desksNumber();
         int tasksNumber = details.getUser().tasksNumber();
-        int commentsNumber = details.getUser().commentsNumber();
+        int commentsNumber = userService.countCommentsAmount(user);
         model.addAttribute("user", user);
         model.addAttribute("desksNumber", desksNumber);
         model.addAttribute("tasksNumber", tasksNumber);
@@ -53,7 +52,6 @@ public class ProfileController {
 
         if (userService.findById(userId).isPresent()) {
             User otherUser = userService.findById(userId).get();
-
             if (!otherUser.getId().equals(currentUser.getId())) {
                 model.addAttribute("user", otherUser);
                 return "anotherUserProfile";
