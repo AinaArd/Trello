@@ -146,7 +146,28 @@ div#window {
     padding-bottom: 5px;
     font-style: italic;
 }
+
 a.disabled {
     pointer-events: none; /* делаем ссылку некликабельной */
-    cursor: default;  /* устанавливаем курсор в виде стрелки */
+    cursor: default; /* устанавливаем курсор в виде стрелки */
+}
+
+.div-class {
+    position: absolute;
+    z-index: 9;
+    background-color: #f1f1f1;
+    text-align: center;
+    border: 1px solid #d3d3d3;
+}
+
+.header {
+    padding: 10px;
+    cursor: move;
+    z-index: 10;
+    background-color: #2196F3;
+    color: #fff;
+}
+
+ul.ulStyle li {
+    display: inline-block;
 }

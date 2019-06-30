@@ -8,10 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.itis.forms.TaskEditForm;
 import ru.itis.models.CommentMongo;
-<<<<<<< HEAD
-import ru.itis.models.Desk;
-=======
->>>>>>> mongoDB
 import ru.itis.models.Task;
 import ru.itis.services.CommentService;
 import ru.itis.services.TaskService;
@@ -25,12 +21,9 @@ public class TasksController {
     @Autowired
     private CommentService commentService;
 
-    private CommentService commentService;
-
     @Autowired
-    public TasksController(TaskService taskService, CommentService commentService) {
+    public TasksController(TaskService taskService) {
         this.taskService = taskService;
-        this.commentService = commentService;
     }
 
     @GetMapping("/tasks/{task-id}")

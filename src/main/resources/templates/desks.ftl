@@ -1,10 +1,11 @@
 <html>
 <head>
+    <title>Desks</title>
     <link href="/css/styles.css" rel="stylesheet" type="text/css">
     <link href="/css/deskStyles.css" rel="stylesheet" type="text/css">
     <link href="/css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
 <#include "header.ftl">
@@ -16,40 +17,6 @@
                     ${selectedDesk.name}&nbsp;&nbsp;
                 </div>
                 <br>
-<<<<<<< HEAD
-                <#if selectedDesk.users??>
-                    <#list selectedDesk.users as member>
-                        <div id="${member.id}">
-                            <a href="/profile/${member.id}">${member.name}</a>
-                            <button class="button-add" id="${member.id}" onclick="deleteUserFromDesk(event)">Delete
-                            </button>
-                            <br>
-                            <div id="member"></div>
-                            <br>
-                        </div>
-                    </#list>
-                </#if>
-            </div>
-            <br>
-            <label class="label-infol" for="input">Invite
-                <input class="input-field" type="text" id="input" name="users" oninput="addUsersToDesk()">
-            </label>
-            <br>
-            <div id="result"></div>
-
-            <form action="/chat/${selectedDesk.id}">
-                <input type="submit" value="Chat">
-            </form>
-        <#else>User desks
-        </#if>
-    </div>
-    <ul>
-        <#if userDesks ??>
-            <#list userDesks.ownDesks as desk>
-                <li id="${desk.id}">
-                    <a href="/desks/${desk.id}">${desk.name}</a>&nbsp;&nbsp;
-                    ${desk.state}
-=======
                 Creator: ${selectedDesk.owner.name}
                 <#if public??>
                     <div> Members:
@@ -66,9 +33,8 @@
                                 </div>
                             </#list>
                         </#if>
-                        <div id="member"></div>
                     </div>
->>>>>>> mongoDB
+                    <div id="member"></div>
                     <br>
 
                     <label class="label-infol" for="input">Invite
@@ -76,17 +42,7 @@
                     </label>
 
                     <br>
-<<<<<<< HEAD
-                    <input class="button-add" id="${desk.id}" name="delete" onclick="deleteDesk(event)" type="submit"
-                           value="Delete">
-                </li>
-            </#list>
-            <br>
-        </#if>
-    </ul>
-=======
                     <div id="result"></div>
->>>>>>> mongoDB
 
                     <form action="/chat/${selectedDesk.id}">
                         <input type="submit" value="Chat">
@@ -153,72 +109,78 @@
         </#if>
 
         <#if cards??>
-            <ul id="cards">
+            <ul id="cards" class="ulStyle">
                 <#list cards as card>
-                    <li id="oneCard">
-                        <div class="dropdown" id=card${card.id}>
-                            Card:<span id="name${card.id}" class="card-name"> ${card.name}
-                    </span>
-                            &nbsp;&nbsp
-                            <a id="menu${card.id}" class="dropdown-toggle" data-toggle="dropdown" href="#">Actions</a>
-                            <br>
-                            <br>
-                            <ul class="dropdown-menu">
-                                <li><a href="#" onclick="show(document.getElementById('addTaskTo${card.id}'))">Add
-                                        task</a>
-                                </li>
-                                <li><a href="#" id="${card.id}" onclick="changeType(event)">Edit name</a></li>
+                    <div class="div-class" id="сard">
+                        <li style="display: inline-block">
+                            <div class="dropdown header" name="divName" id=card${card.id}>
+                                Card:<span id="name${card.id}" class="card-name"> ${card.name}</span>
+                                &nbsp;&nbsp
+                                <a id="menu${card.id}" class="dropdown-toggle" data-toggle="dropdown"
+                                   href="#">Actions</a>
+                                <br>
+                                <br>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" onclick="show(document.getElementById('addTaskTo${card.id}'))">Add
+                                            task</a>
+                                    </li>
+                                    <li><a href="#" id="${card.id}" onclick="changeType(event)">Edit name</a></li>
+                                </ul>
+                            </div>
+                            <ul id="ul-id${card.id}">
+                                <#list card.cardTasks as task>
+                                    <#if task.flag == false>
+                                        <li>
+                                            <div id="task${task.id}" data-cardId="${card.id}">
+                                                <a href="/tasks/${task.id}">${task.name}</a>
+                                                State: ${task.state}
+                                                Term: ${task.term}
+                                            </div>
+                                            <br>
+                                        </li>
+                                    <#elseif task.flag == true>
+                                        <li>
+                                            Task is archived
+                                            <br>
+                                            <form method="post">
+                                                <input type="hidden" value="${task.id}" name="task-id">
+                                                <input type="submit"
+                                                       class="button-add" <#--onclick="returnTask(event)"-->
+                                                       name="return"
+                                                       value="Return"/>
+                                            </form>
+                                        </li>
+                                    </#if>
+                                </#list>
                             </ul>
-                        </div>
-                        <ul id="ul-id${card.id}">
-                            <#list card.cardTasks as task>
-                                <#if task.flag == false>
-                                    <li>
-                                        <div id="task${task.id}" data-cardId="${card.id}">
-                                            <a href="/tasks/${task.id}">${task.name}</a>
-                                            State: ${task.state}
-                                            Term: ${task.term}
-                                        </div>
-                                        <br>
-                                    </li>
-                                <#elseif task.flag == true>
-                                    <li>
-                                        Task is archived
-                                        <br>
-                                        <form method="post">
-                                            <input type="hidden" value="${task.id}" name="task-id">
-                                            <input type="submit" class="button-add" <#--onclick="returnTask(event)"-->
-                                                   name="return"
-                                                   value="Return"/>
-                                        </form>
-                                    </li>
-                                </#if>
-                            </#list>
-                        </ul>
-                        <div id="addTaskTo${card.id}" style="display: none;">
-                            Enter task name
-                            <input class="input-field" type="text" name="name" id="input${card.id}" required="required">
+                            <div id="addTaskTo${card.id}" style="display: none;">
+                                Enter task name
+                                <input class="input-field" type="text" name="name" id="input${card.id}"
+                                       required="required">
+                                <br>
+                                <br>
+                                <label for="taskState">State
+                                    <select id="state${card.id}" name="state" class="mdb-select md-form">
+                                        <option value="" disabled selected>Choose task state</option>
+                                        <option value="TODO">TODO</option>
+                                        <option value="IN_PROCESS">IN_PROCESS</option>
+                                        <option value="DONE">DONE</option>
+                                        <option value="FOR_CHECK">FOR_CHECK</option>
+                                    </select>
+                                </label>
+                                <br>
+                                <label for="date">Term: </label>
+                                <input type="date" id="date${card.id}" name="date"/>
+                                <br>
+                                <br>
+                                <button class="button-add" onclick="addTask(event)" id="${card.id}">Add task</button>
+                            </div>
                             <br>
                             <br>
-                            <label for="taskState">State
-                                <select id="state${card.id}" name="state" class="mdb-select md-form">
-                                    <option value="" disabled selected>Choose task state</option>
-                                    <option value="TODO">TODO</option>
-                                    <option value="IN_PROCESS">IN_PROCESS</option>
-                                    <option value="DONE">DONE</option>
-                                    <option value="FOR_CHECK">FOR_CHECK</option>
-                                </select>
-                            </label>
-                            <br>
-                            <label for="date">Term: </label>
-                            <input type="date" id="date${card.id}" name="date"/>
-                            <br>
-                            <br>
-                            <button class="button-add" onclick="addTask(event)" id="${card.id}">Add task</button>
-                        </div>
+                        </li>
                         <br>
                         <br>
-                    </li>
+                    </div>
                 </#list>
             </ul>
             <#if addCard??>
@@ -245,6 +207,53 @@
                 div.style.display = "none"
         }
     </script>
+
+    <script>
+        //Make the DIV element draggagle:
+        dragElement(document.getElementById(("сard")));
+
+        function dragElement(elmnt) {
+            var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            var elemName = document.getElementsByName("divName");
+            var elemId = elemName.id;
+            if (document.getElementById(elemId)) {
+                /* if present, the header is where you move the DIV from:*/
+                document.getElementById(elemId).onmousedown = dragMouseDown;
+            } else {
+                /* otherwise, move the DIV from anywhere inside the DIV:*/
+                elmnt.onmousedown = dragMouseDown;
+            }
+
+            function dragMouseDown(e) {
+                e = e || window.event;
+                // get the mouse cursor position at startup:
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                // call a function whenever the cursor moves:
+                document.onmousemove = elementDrag;
+            }
+
+            function elementDrag(e) {
+                e = e || window.event;
+                // calculate the new cursor position:
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                // set the element's new position:
+                elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+                elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+            }
+
+            function closeDragElement() {
+                /* stop moving when mouse button is released:*/
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
+        }
+    </script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
             integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

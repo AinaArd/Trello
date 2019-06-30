@@ -141,15 +141,10 @@
     <!-- Bootstrap core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/styles.css" rel="stylesheet" type="text/css">
-<<<<<<< HEAD:src/main/resources/templates/tasks.ftl
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-=======
     <link href="/css/taskStyles.css" rel="stylesheet" type="text/css">
-
-
->>>>>>> mongoDB:src/main/resources/templates/task.ftl
 </head>
 
 <body>
@@ -261,13 +256,8 @@
 
             <!-- Single Comment -->
             <ul id="ul-id${task.id}">
-<<<<<<< HEAD:src/main/resources/templates/tasks.ftl
-                <#if comments??>
-                    <#list comments as comment>
-=======
                 <#if task.comments??>
                     <#list task.comments as comment>
->>>>>>> mongoDB:src/main/resources/templates/task.ftl
                         <li>
                             <div class="media mb-4">
                                 <div class="media-body" id="${comment.id}">

@@ -30,12 +30,10 @@ public class Desk {
     private List<User> users;
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy = "desk")
     @OneToMany(mappedBy = "desk", fetch = FetchType.LAZY)
     private List<Card> cards;
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy = "desk")
     @OneToMany(mappedBy = "desk", fetch = FetchType.LAZY)
     private List<Task> tasks;
 
@@ -44,7 +42,6 @@ public class Desk {
     private User owner;
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy = "desk")
     @OneToMany(mappedBy = "desk", fetch = FetchType.LAZY)
     private List<Message> messages;
 

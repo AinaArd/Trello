@@ -17,7 +17,7 @@ public class UserCommentDto {
     private String author;
     private String commentText;
 
-    public static UserCommentDto from(User user, CommentMongo comment) {
+    public static UserCommentDto from(User user, Comment comment) {
         return UserCommentDto.builder()
                 .id(user.getId())
                 .author(user.getName())
