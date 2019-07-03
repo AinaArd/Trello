@@ -24,10 +24,11 @@ import java.util.stream.Collectors;
 @Component
 public class TelegramBot extends TelegramLongPollingBot {
 
-    private DeskService deskService = new DeskServiceImpl();
+    @Autowired
+    private DeskService deskService;
 
-
-    private UserService userService = new UserServiceImpl();
+    @Autowired
+    private UserService userService;
 
 
     private void start(SendMessage message) {
@@ -43,6 +44,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 
             String command = update.getMessage().getText();
             String userName = update.getMessage().getFrom().getFirstName();
+            //String userName = "Aina";
 
             switch (command) {
                 case "/start":
@@ -81,11 +83,10 @@ public class TelegramBot extends TelegramLongPollingBot {
     }
 
     private void findDesks(SendMessage message, String userName) {
-
         if (deskService.findAllUserDesksByName(userName) != null) {
             List<String> desks = deskService.findAllUserDesksByName(userName).stream().map(desk -> desk.getName())
                     .collect(Collectors.toList());
-            System.out.println(desks.get(0));
+            //System.out.println(desks.get(0));
             message.setText(String.valueOf(desks));
 
         } else {

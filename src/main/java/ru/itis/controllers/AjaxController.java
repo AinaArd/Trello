@@ -167,4 +167,5 @@ public class AjaxController {
         deskService.deleteDesk(desk);
         return ResponseEntity.ok().build();
     }
+
 }
