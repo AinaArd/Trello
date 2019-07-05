@@ -35,9 +35,6 @@ public class AjaxController {
     @Autowired
     private UserServiceImpl userService;
 
-    @Autowired
-    private CommentService commentService;
-
     @PostMapping("/ajax/addTask")
     public ResponseEntity<Object> addTask(@RequestParam(name = "id") Long cardId, TaskForm taskForm) {
         Card card = cardService.findById(cardId).orElseThrow(IllegalArgumentException::new);
@@ -48,7 +45,8 @@ public class AjaxController {
                 .card(card)
                 .desk(desk)
                 .term(term)
-                .state(TaskState.valueOf(taskForm.getState()))
+//                think about task state
+                .state(card.getName())
                 .flag(false)
                 .build();
         TaskDto newTask = taskService.addTask(task);

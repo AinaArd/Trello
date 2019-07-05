@@ -32,8 +32,10 @@ public class Task {
     @Column(name = "flag")
     private boolean flag;
 
-    @Enumerated(EnumType.STRING)
-    private TaskState state;
+//    @Enumerated(EnumType.STRING)
+//    private TaskState state;
+
+    private String state;
 
     @JsonIgnore
     @LazyCollection(LazyCollectionOption.TRUE)

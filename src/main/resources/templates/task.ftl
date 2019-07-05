@@ -186,8 +186,9 @@
                 </form>
             <#else>
 
-                <!-- Date/Time -->
+                <!-- Term -->
                 <p>Created on ${task.term}</p>
+                <p>State: ${task.state}</p>
 
 
                 <!-- Preview Image -->
@@ -209,7 +210,7 @@
 
 
                 <label for="user-name">
-                    <input type="submit" id="user-name" name="user-name" value="Add users to task"
+                    <input class="button-add" type="submit" id="user-name" name="user-name" value="Add users to task"
                            onclick="show(document.getElementById('findUser'))"/>
                 </label>
 
@@ -240,14 +241,14 @@
                         <input class="textarea-field" id="text" name="text" required="required" value="${task.text}">
                     </label>
                     <label for="state">State
-                        <select id="state" name="state" class="mdb-select md-form" required="required">
+                   <#--     <select id="state" name="state" class="mdb-select md-form" required="required">
                             <option value="" disabled selected>Choose task state</option>
                             <option value="TODO">TODO</option>
                             <option value="IN_PROCESS">IN_PROCESS</option>
                             <option value="DONE">DONE</option>
                             <option value="FOR_CHECK">FOR_CHECK</option>
                         </select>
-                    </label>
+                    </label>-->
                     <input type="file" name="file" id="file">
                     <br>
                     <input type="submit" value="Save"/>

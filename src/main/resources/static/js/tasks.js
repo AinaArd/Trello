@@ -9,7 +9,6 @@ function addTask(event) {
     var id = event.target.id;
     var card = document.getElementById("card" + id);
     var name = document.getElementById("input" + id);
-    var state = document.getElementById("state" + id);
     var date = document.getElementById("date" + id);
     var ul = document.getElementById("ul-id" + id);
     $.ajax({
@@ -18,7 +17,6 @@ function addTask(event) {
         data: {
             "id": id,
             "name": name.value,
-            "state": state.value,
             "date": date.value
         },
         success: function (task) {
@@ -29,14 +27,11 @@ function addTask(event) {
             a.href = "/tasks/" + task.id;
             a.innerHTML = task.name + " ";
 
-            text.innerHTML = "State: " + task.state;
-
             li.appendChild(a);
             li.appendChild(text);
             ul.appendChild(li);
 
             name.value = "";
-            state.value = "";
         }
     });
     var div = document.getElementById("addTaskTo" + id);

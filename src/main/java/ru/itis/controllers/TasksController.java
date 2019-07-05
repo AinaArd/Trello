@@ -46,7 +46,7 @@ public class TasksController {
             if (task.getText() == null || task.getText().equals("")) {
                 taskService.addText(taskEditForm, task);
             } else
-                taskService.edit(taskEditForm.getName(), taskEditForm.getText(), taskEditForm.getState(), taskEditForm.getFile(), task);
+                taskService.edit(taskEditForm, task);
         }
         return "redirect:{task-id}";
     }

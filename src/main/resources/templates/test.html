@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link href="../static/css/styles.css" rel="stylesheet">
+    <script src="https://cdn.polyfill.io/v1/polyfill.js?features=Element.prototype.closest"></script>
+    <script src="../static/js/DragManager.js"></script>
+    <link rel="stylesheet" href="../static/css/dragDemo.css">
+
+    <script>
+        function onDrag() {
+            var DragManager = new DragManagerFunc();
+            DragManager.onDragCancel = function (dragObject) {
+                dragObject.avatar.rollback();
+            };
+
+            DragManager.onDragEnd = function (dragObject, dropElem) {
+                // var ul = document.getElementById("ul");
+                var ul1 = dropElem.querySelector('.list');
+                var node = document.createTextNode(dragObject.elem.innerText);
+
+                console.log(dragObject.elem.innerText);
+
+                var li = document.createElement("li");
+                li.className = "draggable";
+                dragObject.elem.hidden = true;
+                li.appendChild(node);
+                // ul.appendChild(li);
+                ul1.appendChild(li);
+            };
+        }
+        onDrag();
+    </script>
+
+</head>
+
+<body>
+<div class="div-class" id="divMain">
+    <div class="header">
+        HEADER
+    </div>
+    <div class="droppable">
+        <ul class="list">
+            <li name="draggable" class="draggable">hi</li>
+        </ul>
+    </div>
+</div>
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<div style="height: fit-content; background-color: #9fcdff;" class="div-class" id="divMain2">
+    <div class="header">Header</div>
+    <div class="droppable">
+        <ul class="list">
+            <li class="draggable" style="background: #dff0d8;">test1</li>
+            <li class="draggable" style="background: #dff0d8;">test2</li>
+            <li class="draggable" style="background: #dff0d8;">test3</li>
+        </ul>
+    </div>
+
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<!--<p>Браузер переносить сюда:</p>
+
+<div class="droppable" style="background: #B6B2FF; width: fit-content; height: fit-content">
+    <ul id="ul">
+        <li>already here</li>
+    </ul>
+</div>-->
+
+
+<script>
+    //Make the DIV element draggable:
+    dragElement(document.getElementById(("divMain")));
+    dragElement(document.getElementById(("divMain2")));
+
+    function dragElement(elmnt) {
+        // console.log(elmnt);
+        var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+        //var elemName = document.getElementsByName("divName");
+        var elemName = elmnt.querySelector(".header");
+        /*var elemId = elemName.id;
+        if (document.getElementById(elemId)) {
+            /!* if present, the header is where you move the DIV from:*!/
+            document.getElementById(elemId).onmousedown = dragMouseDown;
+        } else {
+            /!* otherwise, move the DIV from anywhere inside the DIV:*!/
+            //elmnt.onmousedown = dragMouseDown;
+        }*/
+        if (elemName) {
+            elemName.onmousedown = dragMouseDown;
+        }
+
+        function dragMouseDown(e) {
+            e = e || window.event;
+            // get the mouse cursor position at startup:
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            document.onmouseup = closeDragElement;
+            // call a function whenever the cursor moves:
+            document.onmousemove = elementDrag;
+
+            document.ondragstart = function () {
+                return false
+            };
+            document.body.onselectstart = function () {
+                return false
+            }
+
+        }
+
+        function elementDrag(e) {
+            e = e || window.event;
+            // calculate the new cursor position:
+            pos1 = pos3 - e.clientX;
+            pos2 = pos4 - e.clientY;
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            // set the element's new position:
+            elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+            elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+        }
+
+        function closeDragElement() {
+            /* stop moving when mouse button is released:*/
+            document.onmouseup = null;
+            document.onmousemove = null;
+            onDrag();
+        }
+    }
+</script>
+</body>
+
+</html>

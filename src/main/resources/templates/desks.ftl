@@ -3,16 +3,18 @@
     <title>Desks</title>
     <link href="/css/styles.css" rel="stylesheet" type="text/css">
     <link href="/css/deskStyles.css" rel="stylesheet" type="text/css">
+    <link href="/css/dragDemo.css" rel="stylesheet" type="text/css">
     <link href="/css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="//ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/themes/sunny/jquery-ui.css">
+    <script type="application/javascript" src="/js/DragManager.js"></script>
+
 </head>
 <body>
 <#include "header.ftl">
-<#--<div class="background-style container" style="margin:0 auto; width: fit-content">-->
 <div class="form-style-2">
     <div class="form-style-2-heading">
         <div class="col-md-6 background-style">
@@ -132,12 +134,13 @@
             <br>
         </#if>
     </div>
-    <div class="col-md-6 background-style">
+    <div class="col-md-6 cards-style">
         <#if cards??>
             <div id="cards">
                 <#list cards as card>
-                    <div id="сard_${card.id}" class="div-class" style="height: fit-content; width: fit-content">
-                        <div class="dropdown header" name="divName" id=card${card.id}>
+                    <div id="сard_${card.id}" class="<#--div-class--> droppable"
+                         style="height: fit-content; width: fit-content">
+                        <div class="dropdown <#--header-->" name="divName" id=card${card.id}>
                             Card:<span id="name${card.id}" class="card-name"> ${card.name}</span>
                             &nbsp;&nbsp
                             <a id="menu${card.id}" class="dropdown-toggle" data-toggle="dropdown"
@@ -145,11 +148,13 @@
                             <br>
                             <br>
                             <ul class="dropdown-menu">
-                                <li><a href="#"
+                                <li>
+                                    <a href="#"
                                        onclick="show(document.getElementById('addTaskTo${card.id}'))">Add
                                         task</a>
                                 </li>
-                                <li><a href="#" id="${card.id}" onclick="changeType(event)">Edit name</a>
+                                <li>
+                                    <a href="#" id="${card.id}" onclick="changeType(event)">Edit name</a>
                                 </li>
                             </ul>
                         </div>
@@ -157,11 +162,10 @@
                             <#list card.cardTasks as task>
                                 <#if task.flag == false>
                                     <div>
-                                        <li>
-                                            <div id="task${task.id}" data-cardId="${card.id}">
+                                        <li class="draggable" style="background: #dff0d8">
+                                            <div class="" id="task${task.id}" data-cardId="${card.id}"
+                                                 style="text-align: left">
                                                 <a href="/tasks/${task.id}">${task.name}</a>
-                                                State: ${task.state}
-                                                Term: ${task.term}
                                             </div>
                                             <br>
                                         </li>
@@ -187,7 +191,7 @@
                                    required="required">
                             <br>
                             <br>
-                            <label for="taskState">State
+                            <#--<label for="taskState">State
                                 <select id="state${card.id}" name="state" class="mdb-select md-form">
                                     <option value="" disabled selected>Choose task state</option>
                                     <option value="TODO">TODO</option>
@@ -195,7 +199,7 @@
                                     <option value="DONE">DONE</option>
                                     <option value="FOR_CHECK">FOR_CHECK</option>
                                 </select>
-                            </label>
+                            </label>-->
                             <br>
                             <label for="date">Term: </label>
                             <input type="date" id="date${card.id}" name="date"/>
@@ -226,9 +230,9 @@
 </script>
 
 <script>
-    //Make the DIV element draggagle:
+    //Make the DIV element draggable:
     <#list cards as card>
-        dragElement(document.getElementById(("сard_${card.id}")));
+    dragElement(document.getElementById(("сard_${card.id}")));
     </#list>
 
     function dragElement(elmnt) {
@@ -251,6 +255,14 @@
             document.onmouseup = closeDragElement;
             // call a function whenever the cursor moves:
             document.onmousemove = elementDrag;
+
+            document.ondragstart = function () {
+                return false
+            };
+            document.body.onselectstart = function () {
+                return false
+            }
+
         }
 
         function elementDrag(e) {
@@ -273,6 +285,27 @@
     }
 </script>
 
+<script>
+    DragManager.onDragCancel = function (dragObject) {
+        dragObject.avatar.rollback();
+    };
+
+    DragManager.onDragEnd = function (dragObject, dropElem) {
+        console.log(dropElem);
+        console.log(dragObject);
+        var ul = document.getElementById("ul-id");
+        var node = document.createTextNode(dragObject.elem.innerText);
+
+        console.log(dragObject.elem.innerText);
+
+        var li = document.createElement("li");
+        dragObject.elem.hidden = true;
+        li.appendChild(node);
+        ul.appendChild(li);
+    };
+</script>
+
+<script src="https://cdn.polyfill.io/v1/polyfill.js?features=Element.prototype.closest"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

@@ -20,8 +20,7 @@ public interface TaskService {
 
     List<List<Task>> findAllTasksInAllCards(List<Card> cards);
 
-    void edit(String name, String text, String state,
-              MultipartFile file, Task task);
+    void edit(TaskEditForm taskEditForm, Task task);
 
     void addText(TaskEditForm taskEditForm, Task task);
 

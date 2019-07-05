@@ -17,7 +17,7 @@ public class TaskDto {
     private String text;
     private String picturePath;
     private boolean flag;
-    private TaskState state;
+    private String state;
 
     public static TaskDto from(Task task) {
         return TaskDto.builder()

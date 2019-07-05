@@ -62,13 +62,12 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void edit(String name, String text, String state,
-                     MultipartFile file, Task task) {
-        String photoPath = fileDownloader.upload(file, name).orElseThrow(IllegalArgumentException::new);
-        if (!text.equals("") || !name.equals("")) {
-            task.setName(name);
-            task.setText(text);
-            task.setState(TaskState.valueOf(state));
+    public void edit(TaskEditForm taskEditForm, Task task) {
+        String photoPath = fileDownloader.upload(taskEditForm.getFile(), taskEditForm.getName()).orElseThrow(IllegalArgumentException::new);
+        if (!taskEditForm.getText().equals("") || !taskEditForm.getName().equals("")) {
+            task.setName(taskEditForm.getName());
+            task.setText(taskEditForm.getText());
+//            task.setState(TaskState.valueOf(state));
             task.setPicturePath(photoPath);
             tasksRepository.saveAndFlush(task);
         }
