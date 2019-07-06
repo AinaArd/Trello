@@ -67,7 +67,6 @@ public class TaskServiceImpl implements TaskService {
         if (!taskEditForm.getText().equals("") || !taskEditForm.getName().equals("")) {
             task.setName(taskEditForm.getName());
             task.setText(taskEditForm.getText());
-//            task.setState(TaskState.valueOf(state));
             task.setPicturePath(photoPath);
             tasksRepository.saveAndFlush(task);
         }
@@ -102,4 +101,14 @@ public class TaskServiceImpl implements TaskService {
         tasksRepository.deleteTask(task.getId());
     }
 
+    @Override
+    public Optional<Task> findTaskByName(String taskName) {
+        System.out.println(taskName);
+        return tasksRepository.findByName(taskName);
+    }
+
+    @Override
+    public TaskDto setTaskState() {
+        return null;
+    }
 }

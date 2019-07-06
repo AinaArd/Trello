@@ -138,9 +138,9 @@
         <#if cards??>
             <div id="cards">
                 <#list cards as card>
-                    <div id="сard_${card.id}" class="<#--div-class--> droppable"
+                    <div id="сard_${card.id}" data-id="${card.name}" class="droppable div-class"
                          style="height: fit-content; width: fit-content">
-                        <div class="dropdown <#--header-->" name="divName" id=card${card.id}>
+                        <div class="dropdown header" id=card${card.id}>
                             Card:<span id="name${card.id}" class="card-name"> ${card.name}</span>
                             &nbsp;&nbsp
                             <a id="menu${card.id}" class="dropdown-toggle" data-toggle="dropdown"
@@ -158,18 +158,18 @@
                                 </li>
                             </ul>
                         </div>
-                        <ul id="ul-id${card.id}">
+
+                        <ul id="ul-id${card.id}" class="list">
                             <#list card.cardTasks as task>
                                 <#if task.flag == false>
-                                    <div>
-                                        <li class="draggable" style="background: #dff0d8">
-                                            <div class="" id="task${task.id}" data-cardId="${card.id}"
-                                                 style="text-align: left">
-                                                <a href="/tasks/${task.id}">${task.name}</a>
-                                            </div>
-                                            <br>
-                                        </li>
-                                    </div>
+
+                                    <li class="draggable">
+                                        <div id="task${task.id}" data-cardId="${card.id}"
+                                             style="text-align: left">
+                                            <a href="/tasks/${task.id}" id="1">${task.name}</a>
+                                        </div>
+                                    </li>
+
                                 <#elseif task.flag == true>
                                     <li>
                                         Task is archived
@@ -230,21 +230,47 @@
 </script>
 
 <script>
+    function onDrag() {
+        var DragManager = new DragManagerFunc();
+        DragManager.onDragCancel = function (dragObject) {
+            dragObject.avatar.rollback();
+        };
+
+        DragManager.onDragEnd = function (dragObject, dropElem) {
+            var ul1 = dropElem.querySelector('.list');
+
+            //ajax
+            changeState(dragObject, dropElem);
+            var myLi = dragObject.elem.firstElementChild;
+            var href = $("a#1").attr('href');
+
+            var li = document.createElement("li");
+            var a = document.createElement("a");
+            a.href = href;
+            a.innerHTML = dragObject.elem.innerText;
+
+            li.className = "draggable";
+            li.style = "text-align:left";
+            dragObject.elem.hidden = true;
+            li.appendChild(a);
+            ul1.appendChild(li);
+        };
+    }
+    onDrag();
+</script>
+
+<script>
     //Make the DIV element draggable:
     <#list cards as card>
     dragElement(document.getElementById(("сard_${card.id}")));
     </#list>
 
     function dragElement(elmnt) {
+        // console.log(elmnt);
         var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-        var elemName = document.getElementsByName("divName");
-        var elemId = elemName.id;
-        if (document.getElementById(elemId)) {
-            /* if present, the header is where you move the DIV from:*/
-            document.getElementById(elemId).onmousedown = dragMouseDown;
-        } else {
-            /* otherwise, move the DIV from anywhere inside the DIV:*/
-            elmnt.onmousedown = dragMouseDown;
+        var elemName = elmnt.querySelector(".header");
+        if (elemName) {
+            elemName.onmousedown = dragMouseDown;
         }
 
         function dragMouseDown(e) {
@@ -281,28 +307,9 @@
             /* stop moving when mouse button is released:*/
             document.onmouseup = null;
             document.onmousemove = null;
+            onDrag();
         }
     }
-</script>
-
-<script>
-    DragManager.onDragCancel = function (dragObject) {
-        dragObject.avatar.rollback();
-    };
-
-    DragManager.onDragEnd = function (dragObject, dropElem) {
-        console.log(dropElem);
-        console.log(dragObject);
-        var ul = document.getElementById("ul-id");
-        var node = document.createTextNode(dragObject.elem.innerText);
-
-        console.log(dragObject.elem.innerText);
-
-        var li = document.createElement("li");
-        dragObject.elem.hidden = true;
-        li.appendChild(node);
-        ul.appendChild(li);
-    };
 </script>
 
 <script src="https://cdn.polyfill.io/v1/polyfill.js?features=Element.prototype.closest"></script>

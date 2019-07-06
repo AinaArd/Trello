@@ -166,4 +166,12 @@ public class AjaxController {
         return ResponseEntity.ok().build();
     }
 
+    @PostMapping("/ajax/editTaskState")
+    public ResponseEntity<Object> changeState(@RequestParam(name = "name") String taskName, @RequestParam(name = "cardName") String cardState){
+        System.out.println(taskName);
+        Task task = taskService.findTaskByName(taskName).orElseThrow(IllegalArgumentException::new);
+        task.setState(cardState);
+        return ResponseEntity.ok().build();
+    }
+
 }

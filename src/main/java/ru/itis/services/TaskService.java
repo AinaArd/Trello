@@ -31,4 +31,8 @@ public interface TaskService {
     void changeFlag(Task task);
 
     void deleteTask(Task task);
+
+    Optional<Task> findTaskByName(String name);
+
+    TaskDto setTaskState();
 }

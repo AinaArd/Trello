@@ -24,9 +24,9 @@ public class TaskDto {
                 .id(task.getId())
                 .name(task.getName())
                 .text(task.getText())
-                .picturePath(task.getPicturePath())
-                .flag(task.getFlag())
-                .state(task.getState())
+//                .picturePath(task.getPicturePath())
+//                .flag(task.getFlag())
+//                .state(task.getState())
                 .build();
     }
 }

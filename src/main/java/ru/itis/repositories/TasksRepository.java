@@ -9,6 +9,7 @@ import ru.itis.models.Task;
 import ru.itis.models.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface TasksRepository extends JpaRepository<Task, Long> {
     List<Task> findAllByCardOrderByText(Card card);
@@ -20,4 +21,7 @@ public interface TasksRepository extends JpaRepository<Task, Long> {
     @Transactional
     @Query(nativeQuery = true, value = "delete from user_tasks where tasks_id = ?")
     void deleteTask(Long taskId);
+
+    @Query(nativeQuery = true, value = "select * from task where name=?")
+    Optional<Task> findByName(String name);
 }

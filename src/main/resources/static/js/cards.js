@@ -42,3 +42,19 @@ function changeType(event) {
     };
 }
 
+function changeState(dragObject, dropElem) {
+    var taskName = dragObject.elem.innerText;
+    console.log(taskName);
+    var cardName = dropElem.dataset.id;
+    $.ajax({
+        url: "/ajax/editTaskState",
+        type: "post",
+        data: {
+            "name": taskName,
+            "cardName": cardName
+        },
+        success: function () {
+            console.log(1);
+        }
+    })
+}
