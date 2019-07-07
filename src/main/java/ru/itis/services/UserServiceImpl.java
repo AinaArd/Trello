@@ -13,6 +13,7 @@ import ru.itis.models.User;
 import ru.itis.repositories.UsersRepository;
 import ru.itis.security.details.UserDetailsImpl;
 import ru.itis.transfer.UserDto;
+import ru.itis.utils.FileDownloader;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +29,10 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private FileDownloader fileDownloader;
+
     @Override
     public List<User> findAll() {
          return usersRepository.findAll();
@@ -78,11 +83,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveAndFlush(UserEditForm userEditForm, Authentication authentication) {
+    public void edit(UserEditForm userEditForm, Authentication authentication) {
         User user = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
+        String photoPath = fileDownloader.upload(userEditForm.getPhotoPath(), userEditForm.getName()).orElseThrow(IllegalArgumentException::new);
         user.setName(userEditForm.getName());
         user.setLogin(userEditForm.getNewLogin());
         user.setHashPassword(passwordEncoder.encode(userEditForm.getNewPassword()));
+        user.setPhotoPath(photoPath);
         usersRepository.saveAndFlush(user);
     }
 

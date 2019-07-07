@@ -3,6 +3,7 @@ package ru.itis;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
@@ -13,6 +14,7 @@ import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 import ru.itis.models.TelegramBot;
 
+import javax.servlet.MultipartConfigElement;
 import java.util.Arrays;
 
 @SpringBootApplication
@@ -45,4 +47,13 @@ public class Application {
     public TelegramBot telegramBot() {
         return new TelegramBot();
     }
+
+    @Bean
+    public MultipartConfigElement multipartConfigElement() {
+        MultipartConfigFactory factory = new MultipartConfigFactory();
+        factory.setMaxFileSize("15MB");
+        factory.setMaxRequestSize("15MB");
+        return factory.createMultipartConfig();
+    }
+
 }

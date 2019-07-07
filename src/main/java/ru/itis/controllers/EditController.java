@@ -27,7 +27,7 @@ public class EditController {
     @PostMapping(path = "/edit")
     public String editUserProfile(Authentication authentication, UserEditForm userEditForm, ModelMap model) {
         if (userService.checkLoginAndPassword(userEditForm)) {
-            userService.saveAndFlush(userEditForm, authentication);
+            userService.edit(userEditForm, authentication);
             return "redirect:profile";
         } else {
             return "redirect:edit";

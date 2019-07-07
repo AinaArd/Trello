@@ -7,19 +7,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.itis.forms.TaskEditForm;
-import ru.itis.models.CommentMongo;
 import ru.itis.models.Task;
-import ru.itis.services.CommentService;
 import ru.itis.services.TaskService;
 
-import java.util.List;
 
 @Controller
 public class TasksController {
 
     private TaskService taskService;
-    @Autowired
-    private CommentService commentService;
 
     @Autowired
     public TasksController(TaskService taskService) {

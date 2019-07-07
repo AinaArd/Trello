@@ -53,8 +53,8 @@ function changeState(dragObject, dropElem) {
             "name": taskName,
             "cardName": cardName
         },
-        success: function () {
-            console.log(1);
+        success: function (task) {
+            console.log(task.state);
         }
     })
 }

@@ -24,7 +24,7 @@ public interface UserService {
 
     List<UserDto> findByNameOrLogin(String input, User user);
 
-    void saveAndFlush(UserEditForm userEditForm, Authentication authentication);
+    void edit(UserEditForm userEditForm, Authentication authentication);
 
     boolean checkLoginAndPassword(UserEditForm userEditForm);
 

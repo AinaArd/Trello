@@ -45,7 +45,6 @@ public class AjaxController {
                 .card(card)
                 .desk(desk)
                 .term(term)
-//                think about task state
                 .state(card.getName())
                 .flag(false)
                 .build();
@@ -171,7 +170,8 @@ public class AjaxController {
         System.out.println(taskName);
         Task task = taskService.findTaskByName(taskName).orElseThrow(IllegalArgumentException::new);
         task.setState(cardState);
-        return ResponseEntity.ok().build();
+        TaskDto updatedTask = taskService.addTask(task);
+        return ResponseEntity.ok(updatedTask);
     }
 
 }

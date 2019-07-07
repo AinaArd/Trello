@@ -33,6 +33,4 @@ public interface TaskService {
     void deleteTask(Task task);
 
     Optional<Task> findTaskByName(String name);
-
-    TaskDto setTaskState();
 }

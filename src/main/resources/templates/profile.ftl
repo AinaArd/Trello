@@ -1,42 +1,3 @@
-<#--<html>-->
-<#--<head>-->
-<#--    <link href="/css/styles.css" rel="stylesheet" type="text/css">-->
-<#--    <link href="/css/bootstrap.min.css" rel="stylesheet"/>-->
-<#--</head>-->
-<#--<body>-->
-<#--<#include "header.ftl">-->
-<#--<div class="form-style-2">-->
-<#--    <div class="form-style-2-heading">-->
-<#--        Profile-->
-<#--    </div>-->
-
-<#--    <#if flag??>-->
-<#--    <div class="alert alert-danger" role="alert">No such user!</div>-->
-<#--    <#else>-->
-<#--        ${user.name}-->
-
-<#--        <br>-->
-
-<#--            ${user.login}-->
-
-<#--        <br>-->
-<#--        <br>-->
-<#--        <br>-->
-<#--        <form action="/editCardName" method="get">-->
-<#--            <input type="submit" value="Edit"/>-->
-<#--        </form>-->
-
-<#--        <form action="/logout">-->
-<#--            <input type="submit" value="Log out"/>-->
-<#--        </form>-->
-<#--        <form action="/desks">-->
-<#--            <input type="submit" value="Desks"/>-->
-<#--        </form>-->
-<#--    </#if>-->
-<#--</div>-->
-<#--</body>-->
-<#--</html>-->
-
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -95,7 +56,9 @@
            aria-expanded="false" aria-controls="navbar"><i></i></a>
         <aside id="colorlib-aside" role="complementary" class="border js-fullheight">
             <div class="text-center">
-                <div class="author-img" style="background-image: url(images/blog-1.jpg);"></div>
+                <div class="author-img">
+<#--                    <img src="${user.photoPath}" alt="">-->
+                </div>
                 <h1 id="colorlib-logo"><a href="/profile">${user.name}</a></h1>
             </div>
             <nav id="colorlib-main-menu" role="navigation" class="navbar">
@@ -107,19 +70,6 @@
                     </ul>
                 </div>
             </nav>
-
-            <#--            <div class="colorlib-footer">-->
-            <#--                <p><small>&copy; <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. &ndash;&gt;-->
-            <#--                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>-->
-            <#--                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. &ndash;&gt; </span> <span>Demo Images: <a href="https://unsplash.com/" target="_blank">Unsplash.com</a></span></small></p>-->
-            <#--                <ul>-->
-            <#--                    <li><a href="#"><i class="icon-facebook2"></i></a></li>-->
-            <#--                    <li><a href="#"><i class="icon-twitter2"></i></a></li>-->
-            <#--                    <li><a href="#"><i class="icon-instagram"></i></a></li>-->
-            <#--                    <li><a href="#"><i class="icon-linkedin2"></i></a></li>-->
-            <#--                </ul>-->
-            <#--            </div>-->
-
         </aside>
 
         <div id="colorlib-main">

@@ -192,7 +192,7 @@
 
 
                 <!-- Preview Image -->
-                <img class="img-fluid rounded" src="${task.picturePath}" alt="">
+                <img class="img-fluid rounded" src="/load/${task.getPicturePath()}" alt="">
 
 
                 <!-- Post Content -->
@@ -240,7 +240,7 @@
                     <label for="text">Text
                         <input class="textarea-field" id="text" name="text" required="required" value="${task.text}">
                     </label>
-                    <label for="state">State
+<#--                    <label for="state">State-->
                    <#--     <select id="state" name="state" class="mdb-select md-form" required="required">
                             <option value="" disabled selected>Choose task state</option>
                             <option value="TODO">TODO</option>

@@ -63,7 +63,7 @@ public class Task {
 //    private String path;
 
     public String getPicturePath() {
-        return "C:\\AinaArd\\images\\" + picturePath;
+        return picturePath;
     }
 
     public boolean getFlag() {
