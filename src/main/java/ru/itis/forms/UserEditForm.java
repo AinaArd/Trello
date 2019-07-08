@@ -3,7 +3,6 @@ package ru.itis.forms;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-//import ru.itis.validation.Login;
 import org.springframework.web.multipart.MultipartFile;
 import ru.itis.validation.Login;
 import ru.itis.validation.Password;
@@ -14,7 +13,7 @@ import ru.itis.validation.Password;
 public class UserEditForm {
     private String name;
     private String oldLogin;
-    private MultipartFile photoPath;
+    private MultipartFile file;
 
     @Login
     private String newLogin;

@@ -190,10 +190,17 @@
                 <p>Created on ${task.term}</p>
                 <p>State: ${task.state}</p>
 
+                <br>
+                <br>
+                <br>
 
                 <!-- Preview Image -->
-                <img class="img-fluid rounded" src="/load/${task.getPicturePath()}" alt="">
+                <img class="task-pic img-thumbnail" src="/load/${task.getPicturePath()}" alt="">
 
+                <br>
+                <br>
+                <br>
+                <br>
 
                 <!-- Post Content -->
                 <p class="lead">${task.text}</p>
@@ -226,7 +233,6 @@
                     </div>
                 </div>
 
-
                 <input type="submit" value="Edit task" onclick="show(document.getElementById('edit'))""/>
                 <br>
                 <br>
@@ -240,15 +246,15 @@
                     <label for="text">Text
                         <input class="textarea-field" id="text" name="text" required="required" value="${task.text}">
                     </label>
-<#--                    <label for="state">State-->
-                   <#--     <select id="state" name="state" class="mdb-select md-form" required="required">
-                            <option value="" disabled selected>Choose task state</option>
-                            <option value="TODO">TODO</option>
-                            <option value="IN_PROCESS">IN_PROCESS</option>
-                            <option value="DONE">DONE</option>
-                            <option value="FOR_CHECK">FOR_CHECK</option>
-                        </select>
-                    </label>-->
+                    <#--                    <label for="state">State-->
+                    <#--     <select id="state" name="state" class="mdb-select md-form" required="required">
+                             <option value="" disabled selected>Choose task state</option>
+                             <option value="TODO">TODO</option>
+                             <option value="IN_PROCESS">IN_PROCESS</option>
+                             <option value="DONE">DONE</option>
+                             <option value="FOR_CHECK">FOR_CHECK</option>
+                         </select>
+                     </label>-->
                     <input type="file" name="file" id="file">
                     <br>
                     <input type="submit" value="Save"/>

@@ -36,6 +36,26 @@ public class FileDownloader {
         }
     }
 
+    public Optional<String> uploadProfilePic(MultipartFile image, String userName) {
+        System.out.println(image.getName());
+        if (!image.isEmpty()) {
+            String name = userName + "\\";
+            File directory = new File(uploadedFolder + name);
+            if (!directory.exists()) directory.mkdirs();
+            String fileName = name + image.getOriginalFilename();
+            Path path = Paths.get(uploadedFolder + fileName);
+            try {
+                byte[] bytes = image.getBytes();
+                Files.write(path, bytes);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return Optional.of(fileName);
+        } else {
+            return Optional.empty();
+        }
+    }
+
     @Value("${my.files.url}")
     public void setUploadedFolder(String uploadedFolder) {
         FileDownloader.uploadedFolder = uploadedFolder;

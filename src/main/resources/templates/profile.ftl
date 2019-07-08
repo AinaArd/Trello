@@ -57,7 +57,7 @@
         <aside id="colorlib-aside" role="complementary" class="border js-fullheight">
             <div class="text-center">
                 <div class="author-img">
-<#--                    <img src="${user.photoPath}" alt="">-->
+                    <img src="/load/${user.photoPath}" alt="">
                 </div>
                 <h1 id="colorlib-logo"><a href="/profile">${user.name}</a></h1>
             </div>
