@@ -24,10 +24,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <form action="/logout" class="form-logout form-back">
-                        <input type="submit" value="Log out"
-                                  class="btn-logout"/>
-                    </form>
+                    <a href="/logout" class="nav-link">Log out</a>
                 </li>
             </ul>
         </div>

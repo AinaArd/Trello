@@ -191,14 +191,14 @@
                 <p>State: ${task.state}</p>
 
                 <br>
-                <br>
-                <br>
 
-                <!-- Preview Image -->
-                <img class="task-pic img-thumbnail" src="/load/${task.getPicturePath()}" alt="">
+                <#if picture??>
+                    <!-- Preview Image -->
+                    <img class="task-pic img-thumbnail" src="/load/${task.getPicturePath()}" alt="">
+                <#else>
+                    <img class="task-pic img-thumbnail" src="/images/default.png" alt="">
+                </#if>
 
-                <br>
-                <br>
                 <br>
                 <br>
 

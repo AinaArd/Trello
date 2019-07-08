@@ -13,7 +13,6 @@ import ru.itis.validation.Password;
 public class UserEditForm {
     private String name;
     private String oldLogin;
-    private MultipartFile file;
 
     @Login
     private String newLogin;

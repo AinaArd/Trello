@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findAll() {
-         return usersRepository.findAll();
+        return usersRepository.findAll();
     }
 
     @Override
@@ -84,14 +84,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void edit(UserEditForm userEditForm, Authentication authentication) {
-        System.out.println(userEditForm.getFile().getName());
         User user = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
-        String photoPath = fileDownloader.uploadProfilePic(userEditForm.getFile(), userEditForm.getName()).orElseThrow(IllegalArgumentException::new);
         user.setName(userEditForm.getName());
         user.setLogin(userEditForm.getNewLogin());
         user.setHashPassword(passwordEncoder.encode(userEditForm.getNewPassword()));
-        System.out.println(photoPath);
-        user.setPhotoPath(photoPath);
         usersRepository.saveAndFlush(user);
     }
 

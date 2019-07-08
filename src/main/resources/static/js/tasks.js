@@ -20,6 +20,8 @@ function addTask(event) {
             "date": date.value
         },
         success: function (task) {
+
+
             var li = document.createElement("li");
             var a = document.createElement("a");
             var text = document.createElement("em");

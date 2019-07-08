@@ -2,16 +2,13 @@ body {
     /*display: -ms-flexbox;*/
     /*display: flex;*/
     color: #363636;
-    background: url(fon.jpg) center no-repeat;
+    background: url(../images/fon.jpg) center no-repeat;
     background-size: cover;
 }
 
 .background-style {
-    /*background-color: #FFFFFF;*/
-    /*opacity: 0.7;*/
     background-color: rgba(255, 255, 255, 0.7);
     padding: 10px 10px 10px 10px;
-    /*margin-right: 10px;*/
 }
 
 .cards-style {

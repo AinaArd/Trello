@@ -25,7 +25,6 @@ public class User {
     private String login;
     private String hashPassword;
     private String name;
-    private String photoPath;
 
     @Enumerated(value = EnumType.STRING)
     private Role role;

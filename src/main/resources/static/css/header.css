@@ -29,7 +29,7 @@ form {
 }
 
 .form-back{
-    background: rgba(255,255,255,.5);
+    background: rgba(255,255,255,0.5);
     font-size: 14px;
     margin: 0 0 22px;
     overflow: auto;
