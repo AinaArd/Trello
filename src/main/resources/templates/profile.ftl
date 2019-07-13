@@ -232,12 +232,14 @@
 
                                     <br>
                                     <br>
+                                    <br>
 
                                     <form action="/logout">
                                         <p><input type="submit" value="Log out"
                                                   class="btn btn-primary btn-learn"/></p>
                                     </form>
 
+                                    <br>
                                     <br>
                                     <br>
                                     <form action="http://t.me/aina_trello_bot">

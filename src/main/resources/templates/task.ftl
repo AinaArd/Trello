@@ -146,31 +146,32 @@
             <!-- Checklists -->
             <ul id="ul">
                 <div class="form-style-2-heading">
-                CheckLists
+                    CheckLists
                 </div>
                 <#if task.checkLists??>
                     <div>
                         <#list task.checkLists as list>
-                            <li id="${list.id}">
+                            <li id="li${list.id}">
                                 ${list.name}&nbsp;
-                                <#if list.elems??>
-                                    <ul id="ul-elem">
+                                <ul id="ul-id${list.id}">
+                                    <#if list.elems??>
                                         <#list list.elems as elem>
                                             <li>
                                                 ${elem.content}
+                                                <input type="checkbox" class="checkbox">
                                             </li>
                                         </#list>
-                                    </ul>
-                                </#if>
+                                    </#if>
+                                </ul>
                                 <input type="text" id="elem-name">&nbsp;
                                 <button class="button-add" id="${list.id}"
                                         onclick="addElem(event)">
                                     Add element
                                 </button>
-                                <a class="delete" id="${list.id}"
+                                <button class="button-add" id="${list.id}"
                                         onclick="deleteCheckList(event)">
-                                    <img src="/images/cross.png" height="5%" width="5%"/>
-                                </a>
+                                    ✘
+                                </button>
                             </li>
                         </#list>
                     </div>
@@ -184,18 +185,15 @@
 
             <div id="addCheckList" style="display: none;">
                 <br>
-                <label for="users">CheckList
-                    <input class="input-field" type="text" id="checklist">
-                </label>
-                <button type="submit" id="${task.id}" class="button-add" onclick="addCheckList(event)">Save</button>
+                <form method="post">
+                    <label for="users">CheckList
+                        <input class="input-field" type="text" id="checklistName" name="checklistName">
+                    </label>
+                    <button type="submit" id="${task.id}" name="check" class="button-add">Save</button>
+                </form>
             </div>
             <br>
 
-
-            <#-- <div class="form-check">
-                 <input type="checkbox" class="form-check-input" id="checkbox">
-                 <label class="form-check-label" for="checkbox"></label>
-             </div>-->
             <!-- Comments Form -->
             <div class="card my-4" id="commentTask">
                 <h5 class="card-header">Leave a Comment:</h5>

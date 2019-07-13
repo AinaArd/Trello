@@ -176,16 +176,6 @@ public class AjaxController {
         return ResponseEntity.ok(updatedTask);
     }
 
-    @PostMapping("/ajax/addCheckList")
-    public ResponseEntity<Object> addCheckList(@RequestParam(name = "taskId") Long taskId, @RequestParam(name = "check-list") String name) {
-        Task task = taskService.findTaskById(taskId).orElseThrow(IllegalArgumentException::new);
-        CheckList checkList = CheckList.builder()
-                .name(name)
-                .task(task)
-                .build();
-        CheckListDto dto = checkListService.addCheckList(checkList);
-        return ResponseEntity.ok(dto);
-    }
 
     @PostMapping("/ajax/addElem")
     public ResponseEntity<Object> addElem(@RequestParam(name = "list-id") Long listId, @RequestParam(name = "elem-name") String name) {
@@ -196,6 +186,7 @@ public class AjaxController {
                 .checkList(checkList)
                 .build();
         Elem newElem = elemService.addElem(elem);
+        System.out.println(newElem.getContent());
         return ResponseEntity.ok(newElem);
     }
 

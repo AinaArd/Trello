@@ -1,20 +1,31 @@
 package ru.itis.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import ru.itis.forms.CheckListForm;
 import ru.itis.forms.TaskEditForm;
+import ru.itis.models.CheckList;
 import ru.itis.models.Task;
+import ru.itis.services.CheckListService;
 import ru.itis.services.TaskService;
+import ru.itis.transfer.CheckListDto;
+
+import javax.ws.rs.Path;
 
 
 @Controller
 public class TasksController {
 
     private TaskService taskService;
+
+    @Autowired
+    private CheckListService checkListService;
 
     @Autowired
     public TasksController(TaskService taskService) {
@@ -61,5 +72,16 @@ public class TasksController {
         Long deskId = task.getDesk().getId();
         taskService.deleteTask(task);
         return "redirect:/desks/" + deskId;
+    }
+
+    @PostMapping(value = "/tasks/{task-id}", params = "check")
+    public String addCheckList(CheckListForm form, @PathVariable(name = "task-id") Long taskId) {
+        Task task = taskService.findTaskById(taskId).orElseThrow(IllegalArgumentException::new);
+        CheckList checkList = CheckList.builder()
+                .name(form.getChecklistName())
+                .task(task)
+                .build();
+        checkListService.addCheckList(checkList);
+        return "redirect:{task-id}";
     }
 }

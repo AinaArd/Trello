@@ -7,37 +7,13 @@ body {
 }
 
 .background-style {
-    background-color: rgba(255,255,255,0.7);
+    background-color: rgba(255, 255, 255, 0.7);
 }
 
-.task-pic{
+.task-pic {
     width: 40%;
     height: 30%;
 }
 
-.delete {
-    /*position: absolute;*/
-    /*right: 32px;*/
-    /*top: 32px;*/
-    width: fit-content;
-    height: fit-content;
-    padding: 5px;
-    opacity: 0.3;
-}
-.delete:hover {
-    opacity: 1;
-}
-.delete:before, .close:after {
-    /*position: absolute;*/
-    /*left: 15px;*/
-    height: fit-content;
-    width: fit-content;
-    padding: 5px;
-    background-color: #333;
-}
-.delete:before {
-    transform: rotate(45deg);
-}
-.delete:after {
-    transform: rotate(-45deg);
-}
+
+
