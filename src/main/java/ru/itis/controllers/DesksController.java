@@ -43,7 +43,7 @@ public class DesksController {
 
 
     @GetMapping(path = "/desks")
-    public String getLoginPage(Authentication authentication, ModelMap model) {
+    public String getDesksPage(Authentication authentication, ModelMap model) {
         if (authentication == null) {
             return "redirect:login";
         }
@@ -53,6 +53,7 @@ public class DesksController {
             user = userService.findById(id).get();
         }
         model.addAttribute("addDesk", true);
+
         model.addAttribute("userDesks", user);
         return "desks";
     }

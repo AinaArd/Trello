@@ -55,6 +55,8 @@
                     <input type="submit" value="Chat">
                 </form>
 
+                <br>
+
                 <button class="button-add" onclick="show(document.getElementById('addCard'))">Add card
                 </button>
             </#if>
@@ -111,7 +113,11 @@
             </#if>
         </ul>
 
+        <input type="button" onclick="show(document.getElementById('addDesk'))" value="Add desk">
+        <br>
+
         <#if addDesk??>
+        <div id="addDesk" style="display: none;">
             <div class="form-style-2-heading">
                 If you want to add new desk, enter the name
             </div>
@@ -132,7 +138,8 @@
                 <input type="submit" name="saveDesc" value="Save">
             </form>
             <br>
-        </#if>
+        </div>
+</#if>
     </div>
     <div class="col-md-6 cards-style">
         <#if cards??>
@@ -256,14 +263,18 @@
             ul1.appendChild(li);
         };
     }
+
     onDrag();
 </script>
 
 <script>
     //Make the DIV element draggable:
+    <#if cards??>
     <#list cards as card>
     dragElement(document.getElementById(("сard_${card.id}")));
     </#list>
+    </#if>
+
 
     function dragElement(elmnt) {
         // console.log(elmnt);

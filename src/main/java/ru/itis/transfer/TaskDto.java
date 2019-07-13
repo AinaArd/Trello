@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.itis.models.Task;
-import ru.itis.models.TaskState;
 
 @Data
 @Builder

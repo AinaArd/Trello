@@ -5,6 +5,7 @@
     <link href="/css/editStyle.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+<#include "header.ftl">
 <div class="form-style-2">
     <div class="col-md-6 edit-container">
         <div class="form-style-2-heading">

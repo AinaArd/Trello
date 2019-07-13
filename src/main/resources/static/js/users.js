@@ -106,8 +106,8 @@ function addUsersToDesk() {
                     buttonAdd.innerText = "Add";
                     buttonAdd.onclick = function add() {
                         search.innerText = "";
-                        // buttonAdd.remove();
-                        // textNode.remove();
+                        buttonAdd.remove();
+                        textNode.remove();
                         var userName = userCandidates[user].name;
                         var deskId = desk.dataset.id;
                         $.ajax({
@@ -119,12 +119,9 @@ function addUsersToDesk() {
                                 },
                                 success: function (user) {
                                     var members = document.getElementById("member");
-                                    console.log(members);
-
 
                                     var a = document.createElement("a");
                                     var buttonDelete = document.createElement("button");
-
 
                                     a.href = "../profile/" + user.id;
                                     a.innerHTML = user.name + " ";
@@ -152,8 +149,6 @@ function addUsersToDesk() {
                                     };
                                     var br = document.createElement("br");
 
-                                    console.log(a);
-                                    console.log(members);
                                     members.appendChild(a);
                                     members.insertBefore(br, a);
                                     members.appendChild(buttonDelete);
@@ -217,3 +212,5 @@ function deleteUserFromTask(event) {
         }
     });
 }
+
+

@@ -32,9 +32,6 @@ public class Task {
     @Column(name = "flag")
     private boolean flag;
 
-//    @Enumerated(EnumType.STRING)
-//    private TaskState state;
-
     private String state;
 
     @JsonIgnore
@@ -58,9 +55,11 @@ public class Task {
     @JoinColumn(name = "deskId")
     private Desk desk;
 
-//    @Transient
-//    @Value("${my.files.url}")
-//    private String path;
+    @JsonIgnore
+    @LazyCollection(LazyCollectionOption.TRUE)
+    @OrderBy("id")
+    @OneToMany(mappedBy = "task")
+    private List<CheckList> checkLists;
 
     public String getPicturePath() {
         return picturePath;

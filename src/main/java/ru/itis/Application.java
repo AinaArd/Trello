@@ -12,10 +12,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
-import ru.itis.models.TelegramBot;
+import ru.itis.bot.TelegramBot;
 
 import javax.servlet.MultipartConfigElement;
-import java.util.Arrays;
 
 @SpringBootApplication
 @EnableMongoRepositories(basePackages = "ru.itis.repositories")
@@ -26,7 +25,7 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
-    @Bean
+   /* @Bean
     public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
         return args -> {
             TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
@@ -36,7 +35,7 @@ public class Application {
                 e.printStackTrace();
             }
         };
-    }
+    }*/
 
     @Bean
     public PasswordEncoder passwordEncoder() {

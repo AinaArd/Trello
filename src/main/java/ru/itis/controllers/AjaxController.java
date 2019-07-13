@@ -1,5 +1,7 @@
 package ru.itis.controllers;
 
+import com.sun.corba.se.spi.ior.ObjectKey;
+import org.glassfish.jersey.server.monitoring.ResponseMXBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -8,13 +10,8 @@ import ru.itis.forms.TaskForm;
 import ru.itis.models.*;
 import ru.itis.security.details.UserDetailsImpl;
 import ru.itis.services.*;
-import ru.itis.transfer.CardDto;
-import ru.itis.transfer.UserCommentDto;
-import ru.itis.transfer.TaskDto;
-import ru.itis.transfer.UserDto;
+import ru.itis.transfer.*;
 
-import javax.ws.rs.Path;
-import javax.xml.ws.Response;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -34,6 +31,12 @@ public class AjaxController {
 
     @Autowired
     private UserServiceImpl userService;
+
+    @Autowired
+    private CheckListService checkListService;
+
+    @Autowired
+    private ElemService elemService;
 
     @PostMapping("/ajax/addTask")
     public ResponseEntity<Object> addTask(@RequestParam(name = "id") Long cardId, TaskForm taskForm) {
@@ -166,11 +169,40 @@ public class AjaxController {
     }
 
     @PostMapping("/ajax/editTaskState")
-    public ResponseEntity<Object> changeState(@RequestParam(name = "name") String taskName, @RequestParam(name = "cardName") String cardState){
+    public ResponseEntity<Object> changeState(@RequestParam(name = "name") String taskName, @RequestParam(name = "cardName") String cardState) {
         Task task = taskService.findTaskByName(taskName).orElseThrow(IllegalArgumentException::new);
         task.setState(cardState);
         TaskDto updatedTask = taskService.addTask(task);
         return ResponseEntity.ok(updatedTask);
     }
 
+    @PostMapping("/ajax/addCheckList")
+    public ResponseEntity<Object> addCheckList(@RequestParam(name = "taskId") Long taskId, @RequestParam(name = "check-list") String name) {
+        Task task = taskService.findTaskById(taskId).orElseThrow(IllegalArgumentException::new);
+        CheckList checkList = CheckList.builder()
+                .name(name)
+                .task(task)
+                .build();
+        CheckListDto dto = checkListService.addCheckList(checkList);
+        return ResponseEntity.ok(dto);
+    }
+
+    @PostMapping("/ajax/addElem")
+    public ResponseEntity<Object> addElem(@RequestParam(name = "list-id") Long listId, @RequestParam(name = "elem-name") String name) {
+        CheckList checkList = checkListService.findCheckListById(listId).orElseThrow(IllegalArgumentException::new);
+        Elem elem = Elem.builder()
+                .content(name)
+                .state(false)
+                .checkList(checkList)
+                .build();
+        Elem newElem = elemService.addElem(elem);
+        return ResponseEntity.ok(newElem);
+    }
+
+    @PostMapping("/ajax/deleteCheckList")
+    public ResponseEntity<Object> deleteCheckList(@RequestParam(name = "id") Long id){
+        CheckList checkList = checkListService.findCheckListById(id).orElseThrow(IllegalArgumentException::new);
+        checkListService.delete(checkList);
+        return ResponseEntity.ok().build();
+    }
 }

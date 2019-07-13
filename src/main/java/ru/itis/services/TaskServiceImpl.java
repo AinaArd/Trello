@@ -1,14 +1,11 @@
 package ru.itis.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 import ru.itis.forms.TaskEditForm;
 import ru.itis.models.Card;
 import ru.itis.models.Comment;
 import ru.itis.models.Task;
-import ru.itis.models.TaskState;
 import ru.itis.repositories.CommentRepository;
 import ru.itis.repositories.TasksRepository;
 import ru.itis.transfer.TaskDto;
