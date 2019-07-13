@@ -113,10 +113,10 @@
             </#if>
         </ul>
 
+        <#if addDesk??>
         <input type="button" onclick="show(document.getElementById('addDesk'))" value="Add desk">
         <br>
 
-        <#if addDesk??>
         <div id="addDesk" style="display: none;">
             <div class="form-style-2-heading">
                 If you want to add new desk, enter the name

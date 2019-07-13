@@ -53,7 +53,6 @@ public class DesksController {
             user = userService.findById(id).get();
         }
         model.addAttribute("addDesk", true);
-
         model.addAttribute("userDesks", user);
         return "desks";
     }
