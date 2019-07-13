@@ -148,8 +148,9 @@
                 <div class="form-style-2-heading">
                     CheckLists
                 </div>
+                <input type="submit" value="Show checkLists" onclick="show(document.getElementById('ulCheckLists'))"/>
                 <#if task.checkLists??>
-                    <div>
+                    <div id="ulCheckLists" style="display: none;">
                         <#list task.checkLists as list>
                             <li id="li${list.id}">
                                 ${list.name}&nbsp;
