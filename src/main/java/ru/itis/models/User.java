@@ -25,6 +25,8 @@ public class User {
     private String login;
     private String hashPassword;
     private String name;
+    private Double coordinateX;
+    private Double coordinateY;
 
     @Enumerated(value = EnumType.STRING)
     private Role role;
@@ -34,11 +36,6 @@ public class User {
     @ManyToMany
     @JoinColumn(name = "userId")
     private List<Desk> desks;
-
-//    @JsonIgnore
-//    @LazyCollection(LazyCollectionOption.FALSE)
-//    @OneToMany(mappedBy = "author")
-//    private List<Comment> comments;
 
     @JsonIgnore
     @LazyCollection(LazyCollectionOption.FALSE)

@@ -186,7 +186,6 @@ public class AjaxController {
                 .checkList(checkList)
                 .build();
         Elem newElem = elemService.addElem(elem);
-        System.out.println(newElem.getContent());
         return ResponseEntity.ok(newElem);
     }
 

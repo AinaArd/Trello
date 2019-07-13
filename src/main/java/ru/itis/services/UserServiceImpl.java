@@ -154,6 +154,8 @@ public class UserServiceImpl implements UserService {
                 .hashPassword(hashPassword)
                 .name(registerForm.getName())
                 .role(Role.USER)
+                .coordinateX(registerForm.getX())
+                .coordinateY(registerForm.getY())
                 .build();
         usersRepository.save(user);
         return true;

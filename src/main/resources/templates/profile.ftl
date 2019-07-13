@@ -40,6 +40,7 @@
     <link rel="stylesheet" href="css/owl.theme.default.min.css">
     <!-- Theme style  -->
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/styles.css">
 
     <!-- Modernizr JS -->
     <script src="js/modernizr-2.6.2.min.js"></script>
@@ -63,6 +64,7 @@
                     <ul>
                         <li class="active"><a href="#" data-nav-section="home">Home</a></li>
                         <li><a href="/desks" data-nav-section="services">Statistics</a></li>
+                        <li><a data-nav-section="map">Location</a></li>
                         <li><a data-nav-section="actions">Actions</a></li>
                     </ul>
                 </div>
@@ -82,6 +84,8 @@
                                             <div class="desc">
                                                 <h1>Hi, <br>${user.name}</h1>
                                                 <h2>${user.login}</h2>
+                                                <input type="text" hidden id="x" name="x">
+                                                <input type="text" hidden id="y" name="y">
                                             </div>
                                         </div>
                                     </div>
@@ -132,6 +136,16 @@
                 </div>
             </div>
 
+            <section id="colorlib-hero" class="js-fullheight" data-section="map">
+                <#if user.coordinateX?has_content && user.coordinateY?has_content>
+                    <button onclick="showOnMap(event)" data-id="${user.id}" data-x="${user.coordinateX}"
+                            data-y="${user.coordinateY}"
+                            class="button-add">Show on map
+                    </button>
+                    <div style="display: none" id="map${user.id}" class="map"></div>
+                </#if>
+                <div id="map" class="map"></div>
+            </section>
 
             <section class="colorlib-contact" data-section="actions">
                 <div class="colorlib-narrow-content">
@@ -189,32 +203,8 @@
                             <div class="row">
                                 <div class="col-md-10 col-md-offset-1 col-md-pull-1 animate-box"
                                      data-animate-effect="fadeInRight">
-                                    <#--                                    <form method="post">-->
-                                    <#--                                        <div class="form-group">-->
-                                    <#--                                            <input type="text" class="form-control" name="name" id=""-->
-                                    <#--                                                   value="${user.name}">-->
-                                    <#--                                        </div>-->
-                                    <#--                                        <div class="form-group">-->
-                                    <#--                                            <input type="text" class="form-control" name="oldLogin" id="oldLogin"-->
-                                    <#--                                                   value="${user.login}">-->
-                                    <#--                                        </div>-->
-                                    <#--                                        <div class="form-group">-->
-                                    <#--                                            <input type="text" class="form-control" name="newLogin" id="newLogin"-->
-                                    <#--                                                   placeholder="New login">-->
-                                    <#--                                        </div>-->
-                                    <#--                                        <div class="form-group">-->
-                                    <#--                                            <input type="text" class="form-control" name="oldPassword" id="oldPassword"-->
-                                    <#--                                                   placeholder="Old password">-->
-                                    <#--                                        </div>-->
-                                    <#--                                        <div class="form-group">-->
-                                    <#--                                            <input type="text" class="form-control" name="newPassword" id="newPassword"-->
-                                    <#--                                                   placeholder="New password">-->
-                                    <#--                                        </div>-->
-                                    <#--                                        <div class="form-group">-->
-                                    <#--                                            <input type="submit" class="btn btn-primary btn-send-message"-->
-                                    <#--                                                   value="Save">-->
-                                    <#--                                        </div>-->
-                                    <#--                                    </form>-->
+
+                                    <br>
                                     <br>
 
                                     <form action="/edit">
@@ -232,7 +222,6 @@
 
                                     <br>
                                     <br>
-                                    <br>
 
                                     <form action="/logout">
                                         <p><input type="submit" value="Log out"
@@ -241,7 +230,7 @@
 
                                     <br>
                                     <br>
-                                    <br>
+
                                     <form action="http://t.me/aina_trello_bot">
                                         <p><input type="submit" value="Telegram Bot"
                                                   class="btn btn-primary btn-learn"/></p>
@@ -256,7 +245,9 @@
         </div><!-- end:colorlib-main -->
     </div><!-- end:container-wrap -->
 </div><!-- end:colorlib-page -->
-
+<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=ba0d1ebb-c4a5-4a00-af89-2882eb642996"
+        type="text/javascript"></script>
+<script src="js/maps.js"></script>
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery.easing.1.3.js"></script>
 <script src="js/bootstrap.min.js"></script>
